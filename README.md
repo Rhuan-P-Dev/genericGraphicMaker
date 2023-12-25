@@ -1,0 +1,1 @@
+# Graphic editor to my [Generic Game](https://github.com/Rhuan-P-Dev/genericGame)
