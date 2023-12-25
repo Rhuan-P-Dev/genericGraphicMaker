@@ -1,0 +1,148 @@
+/* variable */
+
+:root {
+    --main-up-height: 50px;
+}
+
+/* new default */
+
+textarea,input,select,button{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border: 0px solid red;
+}
+
+button, input, textarea{
+    background-color: black;
+}
+
+canvas{
+    border: 1px solid black;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+}
+
+textarea, input{
+    width: 100%;
+    resize: none;
+}
+
+/* class predefined */
+
+.clickable{
+    cursor: pointer;
+    user-select: none;
+}
+
+/* CSS */
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    background-color: rgb(59, 59, 59);
+}
+
+.main{
+    border: 2px solid red;
+}
+
+.main > .up{
+    width: 100%;
+    height: var(--main-up-height);
+    border: 2px solid blue;
+}
+
+.main > .up > *{
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border: 1px solid red;
+    height: 100%;
+    padding: 10px;
+    align-content: center;
+}
+
+.main > .mid{
+    display: flex;
+    height: calc(
+        100vh
+        -
+        var(--main-up-height) * 1.6
+    );
+    flex-direction: row;
+    border: 2px solid green;
+}
+
+.main > .mid > *{
+    height: 100%;
+    margin: auto;
+    border: 1px solid white;
+}
+
+.main > .mid > .left{
+
+    width: 100px;
+    text-align: center;
+
+}
+
+.main > .mid > .left *{
+
+    color: white;
+    margin: 5px 0px;
+    padding: 5px;
+
+}
+
+.main > .mid > .mid{
+
+
+}
+
+.main > .mid > .right{
+
+    width: 100px;
+    text-align: center;
+
+}
+
+.main > .mid > .right > *{
+
+    width: 100%;
+    border: 1px solid black;
+
+}
+
+.main > .down{
+
+    display: flex;
+    height: calc(var(--main-up-height) / 2);
+    border: 1px solid purple;
+
+}
+
+.main > .down > *{
+
+    margin: auto;
+    width: 10%;
+    height: 100%;
+
+}
+
+.main > .down > * > *{
+
+    color: white;
+    width: 100%;
+    height: 100%;
+
+}
+
+/* INTERACTIVE */
+
+/* MEDIA */

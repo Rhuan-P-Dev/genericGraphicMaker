@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+
+    <script src="../js/globalClass.js"></script>
+    <script src="../js/globalFunctions.js"></script>
+    <script src="../js/globalVariables.js"></script>
+
+    <title>Generic Graphic Maker</title>
+</head>
+<body>
+
+
+    <div class="main">
+        <div class="up" id="nodeLayer">
+            
+        </div>
+        <div class="mid">
+            
+            <div class="left" id="nodeConfig">
+            </div>
+            <div class="mid">
+                <canvas id="mainCanvas"></canvas>
+            </div>
+            <div class="right" id="nodeSelection">
+
+                <div class="clickable">writeText</div>
+                <div class="clickable">drawCircle</div>
+                <div class="clickable">drawArc</div>
+                <div class="clickable">drawLine</div>
+                <div class="clickable">fillArea</div>
+
+            </div>
+
+        </div>
+
+        <div class="down">
+
+            <div>
+                <button class="clickable" id="download">download</button>
+            </div>
+            <div>
+                <button class="clickable" id="delete">delete</button>
+            </div>
+
+        </div>
+
+    </div> 
+
+    <script type="module" src="../js/CORE/core.js"></script>
+
+</body>
+</html>
