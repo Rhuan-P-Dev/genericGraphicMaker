@@ -1,3 +1,12 @@
+import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
+
+var MainCanvas
+
+onInit(function(){
+
+    MainCanvas = new MainCanvasController()
+
+})
 
 export class NodeConfigController {
 
@@ -26,6 +35,8 @@ export class NodeConfigController {
             if(node.getAttribute("list_id") == listID){
 
                 node.style.display = "block"
+
+                MainCanvas.resize()
 
                 return
 

@@ -1,3 +1,4 @@
+import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
 import { DownloadController } from "../download/downloadController.js"
 import { GrabObjectsController } from "../grabObjects/grabObjectsController.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
@@ -13,6 +14,7 @@ var GrabObjects
 var NodeConfig
 var NodeLayer
 var GraphicList
+var MainCanvas
 
 onInit(function(){
 
@@ -23,12 +25,15 @@ onInit(function(){
     NodeConfig = new NodeConfigController()
     NodeLayer = new NodeLayerController()
     GraphicList = new GraphicListController()
+    MainCanvas = new MainCanvasController()
 
     setTimeout(browseInit,1)
 
 })
 
 function browseInit(){
+
+    MainCanvas.init()
 
     NodeSelection.addTriggers()
 
