@@ -12,7 +12,7 @@ onInit(function(){
 
 })
 
-const GraphicList = new graphicList()
+const GraphicListConst = new GraphicList()
 const GraphicListObserver = new Observer()
 
 export class GraphicListController {
@@ -60,7 +60,7 @@ export class GraphicListController {
         let object = this.GraphicListInitTable[templateName]
         object.functionName = templateName
 
-        let ID = GraphicList.add(
+        let ID = GraphicListConst.add(
 
             CloneObject.recursiveCloneAttribute(
                 object
@@ -76,7 +76,7 @@ export class GraphicListController {
 
     remove(ID){
 
-        GraphicList.remove(ID)
+        GraphicListConst.remove(ID)
 
         GraphicListObserver.run()
 
@@ -88,7 +88,7 @@ export class GraphicListController {
         value
     ){
 
-        GraphicList.update(
+        GraphicListConst.update(
             ID,
             key,
             value
@@ -104,7 +104,7 @@ export class GraphicListController {
         value
      ){
 
-        GraphicList.push(
+        GraphicListConst.push(
             ID,
             key,
             value
@@ -116,15 +116,15 @@ export class GraphicListController {
 
     return(){
 
-        return GraphicList.return()
+        return GraphicListConst.return()
 
     }
 
     getDownload(){
 
-        let nodes = new CloneObjectController().recursiveCloneAttribute(GraphicList.return())
+        let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
 
-        return GraphicList.getDownload(nodes)
+        return GraphicListConst.getDownload(nodes)
     }
     
 

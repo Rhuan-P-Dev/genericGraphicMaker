@@ -21,7 +21,7 @@ class BasicLinkedList{
 
 }
 
-class graphicList{
+class GraphicList{
 
     mainCanvas = document.getElementById('mainCanvas')
 
