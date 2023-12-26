@@ -181,6 +181,8 @@ export class nodeLayerTemplateInfoController {
 
         "drawLine": new NodeLayerContinuous().instructions,
 
+        "fillArea": new NodeLayerContinuous().instructions,
+
     }
 
 }
