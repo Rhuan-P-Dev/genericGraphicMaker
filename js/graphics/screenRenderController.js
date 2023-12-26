@@ -1,12 +1,7 @@
-import { CloneObjectController } from "../generalUtils/cloneObject.js"
-import { VectorController } from "../generalUtils/vector.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
-import { NodeLayerController } from "../nodeLayer/nodeLayerController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
 
-var GameState = ""
-var Vector = ""
-var ComplexRender = ""
+var ComplexRender
 var GraphicList
 
 
@@ -21,6 +16,8 @@ var callback = () => {}
 var resetCallback = () => {}
 
 const MainCanvasObserver = new Observer()
+
+var zoom = 4
 
 export class ScreenRenderController {
 
@@ -46,9 +43,55 @@ export class ScreenRenderController {
         callback = resetCallback
     }
 
+    drawCentralLine(){
+
+        ScreenRender.drawLine({
+            "positions": [
+                [
+                    ScreenRender.mainCanvas.width / 2,
+                    0
+                ],
+                [
+                    ScreenRender.mainCanvas.width / 2,
+                    ScreenRender.mainCanvas.height
+                ]
+            ]
+        })
+
+        ScreenRender.drawLine({
+            "positions": [
+                [
+                    0,
+                    ScreenRender.mainCanvas.height / 2
+                ],
+                [
+                    ScreenRender.mainCanvas.width,
+                    ScreenRender.mainCanvas.height / 2
+                ]
+            ]
+        })
+
+    }
+
+    changerZoom(value){
+        zoom += value
+    }
+
+    getZoom(){
+        return zoom
+    }
+
     update(){
 
         ScreenRender.clean()
+        ScreenRender.resetCanvas()
+
+        ScreenRender.drawCentralLine()
+
+        ScreenRender.mainCanvasContext.scale(
+            this.getZoom(),
+            this.getZoom()
+        )
 
         let objects = GraphicList.return()
 
@@ -83,62 +126,9 @@ export class ScreenRenderController {
 
     }
 
-    rotateObject(object){
-
-        ScreenRender.mainCanvasContext.translate(object.x, object.y)
-
-        ScreenRender.mainCanvasContext.rotate(
-            object.radian
-        )
-
-    }
-
     resetCanvas(){
 
         ScreenRender.mainCanvasContext.resetTransform()
-
-    }
-
-    renderTheFrontOfShip(object){
-
-        //ugly
-        if(!object.radian){return}
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(0, 0)
-        ScreenRender.mainCanvasContext.lineTo(
-            0, (object.width + object.height) * 2
-        )
-        ScreenRender.mainCanvasContext.closePath()
-        ScreenRender.mainCanvasContext.stroke()
-
-        return
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(0, 0)
-        ScreenRender.mainCanvasContext.lineTo(
-            0 + ( ( object.width/2 ) * object.cosine ) * 10
-            ,
-            0 + ( ( object.height/2 ) * object.sine ) * 10
-        )
-        ScreenRender.mainCanvasContext.closePath()
-        ScreenRender.mainCanvasContext.stroke()
-
-
-    }
-
-    renderComplexFormat(object){
-
-        ComplexRender.renderComplexFormat(object)
-
-        ScreenRender.mainCanvasContext.fillStyle = object.color
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(0 - object.width, 0 - object.height)
-        ScreenRender.mainCanvasContext.lineTo(0 + object.width, 0 - object.height)
-        ScreenRender.mainCanvasContext.lineTo(0 + object.width, 0 + object.height)
-        ScreenRender.mainCanvasContext.lineTo(0 - object.width, 0 + object.height)
-        ScreenRender.mainCanvasContext.fill()
 
     }
 
@@ -158,6 +148,8 @@ export class ScreenRenderController {
     }
 
     drawLine(params){
+
+        if(!params.positions[0]){return}
 
         ScreenRender.setStyleParams(params)
 
@@ -183,6 +175,8 @@ export class ScreenRenderController {
     }
 
     fillArea(params){
+
+        if(!params.positions[0]){return}
 
         ScreenRender.setStyleParams(params)
 
@@ -259,6 +253,12 @@ export class ScreenRenderController {
             ScreenRender.mainCanvas.width,
             ScreenRender.mainCanvas.height
         )
+    }
+
+    resetCanvas(){
+
+        ScreenRender.mainCanvasContext.resetTransform()
+
     }
 
 }

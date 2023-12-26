@@ -21,32 +21,26 @@ class BasicLinkedList{
 
 }
 
-class graphicList extends BasicLinkedList{
+class GraphicList{
 
-    mainCanvas = document.getElementById('mainCanvas')
+    list = {
+        next: {}
+    }
 
-    fixNode(node){
-
-        if(node.value.params.positions){
-
-            for (let index = 0; index < node.value.params.positions.length; index++) {
+    add(value, ID = randomUniqueID()){
+        let node = this.list.next
+        while(1){
+            if(!node.next){
                 
-                let pos = node.value.params.positions[index]
+                node.value = value
+                node.ID = ID
+                node.next = {}
 
-                pos[0] -= this.mainCanvas.width / 2
-                pos[1] -= this.mainCanvas.height / 2
-                
+                return ID
+            }else{
+                node = node.next
             }
-
-        }else{
-
-            node.value.params.x -= this.mainCanvas.width / 2
-            node.value.params.y -= this.mainCanvas.height / 2
-
         }
-
-        return node
-
     }
 
     getDownload(node = this.return()){
@@ -56,7 +50,7 @@ class graphicList extends BasicLinkedList{
         while(node.next){
 
             result.push(
-                this.fixNode(node).value
+                node.value
             )
 
             node = node.next
@@ -71,15 +65,16 @@ class graphicList extends BasicLinkedList{
 
         let node = this.return()
 
-        for (let index = 1; index < ID; index++) {
+        while(node.next){
 
-            if(!node.next){return false}
+            if(node.ID == ID){
+                node.value.params[key].push(value)
+                return
+            }
 
             node = node.next
-            
-        }
 
-        node.value.params[key].push(value)
+        }
 
     }
 
@@ -87,18 +82,16 @@ class graphicList extends BasicLinkedList{
 
         let node = this.return()
 
-        console.log("------------------------------------------------------------")
-        console.log(node)
+        while(node.next){
 
-        for (let index = 1; index < ID; index++) {
-
-            if(!node.next){return false}
+            if(node.ID == ID){
+                node.value.params[key] = value
+                return
+            }
 
             node = node.next
-            
-        }
 
-        node.value.params[key] = value
+        }
 
     }
 
@@ -112,15 +105,15 @@ class graphicList extends BasicLinkedList{
 
         let node = this.return()
 
-        for (let index = 1; index < ID; index++) {
+        while(node.next){
 
-            if(!node.next){return false}
+            if(node.ID == ID){
+                return node
+            }
 
             node = node.next
-            
-        }
 
-        return node
+        }
 
     }
 
@@ -128,22 +121,24 @@ class graphicList extends BasicLinkedList{
         let node = this.list.next
         let tail = this.list
         
-        for (let index = 1; index < ID; index++) {
+        while(node.next){
 
-            if(!node.next){return false}
+            if(node.ID == ID){
+                
+                if(node.next.next){
+                    tail.next = node.next
+                }else{
+                    tail.next = {}
+                }
+        
+                return true
+
+            }
 
             tail = node
             node = node.next
-            
-        }
 
-        if(node.next.next){
-            tail.next = node.next
-        }else{
-            tail.next = {}
         }
-
-        return true
 
     }
 
@@ -251,48 +246,4 @@ class Observer extends BasicLinkedList {
 
     }
     
-}
-
-class PriorityObserver{
-
-    observers = []
-
-    add(value, priority = 0){
-
-        if(!this.observers[priority]){
-
-            this.observers[priority] = new Observer()
-
-        }
-
-        this.observers[priority].add(value)
-
-    }
-
-    remove(value, priority){
-
-        if(this.observers[priority]){
-
-            this.observers[priority].remove(value)
-
-        }
-
-    }
-
-    run(params){
-
-        for (let index = 0; index < this.observers.length; index++) {
-
-            if(this.observers[index]){
-                this.observers[index].run(params)
-            }
-            
-        }
-
-    }
-
-    getObserver(priority){
-        return this.observers[priority]
-    }
-
 }
