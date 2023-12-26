@@ -46,6 +46,8 @@ function browseInit(){
 
     addDeleteButtonTrigger()
 
+    addMouseZoomTrigger()
+
 }
 
 function addDeleteButtonTrigger(){
@@ -56,6 +58,22 @@ function addDeleteButtonTrigger(){
         NodeLayer.delete(listID)
         GraphicList.remove(listID)
         ScreenRender.resetCanvasCallback()
+
+    })
+
+}
+
+function addMouseZoomTrigger(){
+
+    document.querySelector("html").addEventListener("wheel", (e) => {
+
+        if (e.deltaY > 0) {
+            ScreenRender.changerZoom(0.25)
+        } else {
+            ScreenRender.changerZoom(-0.25)
+        }
+
+        ScreenRender.update()
 
     })
 

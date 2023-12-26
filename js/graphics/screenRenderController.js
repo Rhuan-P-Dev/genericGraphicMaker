@@ -1,7 +1,7 @@
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
 
-var ComplexRender = ""
+var ComplexRender
 var GraphicList
 
 
@@ -16,6 +16,8 @@ var callback = () => {}
 var resetCallback = () => {}
 
 const MainCanvasObserver = new Observer()
+
+var zoom = 4
 
 export class ScreenRenderController {
 
@@ -71,11 +73,25 @@ export class ScreenRenderController {
 
     }
 
+    changerZoom(value){
+        zoom += value
+    }
+
+    getZoom(){
+        return zoom
+    }
+
     update(){
 
         ScreenRender.clean()
+        ScreenRender.resetCanvas()
 
         ScreenRender.drawCentralLine()
+
+        ScreenRender.mainCanvasContext.scale(
+            this.getZoom(),
+            this.getZoom()
+        )
 
         let objects = GraphicList.return()
 
@@ -237,6 +253,12 @@ export class ScreenRenderController {
             ScreenRender.mainCanvas.width,
             ScreenRender.mainCanvas.height
         )
+    }
+
+    resetCanvas(){
+
+        ScreenRender.mainCanvasContext.resetTransform()
+
     }
 
 }

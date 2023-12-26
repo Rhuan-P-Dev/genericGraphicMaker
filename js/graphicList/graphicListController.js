@@ -132,6 +132,8 @@ export class GraphicListController {
         while(doll.next){
 
             this.centralizerNode(doll)
+            this.scaleNode(doll)
+
             doll = doll.next
             
         }
@@ -161,5 +163,26 @@ export class GraphicListController {
 
     }
 
+    scaleNode(node){
+
+        if(node.value.params.positions){
+
+            for (let index = 0; index < node.value.params.positions.length; index++) {
+                
+                let pos = node.value.params.positions[index]
+
+                pos[0] /= ScreenRender.getZoom()
+                pos[1] /= ScreenRender.getZoom()
+                
+            }
+
+        }else{
+
+            node.value.params.x /= ScreenRender.getZoom()
+            node.value.params.y /= ScreenRender.getZoom()
+
+        }
+
+    }
 
 }

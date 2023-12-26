@@ -13,9 +13,37 @@ onInit(function(){
 
 export class ComplexRenderController {
 
-    getObjectScale(object){
+    scalonateContinuos(
+        object,
+        functionName,
+        originalParams,
+        params,
+    ){
 
-        return 1 //(object.width + object.height) / 10
+        for(let index in params.positions){
+
+            let pos = params.positions[index]
+
+            let scale = ScreenRender.getZoom()
+
+            pos[0] /= scale
+            pos[1] /= scale
+
+        }
+
+    }
+
+    scalonateNormal(
+        object,
+        functionName,
+        originalParams,
+        params,
+    ){
+
+        let scale = ScreenRender.getZoom()
+
+        params.x /= scale
+        params.y /= scale
 
     }
 
@@ -27,16 +55,12 @@ export class ComplexRenderController {
             params,
         ) => {
 
-            for(let index in params.positions){
-
-                let pos = params.positions[index]
-
-                let scale = this.getObjectScale(object)
-
-                pos[0] *= scale
-                pos[1] *= scale
-
-            }
+            this.scalonateContinuos(
+                object,
+                functionName,
+                originalParams,
+                params,
+            )
 
         },
 
@@ -47,7 +71,12 @@ export class ComplexRenderController {
             params,
         ) => {
 
-            this.scalonateParam["drawLine"](object, functionName, originalParams, params)
+            this.scalonateContinuos(
+                object,
+                functionName,
+                originalParams,
+                params,
+            )
 
         },
 
@@ -58,13 +87,12 @@ export class ComplexRenderController {
             params,
         ) => {
 
-            let scale = this.getObjectScale(object)
-
-            params.x *= scale
-            params.y *= scale
-
-            params.radius *= scale
-
+            this.scalonateNormal(
+                object,
+                functionName,
+                originalParams,
+                params,
+            )
 
         },
 
@@ -75,7 +103,12 @@ export class ComplexRenderController {
             params,
         ) => {
 
-            this.scalonateParam["drawCircle"](object, functionName, originalParams, params)
+            this.scalonateNormal(
+                object,
+                functionName,
+                originalParams,
+                params,
+            )
 
         },
 
@@ -86,11 +119,12 @@ export class ComplexRenderController {
             params,
         ) => {
 
-            let scale = this.getObjectScale(object)
-
-            params.x *= scale
-            params.y *= scale
-            params.fontSize *= scale
+            this.scalonateNormal(
+                object,
+                functionName,
+                originalParams,
+                params,
+            )
 
         },
 
@@ -125,16 +159,12 @@ export class ComplexRenderController {
         params,
     ){
 
-        if(params.scale){
-
-            this.scalonateParam[functionName](
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        }
+        this.scalonateParam[functionName](
+            object,
+            functionName,
+            originalParams,
+            params,
+        )
 
     }
 
