@@ -18,7 +18,7 @@ export class NodeLayerController {
 
         let newHtmlElement = document.createElement("div")
 
-        newHtmlElement.setAttribute("class", "clickable")
+        newHtmlElement.setAttribute("class", "clickable interativeDefault")
         newHtmlElement.innerHTML = templateName
 
         newHtmlElement.setAttribute("list_id", ID)

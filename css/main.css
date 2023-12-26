@@ -1,7 +1,7 @@
 /* variable */
 
 :root {
-    --main-up-height: 50px;
+    --main-up-height: 25px;
 }
 
 /* new default */
@@ -17,7 +17,6 @@ button, input, textarea{
 }
 
 canvas{
-    border: 1px solid black;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
@@ -49,20 +48,20 @@ html,body{
 }
 
 .main{
-    border: 2px solid red;
+    
 }
 
 .main > .up{
     width: 100%;
     height: var(--main-up-height);
-    border: 2px solid blue;
+    border: 2px solid black;
 }
 
 .main > .up > *{
     display: inline-flex;
     flex-wrap: wrap;
     flex-direction: row;
-    border: 1px solid red;
+    border: 1px solid black;
     height: 100%;
     padding: 10px;
     align-content: center;
@@ -73,22 +72,26 @@ html,body{
     height: calc(
         100vh
         -
-        var(--main-up-height) * 1.6
+        var(--main-up-height) * 2
     );
     flex-direction: row;
-    border: 2px solid green;
 }
 
 .main > .mid > *{
     height: 100%;
     margin: auto;
-    border: 1px solid white;
+}
+
+.main > .mid > .left, .main > .mid > .right{
+
+    width: 200px;
+    text-align: center;
+
 }
 
 .main > .mid > .left{
 
-    width: 100px;
-    text-align: center;
+    
 
 }
 
@@ -102,13 +105,22 @@ html,body{
 
 .main > .mid > .mid{
 
+    width: 100%;
+    text-align: center;
+
+    border: 1px solid black;
+
+}
+
+.main > .mid > .mid > *{
+
+    width: 100%;
+    height: 100%;
 
 }
 
 .main > .mid > .right{
-
-    width: 100px;
-    text-align: center;
+    
 
 }
 
@@ -122,8 +134,9 @@ html,body{
 .main > .down{
 
     display: flex;
-    height: calc(var(--main-up-height) / 2);
-    border: 1px solid purple;
+    height: var(--main-up-height);
+    border: 1px solid black;
+    text-align: center;
 
 }
 
@@ -137,12 +150,18 @@ html,body{
 
 .main > .down > * > *{
 
-    color: white;
     width: 100%;
     height: 100%;
+    border: 1px solid black;
 
 }
 
 /* INTERACTIVE */
+
+.interativeDefault:hover {
+    color: white;
+    background-color: black;
+    border: 1px solid white !important;
+}
 
 /* MEDIA */
