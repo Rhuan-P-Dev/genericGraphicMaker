@@ -41,9 +41,41 @@ export class ScreenRenderController {
         callback = resetCallback
     }
 
+    drawCentralLine(){
+
+        ScreenRender.drawLine({
+            "positions": [
+                [
+                    ScreenRender.mainCanvas.width / 2,
+                    0
+                ],
+                [
+                    ScreenRender.mainCanvas.width / 2,
+                    ScreenRender.mainCanvas.height
+                ]
+            ]
+        })
+
+        ScreenRender.drawLine({
+            "positions": [
+                [
+                    0,
+                    ScreenRender.mainCanvas.height / 2
+                ],
+                [
+                    ScreenRender.mainCanvas.width,
+                    ScreenRender.mainCanvas.height / 2
+                ]
+            ]
+        })
+
+    }
+
     update(){
 
         ScreenRender.clean()
+
+        ScreenRender.drawCentralLine()
 
         let objects = GraphicList.return()
 
