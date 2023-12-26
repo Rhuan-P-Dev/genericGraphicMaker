@@ -1,11 +1,6 @@
-import { CloneObjectController } from "../generalUtils/cloneObject.js"
-import { VectorController } from "../generalUtils/vector.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
-import { NodeLayerController } from "../nodeLayer/nodeLayerController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
 
-var GameState = ""
-var Vector = ""
 var ComplexRender = ""
 var GraphicList
 
@@ -83,62 +78,9 @@ export class ScreenRenderController {
 
     }
 
-    rotateObject(object){
-
-        ScreenRender.mainCanvasContext.translate(object.x, object.y)
-
-        ScreenRender.mainCanvasContext.rotate(
-            object.radian
-        )
-
-    }
-
     resetCanvas(){
 
         ScreenRender.mainCanvasContext.resetTransform()
-
-    }
-
-    renderTheFrontOfShip(object){
-
-        //ugly
-        if(!object.radian){return}
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(0, 0)
-        ScreenRender.mainCanvasContext.lineTo(
-            0, (object.width + object.height) * 2
-        )
-        ScreenRender.mainCanvasContext.closePath()
-        ScreenRender.mainCanvasContext.stroke()
-
-        return
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(0, 0)
-        ScreenRender.mainCanvasContext.lineTo(
-            0 + ( ( object.width/2 ) * object.cosine ) * 10
-            ,
-            0 + ( ( object.height/2 ) * object.sine ) * 10
-        )
-        ScreenRender.mainCanvasContext.closePath()
-        ScreenRender.mainCanvasContext.stroke()
-
-
-    }
-
-    renderComplexFormat(object){
-
-        ComplexRender.renderComplexFormat(object)
-
-        ScreenRender.mainCanvasContext.fillStyle = object.color
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(0 - object.width, 0 - object.height)
-        ScreenRender.mainCanvasContext.lineTo(0 + object.width, 0 - object.height)
-        ScreenRender.mainCanvasContext.lineTo(0 + object.width, 0 + object.height)
-        ScreenRender.mainCanvasContext.lineTo(0 - object.width, 0 + object.height)
-        ScreenRender.mainCanvasContext.fill()
 
     }
 

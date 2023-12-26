@@ -1,6 +1,6 @@
 export class InheritController {
 
-    inherit(object, array, buildList){
+    inherit(object, array){
 
         for (let index = 0; index < array.length; index++) {
 
