@@ -23,8 +23,6 @@ class BasicLinkedList{
 
 class GraphicList{
 
-    mainCanvas = document.getElementById('mainCanvas')
-
     list = {
         next: {}
     }
@@ -45,30 +43,6 @@ class GraphicList{
         }
     }
 
-    fixNode(node){
-
-        if(node.value.params.positions){
-
-            for (let index = 0; index < node.value.params.positions.length; index++) {
-                
-                let pos = node.value.params.positions[index]
-
-                pos[0] -= this.mainCanvas.width / 2
-                pos[1] -= this.mainCanvas.height / 2
-                
-            }
-
-        }else{
-
-            node.value.params.x -= this.mainCanvas.width / 2
-            node.value.params.y -= this.mainCanvas.height / 2
-
-        }
-
-        return node
-
-    }
-
     getDownload(node = this.return()){
 
         let result = []
@@ -76,7 +50,7 @@ class GraphicList{
         while(node.next){
 
             result.push(
-                this.fixNode(node).value
+                node.value
             )
 
             node = node.next

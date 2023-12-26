@@ -1,14 +1,17 @@
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
+import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { NodeLayerArc } from "../nodeLayer/nodeLayerTempleteExtends/arc.js"
 import { NodeLayerContinuous } from "../nodeLayer/nodeLayerTempleteExtends/continuous.js"
 import { NodeLayerRadius } from "../nodeLayer/nodeLayerTempleteExtends/radius.js"
 import { NodeLayerText } from "../nodeLayer/nodeLayerTempleteExtends/text.js"
 
 var CloneObject
+var ScreenRender
 
 onInit(function(){
 
     CloneObject = new CloneObjectController()
+    ScreenRender = new ScreenRenderController()
 
 })
 
@@ -124,8 +127,39 @@ export class GraphicListController {
 
         let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
 
+        let doll = nodes
+
+        while(doll.next){
+
+            this.centralizerNode(doll)
+            doll = doll.next
+            
+        }
+
         return GraphicListConst.getDownload(nodes)
     }
     
+    centralizerNode(node){
+
+        if(node.value.params.positions){
+
+            for (let index = 0; index < node.value.params.positions.length; index++) {
+                
+                let pos = node.value.params.positions[index]
+
+                pos[0] -= ScreenRender.mainCanvas.width / 2
+                pos[1] -= ScreenRender.mainCanvas.height / 2
+                
+            }
+
+        }else{
+
+            node.value.params.x -= ScreenRender.mainCanvas.width / 2
+            node.value.params.y -= ScreenRender.mainCanvas.height / 2
+
+        }
+
+    }
+
 
 }
