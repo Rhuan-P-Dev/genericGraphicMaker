@@ -101,6 +101,8 @@ export class ScreenRenderController {
 
     drawLine(params){
 
+        if(!params.positions[0]){return}
+
         ScreenRender.setStyleParams(params)
 
         ScreenRender.mainCanvasContext.beginPath()
@@ -125,6 +127,8 @@ export class ScreenRenderController {
     }
 
     fillArea(params){
+
+        if(!params.positions[0]){return}
 
         ScreenRender.setStyleParams(params)
 

@@ -57,12 +57,7 @@ export class NodeLayerContinuous {
             }
         })
 
-        this.graphicListData.positions = [
-            [0, 0],
-            [5, 20],
-            [-5, 20],
-            [-5, -20],
-        ]
+        this.graphicListData.positions = []
 
     }
 
