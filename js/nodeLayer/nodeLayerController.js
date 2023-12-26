@@ -14,28 +14,46 @@ export class NodeLayerController {
     nodeLayerHTML = document.getElementById("nodeLayer")
     nodeConfigHTML = document.getElementById("nodeConfig")
 
-    add(templateName){
+    add(templateName, ID){
 
         let newHtmlElement = document.createElement("div")
 
         newHtmlElement.setAttribute("class", "clickable")
         newHtmlElement.innerHTML = templateName
 
-        let listID = this.nodeLayerHTML.children.length+1
-
-        newHtmlElement.setAttribute("list_id", listID)
+        newHtmlElement.setAttribute("list_id", ID)
 
         newHtmlElement.addEventListener("click", () => {
 
             new NodeConfigController().hidenAll()
 
-            new NodeConfigController().show(listID)
+            new NodeConfigController().show(ID)
 
         })
 
         this.nodeLayerHTML.appendChild(newHtmlElement)
 
-        nodeLayerTemplateInfo.add(templateName, listID)
+        nodeLayerTemplateInfo.add(templateName, ID)
+
+    }
+
+    delete(listID){
+
+        let nodes = this.nodeLayerHTML.children
+
+        for (let index = 0; index < nodes.length; index++) {
+
+            let node = nodes[index]
+
+            if(node.getAttribute("list_id") == listID){
+
+                node.remove()
+
+                return
+
+            }
+            
+        }
 
     }
 

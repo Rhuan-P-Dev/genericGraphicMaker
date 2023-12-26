@@ -21,9 +21,29 @@ class BasicLinkedList{
 
 }
 
-class graphicList extends BasicLinkedList{
+class graphicList{
 
     mainCanvas = document.getElementById('mainCanvas')
+
+    list = {
+        next: {}
+    }
+
+    add(value, ID = randomUniqueID()){
+        let node = this.list.next
+        while(1){
+            if(!node.next){
+                
+                node.value = value
+                node.ID = ID
+                node.next = {}
+
+                return ID
+            }else{
+                node = node.next
+            }
+        }
+    }
 
     fixNode(node){
 
@@ -71,15 +91,16 @@ class graphicList extends BasicLinkedList{
 
         let node = this.return()
 
-        for (let index = 1; index < ID; index++) {
+        while(node.next){
 
-            if(!node.next){return false}
+            if(node.ID == ID){
+                node.value.params[key].push(value)
+                return
+            }
 
             node = node.next
-            
-        }
 
-        node.value.params[key].push(value)
+        }
 
     }
 
@@ -87,18 +108,16 @@ class graphicList extends BasicLinkedList{
 
         let node = this.return()
 
-        console.log("------------------------------------------------------------")
-        console.log(node)
+        while(node.next){
 
-        for (let index = 1; index < ID; index++) {
-
-            if(!node.next){return false}
+            if(node.ID == ID){
+                node.value.params[key] = value
+                return
+            }
 
             node = node.next
-            
-        }
 
-        node.value.params[key] = value
+        }
 
     }
 
@@ -112,15 +131,15 @@ class graphicList extends BasicLinkedList{
 
         let node = this.return()
 
-        for (let index = 1; index < ID; index++) {
+        while(node.next){
 
-            if(!node.next){return false}
+            if(node.ID == ID){
+                return node
+            }
 
             node = node.next
-            
-        }
 
-        return node
+        }
 
     }
 
@@ -128,22 +147,24 @@ class graphicList extends BasicLinkedList{
         let node = this.list.next
         let tail = this.list
         
-        for (let index = 1; index < ID; index++) {
+        while(node.next){
 
-            if(!node.next){return false}
+            if(node.ID == ID){
+                
+                if(node.next.next){
+                    tail.next = node.next
+                }else{
+                    tail.next = {}
+                }
+        
+                return true
+
+            }
 
             tail = node
             node = node.next
-            
-        }
 
-        if(node.next.next){
-            tail.next = node.next
-        }else{
-            tail.next = {}
         }
-
-        return true
 
     }
 

@@ -26,8 +26,8 @@ export class NodeSelectionController {
 
             node.addEventListener("click", () => {
 
-                NodeLayer.add(node.textContent)
-                GraphicList.add(node.textContent)
+                let ID = GraphicList.add(node.textContent)
+                NodeLayer.add(node.textContent, ID)
 
             })
 

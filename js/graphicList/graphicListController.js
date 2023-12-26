@@ -60,13 +60,23 @@ export class GraphicListController {
         let object = this.GraphicListInitTable[templateName]
         object.functionName = templateName
 
-        GraphicList.add(
+        let ID = GraphicList.add(
 
             CloneObject.recursiveCloneAttribute(
                 object
             )
             
         )
+
+        GraphicListObserver.run()
+
+        return ID
+
+    }
+
+    remove(ID){
+
+        GraphicList.remove(ID)
 
         GraphicListObserver.run()
 
