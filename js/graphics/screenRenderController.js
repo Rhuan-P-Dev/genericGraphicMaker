@@ -43,6 +43,15 @@ export class ScreenRenderController {
         callback = resetCallback
     }
 
+    getCanvasBaseLine(){
+
+        return {
+            "width": (ScreenRender.mainCanvas.width / 2) / ScreenRender.getZoom(),
+            "height": (ScreenRender.mainCanvas.height / 2) / ScreenRender.getZoom(),
+        }
+
+    }
+
     drawCentralLine(){
 
         ScreenRender.drawLine({
@@ -73,8 +82,91 @@ export class ScreenRenderController {
 
     }
 
+    drawCentralCircles(loop, mult, init){
+
+        if(loop <= 0){return}
+
+        let BaseLine = this.getCanvasBaseLine()
+
+        ScreenRender.drawCircle({
+            "x": BaseLine.width,
+            "y": BaseLine.height,
+            "radius": init,
+            "lineWidth": 1 / ScreenRender.getZoom(),
+        })
+
+        ScreenRender.drawCentralCircles(
+            loop - 1,
+            mult,
+            init * mult,
+        )
+
+    }
+
+    drawShipDefaultBox(){
+
+        let object = {
+            "width": 6,
+            "height": 6,
+        }
+
+        let baseLine = this.getCanvasBaseLine()
+
+        ScreenRender.fillArea({
+
+            "positions": [
+                [
+                    baseLine.width - object.width,
+                    baseLine.height - object.height
+                ],[
+                    baseLine.width + object.width,
+                    baseLine.height - object.height
+                ],[
+                    baseLine.width + object.width,
+                    baseLine.height + object.height
+                ],[
+                    baseLine.width - object.width,
+                    baseLine.height + object.height
+                ]
+            ]
+
+        })
+
+    }
+
+    drawShipFront(){
+
+        let baseLine = this.getCanvasBaseLine()
+
+        ScreenRender.drawLine({
+            "color":"gray",
+            "lineWidth": 1 / ScreenRender.getZoom(),
+            "positions":[
+                [
+                    baseLine.width,
+                    baseLine.height
+                ],[
+                    baseLine.width,
+                    baseLine.height + 20
+                ]
+            ]
+        })
+
+    }
+
+    minZoom = 1 - 0.25
+    maxZoom = 16 + 0.25
+
     changerZoom(value){
-        zoom += value
+
+        if(
+            zoom + value > this.minZoom
+            &&
+            zoom + value < this.maxZoom
+        ){
+            zoom += value
+        }
+
     }
 
     getZoom(){
@@ -92,6 +184,16 @@ export class ScreenRenderController {
             this.getZoom(),
             this.getZoom()
         )
+
+        ScreenRender.drawCentralCircles(
+            6, // -1?
+            2,
+            10
+        ) 
+
+        ScreenRender.drawShipDefaultBox()
+
+        ScreenRender.drawShipFront()
 
         let objects = GraphicList.return()
 
