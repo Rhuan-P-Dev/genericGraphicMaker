@@ -72,9 +72,19 @@ export class ScreenRenderController {
         })
 
     }
+    minZoom = 1 - 0.25
+    maxZoom = 16 + 0.25
 
     changerZoom(value){
-        zoom += value
+
+        if(
+            zoom + value > this.minZoom
+            &&
+            zoom + value < this.maxZoom
+        ){
+            zoom += value
+        }
+
     }
 
     getZoom(){
