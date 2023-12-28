@@ -9,12 +9,14 @@ export class NodeLayerArc extends NodeLayerRadius {
 
         this.instructions.push({
             "type": "number",
+            "step": (3.14 / 360).toFixed(2),
             "keyUpdate": "startAngle",
             "placeholder": "StartAngle"
         })
 
         this.instructions.push({
             "type": "number",
+            "step": (3.14 / 360).toFixed(2),
             "keyUpdate": "endAngle",
             "placeholder": "EndAngle"
         })

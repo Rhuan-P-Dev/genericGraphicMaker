@@ -21,6 +21,7 @@ export class NodeLayerText {
 
         this.instructions.push({
             "type": "number",
+            "step": 1,
             "keyUpdate": "fontSize",
             "placeholder": "Font Size"
         })

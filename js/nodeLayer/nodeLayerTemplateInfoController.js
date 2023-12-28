@@ -93,6 +93,8 @@ export class nodeLayerTemplateInfoController {
 
             input.type = "number"
 
+            input.step = params.step
+
             input.placeholder = params.placeholder
 
             input.addEventListener("keyup", (e) => {
