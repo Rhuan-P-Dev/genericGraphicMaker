@@ -60,8 +60,8 @@ function addDeleteButtonTrigger(){
     document.getElementById("delete").addEventListener("click", () => {
 
         let listID = NodeConfig.delete()
-        NodeLayer.delete(listID)
-        GraphicList.remove(listID)
+        let deleteListID = NodeLayer.delete(listID)
+        GraphicList.remove(deleteListID)
         ScreenRender.resetCanvasCallback()
 
     })
