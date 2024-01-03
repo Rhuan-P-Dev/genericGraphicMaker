@@ -33,6 +33,11 @@ export class NodeSelectionController {
         
     }
 
+    add(html){
+
+        this.nodeSelectionHTML.appendChild(html)
+
+    }
 
     getShowHiddenObserver(){
         return showHiddenObserver

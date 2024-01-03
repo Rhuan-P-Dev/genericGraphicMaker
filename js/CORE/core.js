@@ -1,6 +1,7 @@
 import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
 import { DownloadController } from "../download/downloadController.js"
 import { GrabObjectsController } from "../grabObjects/grabObjectsController.js"
+import { CustomDrawsController } from "../graphicList/customDraws/customDrawsController.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { KeyboardController } from "../keyboard/keyboardController.js"
@@ -17,6 +18,7 @@ var NodeLayer
 var GraphicList
 var MainCanvas
 var Keyboard
+var CustomDraws
 
 onInit(function(){
 
@@ -29,6 +31,7 @@ onInit(function(){
     GraphicList = new GraphicListController()
     MainCanvas = new MainCanvasController()
     Keyboard = new KeyboardController()
+    CustomDraws = new CustomDrawsController()
 
     setTimeout(browseInit,1)
 
@@ -38,6 +41,7 @@ function browseInit(){
 
     MainCanvas.init()
 
+    CustomDraws.addCustomDraws()
     NodeSelection.addTriggers()
 
     ScreenRender.addTriggers()

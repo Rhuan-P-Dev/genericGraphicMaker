@@ -4,14 +4,17 @@ import { NodeLayerArc } from "../nodeLayer/nodeLayerTempleteExtends/arc.js"
 import { NodeLayerContinuous } from "../nodeLayer/nodeLayerTempleteExtends/continuous.js"
 import { NodeLayerRadius } from "../nodeLayer/nodeLayerTempleteExtends/radius.js"
 import { NodeLayerText } from "../nodeLayer/nodeLayerTempleteExtends/text.js"
+import { CustomDrawsController } from "./customDraws/customDrawsController.js"
 
 var CloneObject
 var ScreenRender
+var CustomDraws
 
 onInit(function(){
 
     CloneObject = new CloneObjectController()
     ScreenRender = new ScreenRenderController()
+    CustomDraws = new CustomDrawsController()
 
 })
 
@@ -55,12 +58,11 @@ export class GraphicListController {
 
         },
 
-
     }
 
     add(templateName){
 
-        let object = this.GraphicListInitTable[templateName]
+        let object = this.GraphicListInitTable[templateName] || CustomDraws.get(templateName)
 
         let ID = undefined
 
