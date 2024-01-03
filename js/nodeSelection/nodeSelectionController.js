@@ -12,9 +12,75 @@ onInit(function(){
 
 })
 
+const showHiddenObserver = new Observer()
+
+var nodeSelectionWidth = undefined
+
 export class NodeSelectionController {
 
     nodeSelectionHTML = document.getElementById("nodeSelection")
+
+    constructor(){
+
+        this.getShowHiddenObserver().add({
+            "func": "setNodeSelectionState",
+            "class": this
+        })
+
+        if(!nodeSelectionWidth){
+            nodeSelectionWidth = this.nodeSelectionHTML.offsetWidth
+        }
+        
+    }
+
+
+    getShowHiddenObserver(){
+        return showHiddenObserver
+    }
+
+    setNodeSelectionState(state){
+
+        this.nodeSelectionHTML.setAttribute("state", state)
+
+    }
+
+    getNodeSelectionState(){
+
+        return this.nodeSelectionHTML.getAttribute("state")
+
+    }
+
+    close(){
+
+        this.nodeSelectionHTML.style.display = "none"
+
+        this.nodeSelectionHTML.style.width = "0px"
+
+        this.getShowHiddenObserver().run("close")
+
+    }
+
+    open(){
+
+        this.nodeSelectionHTML.style.display = "block"
+
+        this.nodeSelectionHTML.style.width = nodeSelectionWidth + "px"
+
+        this.getShowHiddenObserver().run("open")
+
+    }
+
+    switch(){
+
+        if(
+            this.getNodeSelectionState() == "close"
+        ){
+            this.open()
+        }else{
+            this.close()
+        }
+
+    }
 
     addTriggers(){
 

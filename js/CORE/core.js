@@ -3,6 +3,7 @@ import { DownloadController } from "../download/downloadController.js"
 import { GrabObjectsController } from "../grabObjects/grabObjectsController.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
+import { KeyboardController } from "../keyboard/keyboardController.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
 import { NodeLayerController } from "../nodeLayer/nodeLayerController.js"
 import { NodeSelectionController } from "../nodeSelection/nodeSelectionController.js"
@@ -15,6 +16,7 @@ var NodeConfig
 var NodeLayer
 var GraphicList
 var MainCanvas
+var Keyboard
 
 onInit(function(){
 
@@ -26,6 +28,7 @@ onInit(function(){
     NodeLayer = new NodeLayerController()
     GraphicList = new GraphicListController()
     MainCanvas = new MainCanvasController()
+    Keyboard = new KeyboardController()
 
     setTimeout(browseInit,1)
 
@@ -47,6 +50,8 @@ function browseInit(){
     addDeleteButtonTrigger()
 
     addMouseZoomTrigger()
+
+    Keyboard.addTriggers()
 
 }
 
