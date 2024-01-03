@@ -132,17 +132,33 @@ export class nodeLayerTemplateInfoController {
 
     }
 
-    buildHtml(text, listID) {
-
-        let html = document.getElementById("nodeConfig")
+    createTitle(
+        name,
+        html
+    ){
 
         let div = document.createElement("div")
+
+        div.style.backgroundColor = "black"
+
+        div.innerHTML = name
+
+        html.appendChild(div)
+
+    }
+
+    buildHtml(
+        name,
+        div = document.createElement("div"),
+        text,
+        listID) {
 
         div.setAttribute("list_id", listID)
 
         div.style.display = "none"
 
-        html.appendChild(
+        this.createTitle(
+            name,
             div
         )
 
@@ -166,10 +182,47 @@ export class nodeLayerTemplateInfoController {
 
     add(functionName, listID) {
 
-        return this.buildHtml(
-            CloneObject.recursiveCloneAttribute(this.templates[functionName]),
-            listID
-        )
+        let html = document.getElementById("nodeConfig")
+
+        if(typeof(listID) == "object") {
+
+            let div = document.createElement('div')
+
+            for (let index = 0; index < listID.length; index++) {
+
+                let ID = listID[index]
+
+                let name = GraphicList.get(ID).value.functionName
+
+                this.buildHtml(
+                    name,
+                    div,
+                    CloneObject.recursiveCloneAttribute(this.templates[name]),
+                    ID
+                )
+
+            }
+
+            html.appendChild(
+                div
+            )
+
+        }else{
+
+            let div = document.createElement("div")
+
+            this.buildHtml(
+                functionName,
+                div,
+                CloneObject.recursiveCloneAttribute(this.templates[functionName]),
+                listID
+            )
+
+            html.appendChild(
+                div
+            )
+
+        }
 
     }
 
