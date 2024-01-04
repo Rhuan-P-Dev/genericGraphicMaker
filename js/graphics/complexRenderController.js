@@ -182,6 +182,8 @@ export class ComplexRenderController {
             let originalParams = drawInstructions.value.params
             let params = Clone.recursiveCloneAttribute(originalParams)
 
+            params.lineWidth /= ScreenRender.getZoom()
+
             this.runtimeConfigObjectRender(
                 object,
                 functionName,
