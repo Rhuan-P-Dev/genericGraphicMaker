@@ -162,6 +162,13 @@ export class ScreenRenderController {
     getMainCanvasZero(string){
 
         return tableMainCanvasZero[string]
+
+    }
+
+    setMainCanvasZero(string, number){
+
+        tableMainCanvasZero[string] = number
+
     }
 
     minZoom = 1 - 0.25
@@ -237,7 +244,16 @@ export class ScreenRenderController {
         this.mainCanvas.addEventListener("click", function(e){
 
             MainCanvasObserver.run(e)
-            callback(e)
+
+            if(e["shiftKey"]){
+                ScreenRender.setMainCanvasZero("width", e.offsetX)
+                ScreenRender.setMainCanvasZero("height", e.offsetY)
+
+                ScreenRender.update()
+
+            }else{
+                callback(e)
+            }
 
         })
 
