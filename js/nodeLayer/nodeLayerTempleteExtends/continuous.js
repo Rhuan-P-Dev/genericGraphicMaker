@@ -40,11 +40,14 @@ export class NodeLayerContinuous {
 
                     ScreenRender.setCanvasCallback(
                         (e) => {
-    
+
                             GraphicList.push(
                                 params.listID,
                                 "positions",
-                                [e.offsetX, e.offsetY]
+                                [
+                                    ScreenRender.centralize(e.offsetX, "width"),
+                                    ScreenRender.centralize(e.offsetY, "height")
+                                ]
                             )
     
                         }

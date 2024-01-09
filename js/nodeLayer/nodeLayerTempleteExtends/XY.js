@@ -29,13 +29,13 @@ export class NodeLayerXY extends NodeLayerBase {
                         GraphicList.update(
                             params.listID,
                             "x",
-                            e.offsetX
+                            ScreenRender.centralize(e.offsetX, "width")
                         )
 
                         GraphicList.update(
                             params.listID,
                             "y",
-                            e.offsetY
+                            ScreenRender.centralize(e.offsetY, "height")
                         )
 
                         ScreenRender.resetCanvasCallback()

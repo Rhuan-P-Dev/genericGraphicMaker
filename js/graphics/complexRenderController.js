@@ -13,123 +13,6 @@ onInit(function(){
 
 export class ComplexRenderController {
 
-    scalonateContinuos(
-        object,
-        functionName,
-        originalParams,
-        params,
-    ){
-
-        for(let index in params.positions){
-
-            let pos = params.positions[index]
-
-            let scale = ScreenRender.getZoom()
-
-            pos[0] /= scale
-            pos[1] /= scale
-
-        }
-
-    }
-
-    scalonateNormal(
-        object,
-        functionName,
-        originalParams,
-        params,
-    ){
-
-        let scale = ScreenRender.getZoom()
-
-        params.x /= scale
-        params.y /= scale
-
-    }
-
-    scalonateParam = {
-        "drawLine": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateContinuos(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "fillArea": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateContinuos(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "drawCircle": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateNormal(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "drawArc": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateNormal(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "writeText": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateNormal(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-    }
-
     configObjectRender(object){
 
         let drawInstructions = object.graphicRender.map.return()
@@ -152,22 +35,6 @@ export class ComplexRenderController {
 
     }
 
-    runtimeConfigObjectRender(
-        object,
-        functionName,
-        originalParams,
-        params,
-    ){
-
-        this.scalonateParam[functionName](
-            object,
-            functionName,
-            originalParams,
-            params,
-        )
-
-    }
-
     renderComplexFormat(drawInstructions){
 
         let object = undefined
@@ -183,13 +50,6 @@ export class ComplexRenderController {
             let params = Clone.recursiveCloneAttribute(originalParams)
 
             params.lineWidth /= ScreenRender.getZoom()
-
-            this.runtimeConfigObjectRender(
-                object,
-                functionName,
-                originalParams,
-                params
-            )
 
             ScreenRender[functionName](params)
 

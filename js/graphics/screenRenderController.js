@@ -1,14 +1,24 @@
+import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
 
 var ComplexRender
 var GraphicList
+var MainCanvas
 
+
+var tableMainCanvasZero = {}
 
 onInit(function(){
 
     GraphicList = new GraphicListController()
     ComplexRender = new ComplexRenderController()
+    MainCanvas = new MainCanvasController()
+
+    tableMainCanvasZero = {
+        "width": MainCanvas.box.offsetWidth / 2,
+        "height": MainCanvas.box.offsetHeight / 2,
+    }
 
 })
 
@@ -43,12 +53,13 @@ export class ScreenRenderController {
         callback = resetCallback
     }
 
-    getCanvasBaseLine(){
+    centralize(number, string){
 
-        return {
-            "width": (ScreenRender.mainCanvas.width / 2) / ScreenRender.getZoom(),
-            "height": (ScreenRender.mainCanvas.height / 2) / ScreenRender.getZoom(),
-        }
+        number -= this.getMainCanvasZero(string)
+
+        number /= this.getZoom()
+
+        return number
 
     }
 
@@ -57,12 +68,12 @@ export class ScreenRenderController {
         ScreenRender.drawLine({
             "positions": [
                 [
-                    ScreenRender.mainCanvas.width / 2,
-                    0
+                    0,
+                    -this.getMainCanvasZero("height"),
                 ],
                 [
-                    ScreenRender.mainCanvas.width / 2,
-                    ScreenRender.mainCanvas.height
+                    0,
+                    ScreenRender.mainCanvas.offsetHeight
                 ]
             ]
         })
@@ -70,12 +81,12 @@ export class ScreenRenderController {
         ScreenRender.drawLine({
             "positions": [
                 [
+                    -this.getMainCanvasZero("width"),
                     0,
-                    ScreenRender.mainCanvas.height / 2
                 ],
                 [
-                    ScreenRender.mainCanvas.width,
-                    ScreenRender.mainCanvas.height / 2
+                    ScreenRender.mainCanvas.offsetWidth,
+                    0,
                 ]
             ]
         })
@@ -86,11 +97,9 @@ export class ScreenRenderController {
 
         if(loop <= 0){return}
 
-        let BaseLine = this.getCanvasBaseLine()
-
         ScreenRender.drawCircle({
-            "x": BaseLine.width,
-            "y": BaseLine.height,
+            "x": 0,
+            "y": 0,
             "radius": init,
             "lineWidth": 1 / ScreenRender.getZoom(),
         })
@@ -110,23 +119,21 @@ export class ScreenRenderController {
             "height": 6,
         }
 
-        let baseLine = this.getCanvasBaseLine()
-
         ScreenRender.fillArea({
 
             "positions": [
                 [
-                    baseLine.width - object.width,
-                    baseLine.height - object.height
+                    0 - object.width,
+                    0 - object.height
                 ],[
-                    baseLine.width + object.width,
-                    baseLine.height - object.height
+                    0 + object.width,
+                    0 - object.height
                 ],[
-                    baseLine.width + object.width,
-                    baseLine.height + object.height
+                    0 + object.width,
+                    0 + object.height
                 ],[
-                    baseLine.width - object.width,
-                    baseLine.height + object.height
+                    0 - object.width,
+                    0 + object.height
                 ]
             ]
 
@@ -136,22 +143,25 @@ export class ScreenRenderController {
 
     drawShipFront(){
 
-        let baseLine = this.getCanvasBaseLine()
-
         ScreenRender.drawLine({
             "color":"gray",
             "lineWidth": 1 / ScreenRender.getZoom(),
             "positions":[
                 [
-                    baseLine.width,
-                    baseLine.height
+                    0,
+                    0
                 ],[
-                    baseLine.width,
-                    baseLine.height + 20
+                    0,
+                    0 + 20
                 ]
             ]
         })
 
+    }
+
+    getMainCanvasZero(string){
+
+        return tableMainCanvasZero[string]
     }
 
     minZoom = 1 - 0.25
@@ -175,8 +185,13 @@ export class ScreenRenderController {
 
     update(){
 
-        ScreenRender.clean()
         ScreenRender.resetCanvas()
+        ScreenRender.clean()
+
+        ScreenRender.mainCanvasContext.translate(
+            this.getMainCanvasZero("width"),
+            this.getMainCanvasZero("height")
+        )
 
         ScreenRender.drawCentralLine()
 
