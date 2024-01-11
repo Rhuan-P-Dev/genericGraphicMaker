@@ -2,6 +2,8 @@
 
 :root {
     --main-up-height: 25px;
+    --grey-color: rgb(59, 59, 59);
+    --main-mid-right-width: 500px;
 }
 
 /* new default */
@@ -44,7 +46,7 @@ textarea, input{
 
 html,body{
     height: 100%;
-    background-color: rgb(59, 59, 59);
+    background-color: var(--grey-color);
 }
 
 .main{
@@ -84,14 +86,24 @@ html,body{
 
 .main > .mid > .left, .main > .mid > .right{
 
-    width: 200px;
+    position: absolute;
+
+    height: calc(
+        100%
+        -
+        var(--main-up-height) * 2
+    );
     text-align: center;
+
+    border: 1px solid black;
+    background-color: var(--grey-color);
 
 }
 
 .main > .mid > .left{
 
-    
+    width: 200px;
+    overflow-y: auto;
 
 }
 
@@ -121,6 +133,13 @@ html,body{
 
 .main > .mid > .right{
     
+    width: var(--main-mid-right-width);
+
+    left: calc(
+        100%
+        -
+        var(--main-mid-right-width)
+    );
 
 }
 

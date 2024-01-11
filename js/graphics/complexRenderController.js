@@ -13,123 +13,6 @@ onInit(function(){
 
 export class ComplexRenderController {
 
-    scalonateContinuos(
-        object,
-        functionName,
-        originalParams,
-        params,
-    ){
-
-        for(let index in params.positions){
-
-            let pos = params.positions[index]
-
-            let scale = ScreenRender.getZoom()
-
-            pos[0] /= scale
-            pos[1] /= scale
-
-        }
-
-    }
-
-    scalonateNormal(
-        object,
-        functionName,
-        originalParams,
-        params,
-    ){
-
-        let scale = ScreenRender.getZoom()
-
-        params.x /= scale
-        params.y /= scale
-
-    }
-
-    scalonateParam = {
-        "drawLine": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateContinuos(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "fillArea": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateContinuos(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "drawCircle": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateNormal(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "drawArc": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateNormal(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-        "writeText": (
-            object,
-            functionName,
-            originalParams,
-            params,
-        ) => {
-
-            this.scalonateNormal(
-                object,
-                functionName,
-                originalParams,
-                params,
-            )
-
-        },
-
-    }
-
     configObjectRender(object){
 
         let drawInstructions = object.graphicRender.map.return()
@@ -152,19 +35,38 @@ export class ComplexRenderController {
 
     }
 
-    runtimeConfigObjectRender(
-        object,
-        functionName,
-        originalParams,
-        params,
-    ){
+    debug(params){
 
-        this.scalonateParam[functionName](
-            object,
-            functionName,
-            originalParams,
-            params,
-        )
+        if(params.x !== undefined){
+
+            ScreenRender["drawCircle"](
+                {
+                    "x": params.x,
+                    "y": params.y,
+                    "radius": 10 / ScreenRender.getZoom(),
+                    "lineWidth": params.lineWidth
+                }
+            )
+
+        }else{
+
+
+            for (let index = 0; index < params.positions.length; index++) {
+
+                let pos = params.positions[index]
+
+                ScreenRender["drawCircle"](
+                    {
+                        "x": pos[0],
+                        "y": pos[1],
+                        "radius": 10 / ScreenRender.getZoom(),
+                        "lineWidth": params.lineWidth
+                    }
+                )
+                
+            }
+
+        }
 
     }
 
@@ -182,12 +84,9 @@ export class ComplexRenderController {
             let originalParams = drawInstructions.value.params
             let params = Clone.recursiveCloneAttribute(originalParams)
 
-            this.runtimeConfigObjectRender(
-                object,
-                functionName,
-                originalParams,
-                params
-            )
+            params.lineWidth /= ScreenRender.getZoom()
+
+            //this.debug(params)
 
             ScreenRender[functionName](params)
 

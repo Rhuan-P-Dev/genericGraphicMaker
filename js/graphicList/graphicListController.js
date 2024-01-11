@@ -4,14 +4,17 @@ import { NodeLayerArc } from "../nodeLayer/nodeLayerTempleteExtends/arc.js"
 import { NodeLayerContinuous } from "../nodeLayer/nodeLayerTempleteExtends/continuous.js"
 import { NodeLayerRadius } from "../nodeLayer/nodeLayerTempleteExtends/radius.js"
 import { NodeLayerText } from "../nodeLayer/nodeLayerTempleteExtends/text.js"
+import { CustomDrawsController } from "./customDraws/customDrawsController.js"
 
 var CloneObject
 var ScreenRender
+var CustomDraws
 
 onInit(function(){
 
     CloneObject = new CloneObjectController()
     ScreenRender = new ScreenRenderController()
+    CustomDraws = new CustomDrawsController()
 
 })
 
@@ -55,21 +58,26 @@ export class GraphicListController {
 
         },
 
-
     }
 
     add(templateName){
 
-        let object = this.GraphicListInitTable[templateName]
-        object.functionName = templateName
+        let object = this.GraphicListInitTable[templateName] || CustomDraws.get(templateName)
 
-        let ID = GraphicListConst.add(
+        let ID = undefined
 
-            CloneObject.recursiveCloneAttribute(
+        if(!object.length){
+            
+            ID = this.addSingle(
+                templateName,
                 object
             )
-            
-        )
+
+        }else{
+
+            ID = this.addMultiple(object)
+
+        }
 
         GraphicListObserver.run()
 
@@ -77,11 +85,67 @@ export class GraphicListController {
 
     }
 
+    addSingle(
+        templateName,
+        object
+    ){
+
+        object.functionName = templateName
+
+        let ID = GraphicListConst.add(
+
+            CloneObject.recursiveCloneAttribute(
+                object
+            )
+
+        )
+
+        return ID
+
+    }
+
+    addMultiple(objects){
+
+        let IDs = []
+
+        for (let index = 0; index < objects.length; index++) {
+
+            let object = CloneObject.recursiveCloneAttribute(objects[index])
+
+            object.value = {
+                "functionName": object.functionName,
+                "params": object.params
+            }
+
+            let ID = GraphicListConst.add(object)
+
+            IDs.push(ID)
+            
+        }
+
+        return IDs
+
+    }
+
     remove(ID){
 
-        GraphicListConst.remove(ID)
+        let arrayID = ID.split(",")
+
+        for(let index = 0; index < arrayID.length; index++){
+
+            GraphicListConst.remove(
+                arrayID[index]
+            )
+
+        }
 
         GraphicListObserver.run()
+
+    }
+
+    get(ID){
+
+        return GraphicListConst.get(ID)
 
     }
 
@@ -127,62 +191,8 @@ export class GraphicListController {
 
         let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
 
-        let doll = nodes
-
-        while(doll.next){
-
-            this.centralizerNode(doll)
-            this.scaleNode(doll)
-
-            doll = doll.next
-            
-        }
-
         return GraphicListConst.getDownload(nodes)
+
     }
     
-    centralizerNode(node){
-
-        if(node.value.params.positions){
-
-            for (let index = 0; index < node.value.params.positions.length; index++) {
-                
-                let pos = node.value.params.positions[index]
-
-                pos[0] -= ScreenRender.mainCanvas.width / 2
-                pos[1] -= ScreenRender.mainCanvas.height / 2
-                
-            }
-
-        }else{
-
-            node.value.params.x -= ScreenRender.mainCanvas.width / 2
-            node.value.params.y -= ScreenRender.mainCanvas.height / 2
-
-        }
-
-    }
-
-    scaleNode(node){
-
-        if(node.value.params.positions){
-
-            for (let index = 0; index < node.value.params.positions.length; index++) {
-                
-                let pos = node.value.params.positions[index]
-
-                pos[0] /= ScreenRender.getZoom()
-                pos[1] /= ScreenRender.getZoom()
-                
-            }
-
-        }else{
-
-            node.value.params.x /= ScreenRender.getZoom()
-            node.value.params.y /= ScreenRender.getZoom()
-
-        }
-
-    }
-
 }

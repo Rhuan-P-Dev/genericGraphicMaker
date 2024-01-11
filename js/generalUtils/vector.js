@@ -129,11 +129,11 @@ export class VectorController {
         let sinTheta = Math.sin(theta)
         let cosTheta = Math.cos(theta)
 
-        let newXMult = object.xMult * cosTheta + object.yMult * sinTheta
-        let newYMult = -object.xMult * sinTheta + object.yMult * cosTheta
+        let newX = object.x * cosTheta + object.y * sinTheta
+        let newY = -object.x * sinTheta + object.y * cosTheta
 
-        object.xMult = newXMult
-        object.yMult = newYMult
+        object.x = newX
+        object.y = newY
 
     }
 

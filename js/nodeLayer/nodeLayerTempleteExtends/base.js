@@ -16,6 +16,11 @@ export class NodeLayerBase {
             "text": "objectColor: ",
             "default": false,
             "keyUpdate": "objectColor"
+        },{ // gambiara / Hack
+            "type":"number",
+            "step": 1,
+            "keyUpdate": "lineWidth",
+            "placeholder": "Line Width"
         }
     ]
 
@@ -23,6 +28,8 @@ export class NodeLayerBase {
         "scale": true,
         "objectColor": false,
         "color": "black",
+        // gambiara / Hack
+        "lineWidth": 1
     }
 
 }

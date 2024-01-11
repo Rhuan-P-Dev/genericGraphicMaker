@@ -21,6 +21,14 @@ export class NodeLayerController {
         newHtmlElement.setAttribute("class", "clickable interativeDefault")
         newHtmlElement.innerHTML = templateName
 
+        nodeLayerTemplateInfo.add(templateName, ID)
+
+        newHtmlElement.setAttribute("delete_list_id", ID)
+
+        if(typeof(ID) == "object"){
+            ID = ID[ID.length-1]
+        }
+
         newHtmlElement.setAttribute("list_id", ID)
 
         newHtmlElement.addEventListener("click", () => {
@@ -32,8 +40,6 @@ export class NodeLayerController {
         })
 
         this.nodeLayerHTML.appendChild(newHtmlElement)
-
-        nodeLayerTemplateInfo.add(templateName, ID)
 
     }
 
@@ -49,7 +55,7 @@ export class NodeLayerController {
 
                 node.remove()
 
-                return
+                return node.getAttribute("delete_list_id")
 
             }
             

@@ -1,14 +1,26 @@
+import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
+import { VectorController } from "../generalUtils/vector.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
 
 var ComplexRender
 var GraphicList
+var MainCanvas
+var Vector
 
+var tableMainCanvasZero = {}
 
 onInit(function(){
 
     GraphicList = new GraphicListController()
     ComplexRender = new ComplexRenderController()
+    MainCanvas = new MainCanvasController()
+    Vector = new VectorController()
+
+    tableMainCanvasZero = {
+        "width": MainCanvas.box.offsetWidth / 2,
+        "height": MainCanvas.box.offsetHeight / 2,
+    }
 
 })
 
@@ -18,6 +30,7 @@ var resetCallback = () => {}
 const MainCanvasObserver = new Observer()
 
 var zoom = 4
+var radian = 0
 
 export class ScreenRenderController {
 
@@ -43,12 +56,29 @@ export class ScreenRenderController {
         callback = resetCallback
     }
 
-    getCanvasBaseLine(){
+    centralize(number, string){
 
-        return {
-            "width": (ScreenRender.mainCanvas.width / 2) / ScreenRender.getZoom(),
-            "height": (ScreenRender.mainCanvas.height / 2) / ScreenRender.getZoom(),
+        number -= this.getMainCanvasZero(string)
+
+        number /= this.getZoom()
+
+        return number
+
+    }
+
+    adjustObject(x, y){
+
+        let object = {
+            "x": ScreenRender.centralize(x, "width"),
+            "y": ScreenRender.centralize(y, "height")
         }
+
+        Vector.rotate(
+            object,
+            ScreenRender.getRadian()
+        )
+
+        return object
 
     }
 
@@ -57,12 +87,12 @@ export class ScreenRenderController {
         ScreenRender.drawLine({
             "positions": [
                 [
-                    ScreenRender.mainCanvas.width / 2,
-                    0
+                    0,
+                    -this.getMainCanvasZero("height")*10,
                 ],
                 [
-                    ScreenRender.mainCanvas.width / 2,
-                    ScreenRender.mainCanvas.height
+                    0,
+                    ScreenRender.mainCanvas.offsetHeight*10
                 ]
             ]
         })
@@ -70,12 +100,12 @@ export class ScreenRenderController {
         ScreenRender.drawLine({
             "positions": [
                 [
+                    -this.getMainCanvasZero("width")*10,
                     0,
-                    ScreenRender.mainCanvas.height / 2
                 ],
                 [
-                    ScreenRender.mainCanvas.width,
-                    ScreenRender.mainCanvas.height / 2
+                    ScreenRender.mainCanvas.offsetWidth*10,
+                    0,
                 ]
             ]
         })
@@ -86,11 +116,9 @@ export class ScreenRenderController {
 
         if(loop <= 0){return}
 
-        let BaseLine = this.getCanvasBaseLine()
-
         ScreenRender.drawCircle({
-            "x": BaseLine.width,
-            "y": BaseLine.height,
+            "x": 0,
+            "y": 0,
             "radius": init,
             "lineWidth": 1 / ScreenRender.getZoom(),
         })
@@ -110,23 +138,21 @@ export class ScreenRenderController {
             "height": 6,
         }
 
-        let baseLine = this.getCanvasBaseLine()
-
         ScreenRender.fillArea({
 
             "positions": [
                 [
-                    baseLine.width - object.width,
-                    baseLine.height - object.height
+                    0 - object.width,
+                    0 - object.height
                 ],[
-                    baseLine.width + object.width,
-                    baseLine.height - object.height
+                    0 + object.width,
+                    0 - object.height
                 ],[
-                    baseLine.width + object.width,
-                    baseLine.height + object.height
+                    0 + object.width,
+                    0 + object.height
                 ],[
-                    baseLine.width - object.width,
-                    baseLine.height + object.height
+                    0 - object.width,
+                    0 + object.height
                 ]
             ]
 
@@ -136,21 +162,31 @@ export class ScreenRenderController {
 
     drawShipFront(){
 
-        let baseLine = this.getCanvasBaseLine()
-
         ScreenRender.drawLine({
             "color":"gray",
             "lineWidth": 1 / ScreenRender.getZoom(),
             "positions":[
                 [
-                    baseLine.width,
-                    baseLine.height
+                    0,
+                    0
                 ],[
-                    baseLine.width,
-                    baseLine.height + 20
+                    0,
+                    0 + 20
                 ]
             ]
         })
+
+    }
+
+    getMainCanvasZero(string){
+
+        return tableMainCanvasZero[string]
+
+    }
+
+    setMainCanvasZero(string, number){
+
+        tableMainCanvasZero[string] = number
 
     }
 
@@ -169,14 +205,33 @@ export class ScreenRenderController {
 
     }
 
+    changerRadian(value){
+
+        radian += value
+
+    }
+
     getZoom(){
         return zoom
     }
 
+    getRadian(){
+        return radian
+    }
+
     update(){
 
-        ScreenRender.clean()
         ScreenRender.resetCanvas()
+        ScreenRender.clean()
+
+        ScreenRender.mainCanvasContext.translate(
+            this.getMainCanvasZero("width"),
+            this.getMainCanvasZero("height")
+        )
+
+        ScreenRender.mainCanvasContext.rotate(
+            this.getRadian()
+        )
 
         ScreenRender.drawCentralLine()
 
@@ -222,8 +277,50 @@ export class ScreenRenderController {
         this.mainCanvas.addEventListener("click", function(e){
 
             MainCanvasObserver.run(e)
-            callback(e)
 
+            if(e["shiftKey"]){
+                ScreenRender.setMainCanvasZero("width", e.offsetX)
+                ScreenRender.setMainCanvasZero("height", e.offsetY)
+
+                ScreenRender.update()
+
+            }else{
+                callback(e)
+            }
+
+        })
+
+        document.querySelector("html").addEventListener("wheel", (e) => {
+
+            if (e.deltaY > 0) {
+
+
+                if(e["shiftKey"]){
+
+                    ScreenRender.changerRadian(
+                        (Math.PI / 180) * 11.25
+                    )
+
+                }else{
+                    ScreenRender.changerZoom(0.25)
+                }
+
+            } else {
+                
+                if(e["shiftKey"]){
+
+                    ScreenRender.changerRadian(
+                        (-Math.PI / 180) * 11.25
+                    )
+
+                }else{
+                    ScreenRender.changerZoom(-0.25)
+                }
+
+            }
+    
+            ScreenRender.update()
+    
         })
 
     }

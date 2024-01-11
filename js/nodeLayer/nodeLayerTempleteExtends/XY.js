@@ -26,16 +26,21 @@ export class NodeLayerXY extends NodeLayerBase {
                 ScreenRender.setCanvasCallback(
                     (e) => {
 
+                        let object = ScreenRender.adjustObject(
+                            e.offsetX,
+                            e.offsetY
+                        )
+
                         GraphicList.update(
                             params.listID,
                             "x",
-                            e.offsetX
+                            object.x
                         )
 
                         GraphicList.update(
                             params.listID,
                             "y",
-                            e.offsetY
+                            object.y
                         )
 
                         ScreenRender.resetCanvasCallback()
