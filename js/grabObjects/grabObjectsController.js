@@ -81,7 +81,7 @@ export class GrabObjectsController {
         let distance = new VectorController().getTriangleSize(originalParams, mouseParams)
                 
         if(
-            distance < 10
+            distance < 10 / ScreenRender.getZoom()
         ){
 
             ScreenRender.setCanvasCallback(this.moveObjectCallback)
