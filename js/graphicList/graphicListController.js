@@ -117,9 +117,6 @@ export class GraphicListController {
                 "params": object.params
             }
 
-            this.scaleNode("import", object)
-            this.centralizerNode("import", object)
-
             let ID = GraphicListConst.add(object)
 
             IDs.push(ID)
@@ -194,84 +191,8 @@ export class GraphicListController {
 
         let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
 
-        let node = nodes
-
-        while(node.next){
-
-            this.centralizerNode("export", node)
-            this.scaleNode("export", node)
-
-            node = node.next
-            
-        }
-
         return GraphicListConst.getDownload(nodes)
 
     }
     
-    centralizerNode(mode, node){
-
-        if(node.value.params.positions){
-
-            for (let index = 0; index < node.value.params.positions.length; index++) {
-                
-                let pos = node.value.params.positions[index]
-
-                if(mode == "export"){
-                    pos[0] -= ScreenRender.mainCanvas.width / 2
-                    pos[1] -= ScreenRender.mainCanvas.height / 2
-                }else{
-                    pos[0] += ScreenRender.mainCanvas.width / 2
-                    pos[1] += ScreenRender.mainCanvas.height / 2
-                }
-                
-            }
-
-        }else{
-
-            if(mode == "export"){
-                node.value.params.x -= ScreenRender.mainCanvas.width / 2
-                node.value.params.y -= ScreenRender.mainCanvas.height / 2
-            }else{
-                node.value.params.x += ScreenRender.mainCanvas.width / 2
-                node.value.params.y += ScreenRender.mainCanvas.height / 2
-            }
-
-        }
-
-    }
-
-    scaleNode(mode, node){
-
-        if(node.value.params.positions){
-
-            for (let index = 0; index < node.value.params.positions.length; index++) {
-                
-                let pos = node.value.params.positions[index]
-
-                if(mode == "export"){
-                    pos[0] /= ScreenRender.getZoom()
-                    pos[1] /= ScreenRender.getZoom()
-                }else{
-                    pos[0] *= ScreenRender.getZoom()
-                    pos[1] *= ScreenRender.getZoom()
-                }
-                
-                
-            }
-
-        }else{
-
-            if(mode == "export"){
-                node.value.params.x /= ScreenRender.getZoom()
-                node.value.params.y /= ScreenRender.getZoom()
-            }else{
-                node.value.params.x *= ScreenRender.getZoom()
-                node.value.params.y *= ScreenRender.getZoom()
-            }
-
-        }
-
-    }
-
 }

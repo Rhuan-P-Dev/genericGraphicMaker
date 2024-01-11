@@ -30,10 +30,10 @@ export class GrabObjectsController {
 
     searchCallbackFunction = (e) => {
 
-        let mouseParams = {
-            "x": e.offsetX,
-            "y": e.offsetY
-        }
+        let mouseParams = ScreenRender.adjustObject(
+            e.offsetX,
+            e.offsetY
+        )
 
         let drawInstructions = GraphicList.return()
 
@@ -62,12 +62,17 @@ export class GrabObjectsController {
 
     moveObjectCallback = (e) => {
 
+        let object = ScreenRender.adjustObject(
+            e.offsetX,
+            e.offsetY
+        )
+
         if(this.movableObject.x){
-            this.movableObject.x = e.offsetX
-            this.movableObject.y = e.offsetY
+            this.movableObject.x = object.x
+            this.movableObject.y = object.y
         }else{
-            this.movableObject[0] = e.offsetX
-            this.movableObject[1] = e.offsetY
+            this.movableObject[0] = object.x
+            this.movableObject[1] = object.y
         }
 
         ScreenRender.update()
@@ -81,7 +86,7 @@ export class GrabObjectsController {
         let distance = new VectorController().getTriangleSize(originalParams, mouseParams)
                 
         if(
-            distance < 10
+            distance < 10 / ScreenRender.getZoom()
         ){
 
             ScreenRender.setCanvasCallback(this.moveObjectCallback)
