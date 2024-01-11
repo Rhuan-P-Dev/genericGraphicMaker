@@ -53,8 +53,6 @@ function browseInit(){
 
     addDeleteButtonTrigger()
 
-    addMouseZoomTrigger()
-
     Keyboard.addTriggers()
 
 }
@@ -67,22 +65,6 @@ function addDeleteButtonTrigger(){
         let deleteListID = NodeLayer.delete(listID)
         GraphicList.remove(deleteListID)
         ScreenRender.resetCanvasCallback()
-
-    })
-
-}
-
-function addMouseZoomTrigger(){
-
-    document.querySelector("html").addEventListener("wheel", (e) => {
-
-        if (e.deltaY > 0) {
-            ScreenRender.changerZoom(0.25)
-        } else {
-            ScreenRender.changerZoom(-0.25)
-        }
-
-        ScreenRender.update()
 
     })
 

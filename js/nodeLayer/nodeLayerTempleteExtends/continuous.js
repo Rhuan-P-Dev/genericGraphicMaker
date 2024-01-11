@@ -41,12 +41,17 @@ export class NodeLayerContinuous {
                     ScreenRender.setCanvasCallback(
                         (e) => {
 
+                            let object = ScreenRender.adjustObject(
+                                e.offsetX,
+                                e.offsetY
+                            )
+
                             GraphicList.push(
                                 params.listID,
                                 "positions",
                                 [
-                                    ScreenRender.centralize(e.offsetX, "width"),
-                                    ScreenRender.centralize(e.offsetY, "height")
+                                    object.x,
+                                    object.y,
                                 ]
                             )
     

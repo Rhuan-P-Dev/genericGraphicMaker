@@ -30,10 +30,10 @@ export class GrabObjectsController {
 
     searchCallbackFunction = (e) => {
 
-        let mouseParams = {
-            "x": ScreenRender.centralize(e.offsetX, "width"),
-            "y": ScreenRender.centralize(e.offsetY, "height")
-        }
+        let mouseParams = ScreenRender.adjustObject(
+            e.offsetX,
+            e.offsetY
+        )
 
         let drawInstructions = GraphicList.return()
 
@@ -62,12 +62,17 @@ export class GrabObjectsController {
 
     moveObjectCallback = (e) => {
 
+        let object = ScreenRender.adjustObject(
+            e.offsetX,
+            e.offsetY
+        )
+
         if(this.movableObject.x){
-            this.movableObject.x = ScreenRender.centralize(e.offsetX, "width")
-            this.movableObject.y = ScreenRender.centralize(e.offsetY, "height")
+            this.movableObject.x = object.x
+            this.movableObject.y = object.y
         }else{
-            this.movableObject[0] = ScreenRender.centralize(e.offsetX, "width")
-            this.movableObject[1] = ScreenRender.centralize(e.offsetY, "height")
+            this.movableObject[0] = object.x
+            this.movableObject[1] = object.y
         }
 
         ScreenRender.update()
