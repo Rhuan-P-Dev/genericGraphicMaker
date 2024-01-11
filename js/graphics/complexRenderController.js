@@ -35,6 +35,41 @@ export class ComplexRenderController {
 
     }
 
+    debug(params){
+
+        if(params.x !== undefined){
+
+            ScreenRender["drawCircle"](
+                {
+                    "x": params.x,
+                    "y": params.y,
+                    "radius": 10 / ScreenRender.getZoom(),
+                    "lineWidth": params.lineWidth
+                }
+            )
+
+        }else{
+
+
+            for (let index = 0; index < params.positions.length; index++) {
+
+                let pos = params.positions[index]
+
+                ScreenRender["drawCircle"](
+                    {
+                        "x": pos[0],
+                        "y": pos[1],
+                        "radius": 10 / ScreenRender.getZoom(),
+                        "lineWidth": params.lineWidth
+                    }
+                )
+                
+            }
+
+        }
+
+    }
+
     renderComplexFormat(drawInstructions){
 
         let object = undefined
@@ -50,6 +85,8 @@ export class ComplexRenderController {
             let params = Clone.recursiveCloneAttribute(originalParams)
 
             params.lineWidth /= ScreenRender.getZoom()
+
+            //this.debug(params)
 
             ScreenRender[functionName](params)
 
