@@ -67,6 +67,9 @@ export class GrabObjectsController {
             e.offsetY
         )
 
+        object.x = ScreenRender.aligner(object.x)
+        object.y = ScreenRender.aligner(object.y)
+
         if(this.movableObject.x){
             this.movableObject.x = object.x
             this.movableObject.y = object.y

@@ -30,6 +30,9 @@ export class NodeLayerXY extends NodeLayerBase {
                             e.offsetX,
                             e.offsetY
                         )
+                        
+                        object.x = ScreenRender.aligner(object.x)
+                        object.y = ScreenRender.aligner(object.y)
 
                         GraphicList.update(
                             params.listID,
