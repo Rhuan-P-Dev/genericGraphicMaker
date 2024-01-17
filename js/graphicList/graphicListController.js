@@ -181,6 +181,27 @@ export class GraphicListController {
 
     }
 
+    massPush(
+        ID,
+        key,
+        value
+     ){
+
+        for (let index = 0; index < value.length; index++) {
+
+            GraphicListConst.push(
+                ID,
+                key,
+                value[index]
+            )
+            
+        }
+
+        GraphicListObserver.run()
+
+    }
+
+
     return(){
 
         return GraphicListConst.return()

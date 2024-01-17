@@ -82,17 +82,35 @@ export class ScreenRenderController {
 
     }
 
+    getAlignerNumber(){
+
+        return 2
+
+    }
+
+    aligner(number, alignment = this.getAlignerNumber()){
+
+        number = Math.round(
+            number
+            /
+            alignment
+        )
+
+        return number *= alignment
+
+    }
+
     drawCentralLine(){
 
         ScreenRender.drawLine({
             "positions": [
                 [
+                    -ScreenRender.mainCanvas.offsetWidth*2,
                     0,
-                    -this.getMainCanvasZero("height")*10,
                 ],
                 [
+                    ScreenRender.mainCanvas.offsetWidth*2,
                     0,
-                    ScreenRender.mainCanvas.offsetHeight*10
                 ]
             ]
         })
@@ -100,12 +118,12 @@ export class ScreenRenderController {
         ScreenRender.drawLine({
             "positions": [
                 [
-                    -this.getMainCanvasZero("width")*10,
                     0,
+                    -ScreenRender.mainCanvas.offsetHeight*3,
                 ],
                 [
-                    ScreenRender.mainCanvas.offsetWidth*10,
                     0,
+                    ScreenRender.mainCanvas.offsetHeight*3,
                 ]
             ]
         })
@@ -178,6 +196,73 @@ export class ScreenRenderController {
 
     }
 
+    drawDrawLines(){
+
+        ScreenRender.resetCanvas()
+
+        ScreenRender.mainCanvasContext.translate(
+            this.getMainCanvasZero("width"),
+            this.getMainCanvasZero("height")
+        )
+
+        ScreenRender.mainCanvasContext.rotate(
+            this.getRadian()
+        )
+
+        ScreenRender.mainCanvasContext.scale(
+            this.getZoom(),
+            this.getZoom()
+        )
+
+        for (
+            let index = -ScreenRender.mainCanvas.offsetHeight / 2;
+            index < ScreenRender.mainCanvas.offsetHeight / 2;
+            index += ScreenRender.getAlignerNumber()
+        ){
+
+            ScreenRender.drawLine({
+                "color": "rgb(69, 69, 69)",
+                "lineWidth": 1 / ScreenRender.getZoom(),
+                "positions": [
+                    [
+                        -ScreenRender.mainCanvas.offsetWidth / 2,
+                        index
+                    ],
+                    [
+                        ScreenRender.mainCanvas.offsetWidth / 2,
+                        index
+                    ]
+                ]
+            })
+
+        }
+
+        for (
+            let index = -ScreenRender.mainCanvas.offsetWidth / 2;
+            index < ScreenRender.mainCanvas.offsetWidth / 2;
+            index += this.getAlignerNumber()
+        ) {
+
+            ScreenRender.drawLine({
+                "color": "rgb(69, 69, 69)",
+                "lineWidth": 1 / ScreenRender.getZoom(),
+                "positions": [
+                    [
+                        index,
+                        -ScreenRender.mainCanvas.offsetHeight / 2
+                    ],
+                    [
+                        index,
+                        ScreenRender.mainCanvas.offsetHeight / 2
+                    ]
+                ]
+            })
+        }
+
+        ScreenRender.resetCanvas()
+
+    }
+
     getMainCanvasZero(string){
 
         return tableMainCanvasZero[string]
@@ -223,6 +308,8 @@ export class ScreenRenderController {
 
         ScreenRender.resetCanvas()
         ScreenRender.clean()
+
+        ScreenRender.drawDrawLines() // expensive....?
 
         ScreenRender.mainCanvasContext.translate(
             this.getMainCanvasZero("width"),
