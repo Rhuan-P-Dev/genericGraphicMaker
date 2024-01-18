@@ -1,3 +1,4 @@
+import { onInit } from "../../misc/miscFunctions.js"
 import { InheritController } from "../../generalUtils/inherit.js"
 import { VectorController } from "../../generalUtils/vector.js"
 import { GraphicListController } from "../../graphicList/graphicListController.js"

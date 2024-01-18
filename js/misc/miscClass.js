@@ -1,4 +1,6 @@
-class BasicLinkedList{
+import { randomUniqueID } from "./miscFunctions.js"
+
+export class BasicLinkedList{
 
     list = {
         next:{}
@@ -21,7 +23,7 @@ class BasicLinkedList{
 
 }
 
-class GraphicList{
+export class GraphicList{
 
     list = {
         next: {}
@@ -144,7 +146,7 @@ class GraphicList{
 
 }
 
-class LinkedList extends BasicLinkedList{
+export class LinkedList extends BasicLinkedList{
     
     remove(value){
         let node = this.list.next
@@ -185,9 +187,9 @@ class LinkedList extends BasicLinkedList{
 
     }
 
-}
+}// delete?
 
-class Observer extends BasicLinkedList {
+export class Observer extends BasicLinkedList {
 
     removeNode(node, tail){
 

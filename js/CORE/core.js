@@ -1,3 +1,4 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
 import { DownloadController } from "../download/downloadController.js"
 import { GrabObjectsController } from "../grabObjects/grabObjectsController.js"

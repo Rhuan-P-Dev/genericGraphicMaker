@@ -1,3 +1,4 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { NodeLayerArc } from "../nodeLayer/nodeLayerTempleteExtends/arc.js"
@@ -5,6 +6,7 @@ import { NodeLayerContinuous } from "../nodeLayer/nodeLayerTempleteExtends/conti
 import { NodeLayerRadius } from "../nodeLayer/nodeLayerTempleteExtends/radius.js"
 import { NodeLayerText } from "../nodeLayer/nodeLayerTempleteExtends/text.js"
 import { CustomDrawsController } from "./customDraws/customDrawsController.js"
+import { GraphicList, Observer } from "../misc/miscClass.js"
 
 var CloneObject
 var ScreenRender

@@ -1,3 +1,4 @@
+import { onInit } from "../../misc/miscFunctions.js"
 import { ScreenRenderController } from "../../graphics/screenRenderController.js"
 
 var ScreenRender

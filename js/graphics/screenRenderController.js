@@ -1,7 +1,9 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
 import { VectorController } from "../generalUtils/vector.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
+import { Observer } from "../misc/miscClass.js"
 
 var ComplexRender
 var GraphicList
