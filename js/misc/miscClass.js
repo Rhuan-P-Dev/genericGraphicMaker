@@ -69,14 +69,26 @@ export class GraphicList{
 
         while(node.next){
 
-            if(node.ID == ID){
+            if(
+                node.ID == ID
+                &&
+                node.value.params
+                &&
+                node.value.params[key]
+                &&
+                Array.isArray(
+                    node.value.params[key]
+                )
+            ){
                 node.value.params[key].push(value)
-                return
+                return true
             }
 
             node = node.next
 
         }
+
+        return false
 
     }
 
