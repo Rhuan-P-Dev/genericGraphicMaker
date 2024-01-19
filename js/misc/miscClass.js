@@ -220,6 +220,8 @@ export class Observer extends BasicLinkedList {
         let tail = this.list
 
         while(
+            value
+            &&
             node.next
         ){
 
@@ -244,6 +246,7 @@ export class Observer extends BasicLinkedList {
         }
 
         return false
+
     }
    
     run(params){
