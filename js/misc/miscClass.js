@@ -98,14 +98,22 @@ export class GraphicList{
 
         while(node.next){
 
-            if(node.ID == ID){
+            if(
+                node.ID == ID
+                &&
+                node.value.params
+                &&
+                node.value.params[key]
+            ){
                 node.value.params[key] = value
-                return
+                return true
             }
 
             node = node.next
 
         }
+
+        return false
 
     }
 
