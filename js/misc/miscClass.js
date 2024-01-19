@@ -215,42 +215,35 @@ export class LinkedList extends BasicLinkedList{
 
 export class Observer extends BasicLinkedList {
 
-    removeNode(node, tail){
-
-        if(node.next.next){
-            tail.next = node.next
-        }else{
-            tail.next = {}
-        }
-
-    }
-
     remove(value){
         let node = this.list.next
         let tail = this.list
-        while(1){
-            if(!node.next){return false}
 
-            if(typeof(node.value) == "function"){
+        while(
+            node.next
+        ){
 
-                if(value == node.value){
-                    this.removeNode(node, tail)
-                    return true
+            if(
+                value == node.value
+                ||
+                value == node.value.func
+            ){
+                
+                if(node.next.next){
+                    tail.next = node.next
+                }else{
+                    tail.next = {}
                 }
 
-            }else{
-
-                if(value == node.value.func){
-                    this.removeNode(node, tail)
-                    return true
-                }
-
+                return true
             }
 
             tail = node
             node = node.next
 
         }
+
+        return false
     }
    
     run(params){
