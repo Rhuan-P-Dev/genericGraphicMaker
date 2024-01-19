@@ -96,7 +96,11 @@ export class GraphicList{
 
         let node = this.return()
 
-        while(node.next){
+        while(
+            value
+            &&
+            node.next
+        ){
 
             if(
                 node.ID == ID
