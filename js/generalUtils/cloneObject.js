@@ -7,28 +7,6 @@ export class CloneObjectController {
 
     }
 
-    cloneObject(object, clonedObject = {}){
-
-        for (let key in object) {
-
-            if(typeof(object[key]) == "object"){
-
-                this.cloneObjectFunctions[key](
-                    object,
-                    clonedObject,
-                    {
-                        "keyType": key
-                    },
-                )
-
-            }
-            
-        }
-
-        return clonedObject
-
-    }
-
     cloneAttribute(object, clonedObject = {}){
 
         for (let key in object) {
