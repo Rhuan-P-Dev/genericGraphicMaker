@@ -141,6 +141,8 @@ export class GraphicList{
 
         }
 
+        return false
+
     }
 
     remove(ID){
@@ -166,10 +168,13 @@ export class GraphicList{
 
         }
 
+        return false
+
     }
 
 }
 
+// don't have unit tests
 export class LinkedList extends BasicLinkedList{
     
     remove(value){
@@ -253,8 +258,7 @@ export class Observer extends BasicLinkedList {
 
         let node = this.list.next
 
-        while(1){
-            if(!node.next){return}
+        while(node.next){
 
             if(typeof(node.value) == "function"){
                 node.value(params)
