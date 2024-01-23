@@ -391,7 +391,7 @@ export class ScreenRenderController {
                     )
 
                 }else{
-                    ScreenRender.changerZoom(0.25)
+                    ScreenRender.changerZoom(-0.25)
                 }
 
             } else {
@@ -403,7 +403,7 @@ export class ScreenRenderController {
                     )
 
                 }else{
-                    ScreenRender.changerZoom(-0.25)
+                    ScreenRender.changerZoom(0.25)
                 }
 
             }
