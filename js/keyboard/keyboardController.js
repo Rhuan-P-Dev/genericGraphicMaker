@@ -29,9 +29,10 @@ const keyBoardShiftFunctions = {
     "!": () => {
         NodeSelection.switch()
     },
-    "Delete": () => {
-        
+}
 
+const keyBoardCtrlKeyFunctions = {
+    "z": () => {
         let listID = NodeConfig.getNodeID(
             NodeConfig.getOpenNode()
         )
@@ -40,7 +41,6 @@ const keyBoardShiftFunctions = {
             listID,
             "positions",
         )
-        
     },
 }
 
@@ -48,7 +48,7 @@ export class KeyboardController{
 
     addTriggers(){
 
-        document.querySelector("html").addEventListener("keydown",function(e){
+        document.querySelector("html").addEventListener("keydown",(e) => {
 
             if(keyboardFunctions[e["key"]] && !e["shiftKey"]){
                 keyboardFunctions[e["key"]]()
@@ -56,6 +56,10 @@ export class KeyboardController{
 
             if(keyBoardShiftFunctions[e["key"]] && e["shiftKey"]){
                 keyBoardShiftFunctions[e["key"]]()
+            }
+
+            if(keyBoardCtrlKeyFunctions[e["key"]] && e["ctrlKey"]){
+                keyBoardCtrlKeyFunctions[e["key"]]()
             }
 
         })
