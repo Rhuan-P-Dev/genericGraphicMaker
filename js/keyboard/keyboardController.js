@@ -1,14 +1,17 @@
+import { GraphicListController } from "../graphicList/graphicListController.js"
 import { onInit } from "../misc/miscFunctions.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
 import { NodeSelectionController } from "../nodeSelection/nodeSelectionController.js"
 
 var NodeSelection
 var NodeConfig
+var GraphicList
 
 onInit(function(){
 
     NodeSelection = new NodeSelectionController()
     NodeConfig = new NodeConfigController()
+    GraphicList = new GraphicListController()
 
 })
 
@@ -25,6 +28,19 @@ const keyBoardShiftFunctions = {
     },
     "!": () => {
         NodeSelection.switch()
+    },
+    "Delete": () => {
+        
+
+        let listID = NodeConfig.getNodeID(
+            NodeConfig.getOpenNode()
+        )
+
+        GraphicList.pop(
+            listID,
+            "positions",
+        )
+        
     },
 }
 
