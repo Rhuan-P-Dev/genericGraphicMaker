@@ -114,12 +114,10 @@ export class GraphicListController {
 
             let object = CloneObject.recursiveCloneAttribute(objects[index])
 
-            object.value = {
+            let ID = GraphicListConst.add({
                 "functionName": object.functionName,
                 "params": object.params
-            }
-
-            let ID = GraphicListConst.add(object)
+            })
 
             IDs.push(ID)
             
