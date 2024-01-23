@@ -92,6 +92,37 @@ export class GraphicList{
 
     }
 
+    pop(ID, key){
+
+        let node = this.return()
+
+        while(node.next){
+
+            if(
+                node.ID == ID
+                &&
+                node.value.params
+                &&
+                node.value.params[key]
+                &&
+                Array.isArray(
+                    node.value.params[key]
+                )
+            ){
+                node.value.params[key].pop()
+
+                return true
+                
+            }
+
+            node = node.next
+
+        }
+
+        return false
+
+    }
+
     update(ID, key, value){
 
         let node = this.return()
