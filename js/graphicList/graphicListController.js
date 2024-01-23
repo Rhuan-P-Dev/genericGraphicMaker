@@ -226,8 +226,87 @@ export class GraphicListController {
 
         let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
 
-        return GraphicListConst.getDownload(nodes)
+        nodes = GraphicListConst.getDownload(nodes)
+
+        nodes = new naiveOptimization(nodes)
+
+        return nodes
 
     }
     
+}
+
+// loss information
+class naiveOptimization{
+
+    constructor(nodes){
+
+        for (let index = 0; index < nodes.length; index++) {
+
+            let node = nodes[index]
+
+            if(Array.isArray(node.params.positions)){
+                node.params.positions = this.optimize(node)
+            }
+
+        }
+
+        return nodes
+
+    }
+
+    optimize(node){
+
+        let positions = node.params.positions
+
+        //console.log(positions)
+
+        let reducedPositions = this.reduce(positions)
+
+        //console.log(reducedPositions)
+
+        console.log("--------------- [ "+ reducedPositions.length / positions.length + " | " + positions.length / reducedPositions.length + " ] ---------------")
+
+        return reducedPositions
+
+    }
+
+    reduce(positions){
+
+        let reducedPositions = []
+
+        for (let index = 0; index < positions.length; index++) {
+
+            let position = positions[index]
+
+            let add = true
+
+            for (let indey = 0; indey < reducedPositions.length; indey++) {
+
+                let reducedPosition = reducedPositions[indey]
+
+                if(
+                    position[0] === reducedPosition[0]
+                    &&
+                    position[1] === reducedPosition[1]
+                ){
+
+                    add = false
+                    break
+
+                }
+
+
+            }
+
+            if(add){
+                reducedPositions.push(position)
+            }
+            
+        }
+
+        return reducedPositions
+
+    }
+
 }
