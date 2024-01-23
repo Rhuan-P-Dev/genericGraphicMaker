@@ -183,6 +183,20 @@ export class GraphicListController {
 
     }
 
+    pop(
+        ID,
+        key,
+    ){
+
+        GraphicListConst.pop(
+            ID,
+            key,
+        )
+
+        GraphicListObserver.run()
+
+    }
+
     massPush(
         ID,
         key,
