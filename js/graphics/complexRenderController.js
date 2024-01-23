@@ -1,3 +1,4 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
 import { ScreenRenderController } from "./screenRenderController.js"
 

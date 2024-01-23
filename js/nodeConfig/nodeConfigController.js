@@ -1,4 +1,6 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
+import { Observer } from "../misc/miscClass.js"
 
 var MainCanvas
 

@@ -1,4 +1,6 @@
-class BasicLinkedList{
+import { randomUniqueID } from "./miscFunctions.js"
+
+export class BasicLinkedList{
 
     list = {
         next:{}
@@ -21,7 +23,7 @@ class BasicLinkedList{
 
 }
 
-class GraphicList{
+export class GraphicList{
 
     list = {
         next: {}
@@ -67,14 +69,26 @@ class GraphicList{
 
         while(node.next){
 
-            if(node.ID == ID){
+            if(
+                node.ID == ID
+                &&
+                node.value.params
+                &&
+                node.value.params[key]
+                &&
+                Array.isArray(
+                    node.value.params[key]
+                )
+            ){
                 node.value.params[key].push(value)
-                return
+                return true
             }
 
             node = node.next
 
         }
+
+        return false
 
     }
 
@@ -82,16 +96,28 @@ class GraphicList{
 
         let node = this.return()
 
-        while(node.next){
+        while(
+            value
+            &&
+            node.next
+        ){
 
-            if(node.ID == ID){
+            if(
+                node.ID == ID
+                &&
+                node.value.params
+                &&
+                node.value.params[key]
+            ){
                 node.value.params[key] = value
-                return
+                return true
             }
 
             node = node.next
 
         }
+
+        return false
 
     }
 
@@ -114,6 +140,8 @@ class GraphicList{
             node = node.next
 
         }
+
+        return false
 
     }
 
@@ -140,11 +168,14 @@ class GraphicList{
 
         }
 
+        return false
+
     }
 
 }
 
-class LinkedList extends BasicLinkedList{
+// don't have unit tests
+export class LinkedList extends BasicLinkedList{
     
     remove(value){
         let node = this.list.next
@@ -185,54 +216,49 @@ class LinkedList extends BasicLinkedList{
 
     }
 
-}
+}// delete?
 
-class Observer extends BasicLinkedList {
-
-    removeNode(node, tail){
-
-        if(node.next.next){
-            tail.next = node.next
-        }else{
-            tail.next = {}
-        }
-
-    }
+export class Observer extends BasicLinkedList {
 
     remove(value){
         let node = this.list.next
         let tail = this.list
-        while(1){
-            if(!node.next){return false}
 
-            if(typeof(node.value) == "function"){
+        while(
+            value
+            &&
+            node.next
+        ){
 
-                if(value == node.value){
-                    this.removeNode(node, tail)
-                    return true
+            if(
+                value == node.value
+                ||
+                value == node.value.func
+            ){
+                
+                if(node.next.next){
+                    tail.next = node.next
+                }else{
+                    tail.next = {}
                 }
 
-            }else{
-
-                if(value == node.value.func){
-                    this.removeNode(node, tail)
-                    return true
-                }
-
+                return true
             }
 
             tail = node
             node = node.next
 
         }
+
+        return false
+
     }
    
     run(params){
 
         let node = this.list.next
 
-        while(1){
-            if(!node.next){return}
+        while(node.next){
 
             if(typeof(node.value) == "function"){
                 node.value(params)

@@ -1,3 +1,4 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 
 var GraphicList

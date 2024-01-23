@@ -1,3 +1,4 @@
+import { onInit } from "../misc/miscFunctions.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
 import { NodeSelectionController } from "../nodeSelection/nodeSelectionController.js"
 

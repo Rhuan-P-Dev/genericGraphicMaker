@@ -7,28 +7,6 @@ export class CloneObjectController {
 
     }
 
-    cloneObject(object, clonedObject = {}){
-
-        for (let key in object) {
-
-            if(typeof(object[key]) == "object"){
-
-                this.cloneObjectFunctions[key](
-                    object,
-                    clonedObject,
-                    {
-                        "keyType": key
-                    },
-                )
-
-            }
-            
-        }
-
-        return clonedObject
-
-    }
-
     cloneAttribute(object, clonedObject = {}){
 
         for (let key in object) {
@@ -48,11 +26,7 @@ export class CloneObjectController {
         return clonedObject
     }
 
-    recursiveCloneAttribute(object, clonedObject = undefined, overwrite = false){
-
-        if(!clonedObject){
-            clonedObject = new object.constructor
-        }
+    recursiveCloneAttribute(object, clonedObject = new object.constructor, overwrite = false){
 
         let dummy = object
 

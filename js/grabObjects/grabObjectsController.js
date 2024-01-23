@@ -1,4 +1,4 @@
-
+import { onInit } from "../misc/miscFunctions.js"
 import { VectorController } from "../generalUtils/vector.js"
 import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
