@@ -68,8 +68,8 @@ export class NodeConfigController {
         }
 
     }
-
-    delete(){
+    
+    getOpenNode(){
 
         let nodes = this.nodeConfigHTML.children
 
@@ -79,15 +79,23 @@ export class NodeConfigController {
 
             if(node.style.display != "none"){
 
-                let listID = node.getAttribute("list_id")
-
-                node.remove()
-
-                return listID
+                return node
 
             }
             
         }
+
+    }
+
+    delete(){
+
+        let node = this.getOpenNode()
+
+        let listID = node.getAttribute("list_id")
+
+        node.remove()
+
+        return listID
 
     }
 
