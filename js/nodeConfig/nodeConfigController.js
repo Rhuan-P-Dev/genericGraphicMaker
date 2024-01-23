@@ -87,11 +87,17 @@ export class NodeConfigController {
 
     }
 
+    getNodeID(node){
+
+        return node.getAttribute("list_id")
+
+    }
+
     delete(){
 
         let node = this.getOpenNode()
 
-        let listID = node.getAttribute("list_id")
+        let listID = this.getNodeID(node)
 
         node.remove()
 
