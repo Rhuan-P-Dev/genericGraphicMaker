@@ -128,8 +128,6 @@ export class GraphicList{
         let node = this.return()
 
         while(
-            value
-            &&
             node.next
         ){
 
@@ -137,8 +135,6 @@ export class GraphicList{
                 node.ID == ID
                 &&
                 node.value.params
-                &&
-                node.value.params[key]
             ){
                 node.value.params[key] = value
                 return true
