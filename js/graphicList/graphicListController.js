@@ -228,9 +228,11 @@ export class GraphicListController {
 
         nodes = GraphicListConst.getDownload(nodes)
 
-        nodes = new naiveOptimization(nodes)
+        let originalNodes = CloneObject.recursiveCloneAttribute(nodes)
 
-        return nodes
+        let optimizedNodes = new naiveOptimization(nodes)
+
+        return [originalNodes, optimizedNodes]
 
     }
     

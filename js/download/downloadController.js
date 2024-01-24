@@ -20,11 +20,17 @@ export class DownloadController {
 
             let data = GraphicList.getDownload()
     
-            data = JSON.stringify(data)
+            let originalNodes = JSON.stringify(data[0])
+            let optimizedNodes = JSON.stringify(data[1])
     
             this.downloader(
                 "graphic.js",
-                data
+                originalNodes
+            )
+
+            this.downloader(
+                "graphic-optimized.js",
+                optimizedNodes
             )
     
         })
