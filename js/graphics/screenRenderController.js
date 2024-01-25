@@ -447,8 +447,15 @@ export class ScreenRenderController {
             params.y,
             params.radius,
             0,
-            Math.PI * 2)
-        ScreenRender.mainCanvasContext.stroke()
+            Math.PI * 2
+        )
+        
+        if(params.fill){
+            ScreenRender.mainCanvasContext.fill()
+        }else{
+            ScreenRender.mainCanvasContext.stroke()
+        }
+        
 
     }
 
@@ -474,33 +481,11 @@ export class ScreenRenderController {
 
         }
 
-        ScreenRender.mainCanvasContext.stroke()
-        ScreenRender.mainCanvasContext.closePath()
-
-    }
-
-    fillArea(params){
-
-        if(!params.positions[0]){return}
-
-        ScreenRender.setStyleParams(params)
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(
-            params.positions[0][0],
-            params.positions[0][1]
-        )
-
-        for (let index = 1; index < params.positions.length; index++) {
-    
-            ScreenRender.mainCanvasContext.lineTo(
-                params.positions[index][0],
-                params.positions[index][1]
-            )
-
+        if(params.fill){
+            ScreenRender.mainCanvasContext.fill()
+        }else{
+            ScreenRender.mainCanvasContext.stroke()
         }
-    
-        ScreenRender.mainCanvasContext.fill()
 
     }
 
@@ -532,7 +517,11 @@ export class ScreenRenderController {
             params.startAngle,
             params.endAngle
         )
-        ScreenRender.mainCanvasContext.stroke()
+        if(params.fill){
+            ScreenRender.mainCanvasContext.fill()
+        }else{
+            ScreenRender.mainCanvasContext.stroke()
+        }
     }
 
     setStyleParams(params){
