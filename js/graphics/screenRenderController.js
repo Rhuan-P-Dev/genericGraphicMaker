@@ -384,7 +384,7 @@ export class ScreenRenderController {
 
             MainCanvasObserver.run(e)
 
-            if(e["shiftKey"]){
+            if(e["ctrlKey"]){
                 ScreenRender.setMainCanvasZero("width", e.offsetX)
                 ScreenRender.setMainCanvasZero("height", e.offsetY)
 
