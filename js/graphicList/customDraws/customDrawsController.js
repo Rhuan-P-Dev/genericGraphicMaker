@@ -13,8 +13,6 @@ export class CustomDrawsController {
 
     draws = {
 
-        "test": [{"params":{"scale":true,"objectColor":false,"color":"#ffffff","lineWidth":1,"positions":[[-7,-7.1],[7.3,-7],[7.3,7.7],[-7,7.6],[-7.4,-7.4],[-7,-7.125]]},"functionName":"drawLine"}]
-
     }
 
     addCustomDraws(){
