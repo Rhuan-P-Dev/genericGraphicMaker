@@ -36,12 +36,16 @@ export class NodeLayerController {
         }
 
         newHtmlElement.setAttribute("list_id", ID)
+        newHtmlElement.setAttribute("id", ID)
 
         newHtmlElement.addEventListener("click", () => {
 
             NodeConfig.hidenAll()
+            this.deselectAll()
 
             NodeConfig.show(ID)
+
+            this.select(ID)
 
             ScreenRender.resetCanvasCallback()
 
@@ -69,6 +73,24 @@ export class NodeLayerController {
             
         }
 
+    }
+
+    select(ID){
+
+        document.getElementById(ID).classList.add("selected")
+
+    }
+
+    deselectAll(){
+
+        let elements = this.nodeLayerHTML.getElementsByClassName("selected")
+
+        for (let index = 0; index < elements.length; index++) {
+
+            elements[index].classList.remove("selected")
+            
+        }
+    
     }
 
 }
