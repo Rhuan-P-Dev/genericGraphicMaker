@@ -53,7 +53,7 @@ export class CustomDrawsController {
 
             let div = document.createElement("div")
 
-            div.setAttribute("class", "clickable interativeDefault")
+            div.setAttribute("class", "clickable interactiveDefault")
 
             div.innerHTML = draw
 

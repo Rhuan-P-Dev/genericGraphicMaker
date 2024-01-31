@@ -177,7 +177,7 @@ html,body{
 
 /* INTERACTIVE */
 
-.interativeDefault:hover {
+.interactiveDefault:hover {
     color: white;
     background-color: black;
     border: 1px solid white !important;

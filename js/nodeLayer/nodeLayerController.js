@@ -24,7 +24,7 @@ export class NodeLayerController {
 
         let newHtmlElement = document.createElement("div")
 
-        newHtmlElement.setAttribute("class", "clickable interativeDefault")
+        newHtmlElement.setAttribute("class", "clickable interactiveDefault")
         newHtmlElement.innerHTML = templateName
 
         nodeLayerTemplateInfo.add(templateName, ID)
