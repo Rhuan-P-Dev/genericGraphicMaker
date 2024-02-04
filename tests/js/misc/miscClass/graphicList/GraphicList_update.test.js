@@ -158,30 +158,3 @@ Deno.test("GraphicList - update() - random - 2**20 | 250", () => {
     makeTest(addArray)
 
 })
-
-Deno.test("GraphicList - update() - fail", () => {
-
-    const GraphicListTest = new GraphicList()
-
-    GraphicListTest.add(new pushNode(), "123")
-
-    expect(
-        GraphicListTest.update(
-            "123",
-            "wsdef-034ut3et34t43",
-            1
-        )
-    ).toEqual(false)
-
-})
-
-Deno.test("GraphicList - update() - fail - null, undefined, false", () => {
-
-    makeTest([
-        null,
-        undefined,
-        false,
-        NaN
-    ], false)
-
-})

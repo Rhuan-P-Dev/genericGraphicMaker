@@ -1,12 +1,17 @@
+import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { onInit } from "../misc/miscFunctions.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
 import { nodeLayerTemplateInfoController } from "./nodeLayerTemplateInfoController.js"
 
-var nodeLayerTemplateInfo = ""
+var nodeLayerTemplateInfo
+var NodeConfig
+var ScreenRender
 
 onInit(function(){
 
     nodeLayerTemplateInfo = new nodeLayerTemplateInfoController()
+    NodeConfig = new NodeConfigController()
+    ScreenRender = new ScreenRenderController()
 
 })
 
@@ -34,9 +39,11 @@ export class NodeLayerController {
 
         newHtmlElement.addEventListener("click", () => {
 
-            new NodeConfigController().hidenAll()
+            NodeConfig.hidenAll()
 
-            new NodeConfigController().show(ID)
+            NodeConfig.show(ID)
+
+            ScreenRender.resetCanvasCallback()
 
         })
 

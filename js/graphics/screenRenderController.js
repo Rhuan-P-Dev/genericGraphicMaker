@@ -31,7 +31,7 @@ var resetCallback = () => {}
 
 const MainCanvasObserver = new Observer()
 
-var zoom = 4
+var zoom = 32
 var radian = 0
 
 export class ScreenRenderController {
@@ -86,7 +86,7 @@ export class ScreenRenderController {
 
     getAlignerNumber(){
 
-        return 2
+        return 0.5
 
     }
 
@@ -151,32 +151,45 @@ export class ScreenRenderController {
 
     }
 
-    drawShipDefaultBox(){
+    drawShipDefaultBox(loop, div, step){
 
         let object = {
             "width": 6,
             "height": 6,
         }
 
-        ScreenRender.fillArea({
+        if(loop <= 0){return}
 
+        ScreenRender.drawLine({
+
+            "lineWidth": 1 / ScreenRender.getZoom(),
             "positions": [
                 [
-                    0 - object.width,
-                    0 - object.height
+                    this.aligner(0 - object.width / div),
+                    this.aligner(0 - object.height / div)
                 ],[
-                    0 + object.width,
-                    0 - object.height
+                    this.aligner(0 + object.width / div),
+                    this.aligner(0 - object.height / div)
                 ],[
-                    0 + object.width,
-                    0 + object.height
+                    this.aligner(0 + object.width / div),
+                    this.aligner(0 + object.height / div)
                 ],[
-                    0 - object.width,
-                    0 + object.height
-                ]
+                    this.aligner(0 - object.width / div),
+                    this.aligner(0 + object.height / div)
+                ],
+                [
+                    this.aligner(0 - object.width / div),
+                    this.aligner(0 - object.height / div)
+                ],
             ]
 
         })
+
+        ScreenRender.drawShipDefaultBox(
+            loop - 1,
+            div + step,
+            step + step,
+        )
 
     }
 
@@ -277,8 +290,8 @@ export class ScreenRenderController {
 
     }
 
-    minZoom = 1 - 0.25
-    maxZoom = 16 + 0.25
+    minZoom = 1 - 2
+    maxZoom = 64 + 2
 
     changerZoom(value){
 
@@ -330,14 +343,18 @@ export class ScreenRenderController {
         )
 
         ScreenRender.drawCentralCircles(
-            6, // -1?
+            8,
             2,
-            10
-        ) 
-
-        ScreenRender.drawShipDefaultBox()
+            1
+        )
 
         ScreenRender.drawShipFront()
+
+        ScreenRender.drawShipDefaultBox(
+            5,
+            1,
+            0.25
+        )
 
         let objects = GraphicList.return()
 
@@ -367,7 +384,7 @@ export class ScreenRenderController {
 
             MainCanvasObserver.run(e)
 
-            if(e["shiftKey"]){
+            if(e["ctrlKey"]){
                 ScreenRender.setMainCanvasZero("width", e.offsetX)
                 ScreenRender.setMainCanvasZero("height", e.offsetY)
 
@@ -391,7 +408,7 @@ export class ScreenRenderController {
                     )
 
                 }else{
-                    ScreenRender.changerZoom(0.25)
+                    ScreenRender.changerZoom(-2)
                 }
 
             } else {
@@ -403,7 +420,7 @@ export class ScreenRenderController {
                     )
 
                 }else{
-                    ScreenRender.changerZoom(-0.25)
+                    ScreenRender.changerZoom(2)
                 }
 
             }
@@ -430,8 +447,15 @@ export class ScreenRenderController {
             params.y,
             params.radius,
             0,
-            Math.PI * 2)
-        ScreenRender.mainCanvasContext.stroke()
+            Math.PI * 2
+        )
+        
+        if(params.fill){
+            ScreenRender.mainCanvasContext.fill()
+        }else{
+            ScreenRender.mainCanvasContext.stroke()
+        }
+        
 
     }
 
@@ -457,33 +481,11 @@ export class ScreenRenderController {
 
         }
 
-        ScreenRender.mainCanvasContext.stroke()
-        ScreenRender.mainCanvasContext.closePath()
-
-    }
-
-    fillArea(params){
-
-        if(!params.positions[0]){return}
-
-        ScreenRender.setStyleParams(params)
-
-        ScreenRender.mainCanvasContext.beginPath()
-        ScreenRender.mainCanvasContext.moveTo(
-            params.positions[0][0],
-            params.positions[0][1]
-        )
-
-        for (let index = 1; index < params.positions.length; index++) {
-    
-            ScreenRender.mainCanvasContext.lineTo(
-                params.positions[index][0],
-                params.positions[index][1]
-            )
-
+        if(params.fill){
+            ScreenRender.mainCanvasContext.fill()
+        }else{
+            ScreenRender.mainCanvasContext.stroke()
         }
-    
-        ScreenRender.mainCanvasContext.fill()
 
     }
 
@@ -515,7 +517,11 @@ export class ScreenRenderController {
             params.startAngle,
             params.endAngle
         )
-        ScreenRender.mainCanvasContext.stroke()
+        if(params.fill){
+            ScreenRender.mainCanvasContext.fill()
+        }else{
+            ScreenRender.mainCanvasContext.stroke()
+        }
     }
 
     setStyleParams(params){

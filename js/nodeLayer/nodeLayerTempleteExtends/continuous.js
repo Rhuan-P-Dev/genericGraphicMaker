@@ -57,7 +57,11 @@ export class NodeLayerContinuous {
 
                             let result = undefined
 
-                            if(start !== false){
+                            if(
+                                !e["shiftKey"]
+                                &&
+                                start !== false
+                            ){
 
                                 result = new Near().generate(
                                     start,
@@ -67,6 +71,8 @@ export class NodeLayerContinuous {
                             }
 
                             if(
+                                !e["shiftKey"]
+                                &&
                                 result
                                 &&
                                 result[0]

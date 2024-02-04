@@ -21,6 +21,12 @@ export class NodeLayerBase {
             "step": 1,
             "keyUpdate": "lineWidth",
             "placeholder": "Line Width"
+        },{
+            "type": "boolean",
+            "default": false,
+            "text": "fill: ",
+            "step": 1,
+            "keyUpdate": "fill",
         }
     ]
 
@@ -29,7 +35,8 @@ export class NodeLayerBase {
         "objectColor": false,
         "color": "black",
         // gambiara / Hack
-        "lineWidth": 1
+        "lineWidth": 1,
+        "fill": false
     }
 
 }
