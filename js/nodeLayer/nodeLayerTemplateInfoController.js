@@ -195,6 +195,8 @@ export class nodeLayerTemplateInfoController {
 
                 let name = GraphicList.get(ID).value.functionName
 
+                if(!name){return}
+
                 this.buildHtml(
                     name,
                     div,
@@ -211,6 +213,8 @@ export class nodeLayerTemplateInfoController {
         }else{
 
             let div = document.createElement("div")
+
+            if(!this.templates[functionName]){return}
 
             this.buildHtml(
                 functionName,

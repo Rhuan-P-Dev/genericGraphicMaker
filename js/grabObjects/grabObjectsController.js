@@ -35,7 +35,7 @@ export class GrabObjectsController {
             e.offsetY
         )
 
-        let drawInstructions = GraphicList.return()
+        let drawInstructions = GraphicList.return(true)
 
         let stop = false
 

@@ -1,6 +1,5 @@
 import { onInit } from "../misc/miscFunctions.js"
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
-import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { NodeLayerArc } from "../nodeLayer/nodeLayerTempleteExtends/arc.js"
 import { NodeLayerContinuous } from "../nodeLayer/nodeLayerTempleteExtends/continuous.js"
 import { NodeLayerRadius } from "../nodeLayer/nodeLayerTempleteExtends/radius.js"
@@ -9,13 +8,11 @@ import { CustomDrawsController } from "./customDraws/customDrawsController.js"
 import { GraphicList, Observer } from "../misc/miscClass.js"
 
 var CloneObject
-var ScreenRender
 var CustomDraws
 
 onInit(function(){
 
     CloneObject = new CloneObjectController()
-    ScreenRender = new ScreenRenderController()
     CustomDraws = new CustomDrawsController()
 
 })
@@ -62,13 +59,25 @@ export class GraphicListController {
 
     }
 
+    getDraw(templateName){
+
+        return this.GraphicListInitTable[templateName]
+
+    }
+
     add(templateName){
 
-        let object = this.GraphicListInitTable[templateName] || CustomDraws.get(templateName)
+        let object = this.getDraw(templateName) || CustomDraws.get(templateName)
 
         let ID = undefined
 
-        if(!object.length){
+        if(
+            object.length === undefined
+            ||
+            object.length === 1
+            ||
+            typeof object === "string"
+        ){
             
             ID = this.addSingle(
                 templateName,
@@ -92,15 +101,27 @@ export class GraphicListController {
         object
     ){
 
-        object.functionName = templateName
+        let addObject = undefined
 
-        let ID = GraphicListConst.add(
+        if(
+            typeof(object) === "string"
+            ||
+            !this.getDraw(templateName)
+        ){
 
-            CloneObject.recursiveCloneAttribute(
+            addObject = templateName
+
+        }else{
+
+            addObject = CloneObject.recursiveCloneAttribute(
                 object
             )
 
-        )
+            addObject.functionName = templateName
+
+        }
+    
+        let ID = GraphicListConst.add(addObject)
 
         return ID
 
@@ -112,12 +133,22 @@ export class GraphicListController {
 
         for (let index = 0; index < objects.length; index++) {
 
-            let object = CloneObject.recursiveCloneAttribute(objects[index])
+            let ID = undefined
 
-            let ID = GraphicListConst.add({
-                "functionName": object.functionName,
-                "params": object.params
-            })
+            if(typeof(objects[index]) === "string"){
+
+                ID = GraphicListConst.add(objects[index])
+
+            }else{
+
+                let object = CloneObject.recursiveCloneAttribute(objects[index])
+
+                ID = GraphicListConst.add({
+                    "functionName": object.functionName,
+                    "params": object.params
+                })
+
+            }
 
             IDs.push(ID)
             
@@ -216,9 +247,53 @@ export class GraphicListController {
     }
 
 
-    return(){
+    return(transform = false){
 
-        return GraphicListConst.return()
+        if(transform){
+
+            return this.transform()
+
+        }else{
+
+            return GraphicListConst.return()
+
+        }
+
+    }
+
+    transform(){
+
+        let tempGraphicList = new GraphicList()
+
+        let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
+
+        while(nodes.next){
+
+            let drawInstructions = []
+
+            if(typeof(nodes.value) === "string"){
+
+                drawInstructions = CustomDraws.get(nodes.value, false)
+
+            }else{
+
+                drawInstructions = [nodes.value]
+
+            }
+
+            for (let index = 0; index < drawInstructions.length; index++) {
+
+                let drawInstruction = drawInstructions[index]
+
+                tempGraphicList.add(drawInstruction)
+                
+            }
+
+            nodes = nodes.next
+
+        }
+
+        return tempGraphicList.return()
 
     }
 
@@ -247,7 +322,11 @@ class naiveOptimization{
 
             let node = nodes[index]
 
-            if(Array.isArray(node.params.positions)){
+            if(
+                node.params
+                &&
+                Array.isArray(node.params.positions)
+            ){
                 node.params.positions = this.optimize(node)
             }
 

@@ -356,7 +356,7 @@ export class ScreenRenderController {
             0.25
         )
 
-        let objects = GraphicList.return()
+        let objects = GraphicList.return(true)
 
         ComplexRender.renderComplexFormat(objects)
 
