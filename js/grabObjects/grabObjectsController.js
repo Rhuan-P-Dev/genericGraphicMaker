@@ -35,7 +35,7 @@ export class GrabObjectsController {
             e.offsetY
         )
 
-        let drawInstructions = GraphicList.return(true)
+        let drawInstructions = GraphicList.return()
 
         let stop = false
 
@@ -47,10 +47,14 @@ export class GrabObjectsController {
 
             let originalParams = drawInstructions.value.params
 
-            if(originalParams.positions){
-                stop = this.searchPoints(originalParams, mouseParams)
-            }else{
-                stop = this.searchObjects(originalParams, mouseParams)
+            if(originalParams){
+
+                if(originalParams.positions){
+                    stop = this.searchPoints(originalParams, mouseParams)
+                }else{
+                    stop = this.searchObjects(originalParams, mouseParams)
+                }
+
             }
 
             drawInstructions = drawInstructions.next

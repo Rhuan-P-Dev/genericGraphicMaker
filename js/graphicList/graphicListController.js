@@ -5,7 +5,7 @@ import { NodeLayerContinuous } from "../nodeLayer/nodeLayerTempleteExtends/conti
 import { NodeLayerRadius } from "../nodeLayer/nodeLayerTempleteExtends/radius.js"
 import { NodeLayerText } from "../nodeLayer/nodeLayerTempleteExtends/text.js"
 import { CustomDrawsController } from "./customDraws/customDrawsController.js"
-import { GraphicList, Observer } from "../misc/miscClass.js"
+import { GraphicList, Observer, referenceNode } from "../misc/miscClass.js"
 
 var CloneObject
 var CustomDraws
@@ -75,8 +75,6 @@ export class GraphicListController {
             object.length === undefined
             ||
             object.length === 1
-            ||
-            typeof object === "string"
         ){
             
             ID = this.addSingle(
@@ -86,7 +84,10 @@ export class GraphicListController {
 
         }else{
 
-            ID = this.addMultiple(object)
+            ID = this.addMultiple(
+                templateName,
+                object
+            )
 
         }
 
@@ -104,12 +105,10 @@ export class GraphicListController {
         let addObject = undefined
 
         if(
-            typeof(object) === "string"
-            ||
             !this.getDraw(templateName)
         ){
 
-            addObject = templateName
+            addObject = new referenceNode(templateName)
 
         }else{
 
@@ -127,34 +126,28 @@ export class GraphicListController {
 
     }
 
-    addMultiple(objects){
+    addMultiple(
+        templateName,
+        objects
+    ){
 
-        let IDs = []
+        let ID = undefined
 
         for (let index = 0; index < objects.length; index++) {
 
-            let ID = undefined
+            if(
+                !this.getDraw(objects[index].reference)
+            ){
 
-            if(typeof(objects[index]) === "string"){
-
-                ID = GraphicListConst.add(objects[index])
-
-            }else{
-
-                let object = CloneObject.recursiveCloneAttribute(objects[index])
-
-                ID = GraphicListConst.add({
-                    "functionName": object.functionName,
-                    "params": object.params
-                })
+                ID = GraphicListConst.add(
+                    new referenceNode(templateName)
+                )
 
             }
-
-            IDs.push(ID)
             
         }
 
-        return IDs
+        return ID
 
     }
 
@@ -271,9 +264,9 @@ export class GraphicListController {
 
             let drawInstructions = []
 
-            if(typeof(nodes.value) === "string"){
+            if(typeof(nodes.value.reference) === "string"){
 
-                drawInstructions = CustomDraws.get(nodes.value, false)
+                drawInstructions = CustomDraws.get(nodes.value.reference, false)
 
             }else{
 
