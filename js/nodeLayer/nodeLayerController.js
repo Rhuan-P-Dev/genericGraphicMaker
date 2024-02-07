@@ -24,24 +24,21 @@ export class NodeLayerController {
 
         let newHtmlElement = document.createElement("div")
 
-        newHtmlElement.setAttribute("class", "clickable interativeDefault")
+        newHtmlElement.setAttribute("class", "clickable interactiveDefault")
         newHtmlElement.innerHTML = templateName
 
         nodeLayerTemplateInfo.add(templateName, ID)
 
-        newHtmlElement.setAttribute("delete_list_id", ID)
-
-        if(typeof(ID) == "object"){
-            ID = ID[ID.length-1]
-        }
-
-        newHtmlElement.setAttribute("list_id", ID)
+        newHtmlElement.setAttribute("id", ID)
 
         newHtmlElement.addEventListener("click", () => {
 
             NodeConfig.hidenAll()
+            this.deselectAll()
 
             NodeConfig.show(ID)
+
+            this.select(ID)
 
             ScreenRender.resetCanvasCallback()
 
@@ -59,16 +56,34 @@ export class NodeLayerController {
 
             let node = nodes[index]
 
-            if(node.getAttribute("list_id") == listID){
+            if(node.id == listID){
 
                 node.remove()
 
-                return node.getAttribute("delete_list_id")
+                return node.id
 
             }
             
         }
 
+    }
+
+    select(ID){
+
+        document.getElementById(ID).classList.add("selected")
+
+    }
+
+    deselectAll(){
+
+        let elements = this.nodeLayerHTML.getElementsByClassName("selected")
+
+        for (let index = 0; index < elements.length; index++) {
+
+            elements[index].classList.remove("selected")
+            
+        }
+    
     }
 
 }

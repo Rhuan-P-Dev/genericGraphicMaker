@@ -36,6 +36,14 @@ textarea, input{
     user-select: none;
 }
 
+.selected{
+
+    color: white;
+    background-color: black;
+    border: 1px solid white !important;
+
+}
+
 /* CSS */
 
 *{
@@ -177,7 +185,7 @@ html,body{
 
 /* INTERACTIVE */
 
-.interativeDefault:hover {
+.interactiveDefault:hover {
     color: white;
     background-color: black;
     border: 1px solid white !important;

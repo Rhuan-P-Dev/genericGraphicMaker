@@ -55,7 +55,7 @@ export class NodeConfigController {
 
             let node = nodes[index]
 
-            if(node.getAttribute("list_id") == listID){
+            if(node.id == listID){
 
                 node.style.display = "block"
 
@@ -89,7 +89,7 @@ export class NodeConfigController {
 
     getNodeID(node){
 
-        return node.getAttribute("list_id")
+        return node.id
 
     }
 
