@@ -213,21 +213,7 @@ export class ScreenRenderController {
 
     drawDrawLines(){
 
-        ScreenRender.resetCanvas()
-
-        ScreenRender.mainCanvasContext.translate(
-            this.getMainCanvasZero("width"),
-            this.getMainCanvasZero("height")
-        )
-
-        ScreenRender.mainCanvasContext.rotate(
-            this.getRadian()
-        )
-
-        ScreenRender.mainCanvasContext.scale(
-            this.getZoom(),
-            this.getZoom()
-        )
+        this.reset()
 
         for (
             let index = -ScreenRender.mainCanvas.offsetHeight / 2;
@@ -319,6 +305,49 @@ export class ScreenRenderController {
         return radian
     }
 
+    applyConfig(config){
+
+        this.setCanvasState(
+            config.offset,
+            config.rotation,
+            config.canvasScale
+        )
+
+    }
+
+    reset(){
+
+        ScreenRender.resetCanvas()
+
+        this.setCanvasState(
+            {
+                "x": this.getMainCanvasZero("width"),
+                "y": this.getMainCanvasZero("height")
+            },
+            this.getRadian(),
+            this.getZoom()
+        )
+
+    }
+
+    setCanvasState(translate, rotate, scale){
+
+        ScreenRender.mainCanvasContext.translate(
+            translate.x,
+            translate.y
+        )
+
+        ScreenRender.mainCanvasContext.rotate(
+            rotate
+        )
+
+        ScreenRender.mainCanvasContext.scale(
+            scale,
+            scale
+        )
+
+    }
+
     update(){
 
         ScreenRender.resetCanvas()
@@ -356,7 +385,7 @@ export class ScreenRenderController {
             0.25
         )
 
-        let objects = GraphicList.return()
+        let objects = GraphicList.return(true)
 
         ComplexRender.renderComplexFormat(objects)
 

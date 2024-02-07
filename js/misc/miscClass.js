@@ -300,3 +300,21 @@ export class Observer extends BasicLinkedList {
     }
     
 }
+
+export class referenceNode {
+
+    constructor(name){
+
+        this.params = {
+            "reference": name,
+            "offset": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "canvasScale": 1
+        }
+
+    }
+
+}

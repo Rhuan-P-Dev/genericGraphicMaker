@@ -85,6 +85,10 @@ export class ComplexRenderController {
             let originalParams = drawInstructions.value.params
             let params = Clone.recursiveCloneAttribute(originalParams)
 
+            if(params.canvasScale !== undefined){
+                ScreenRender.applyConfig(params)
+            }
+
             params.lineWidth /= ScreenRender.getZoom()
 
             //this.debug(params)
@@ -92,6 +96,8 @@ export class ComplexRenderController {
             ScreenRender[functionName](params)
 
             drawInstructions = drawInstructions.next
+
+            ScreenRender.reset()
 
         }
 

@@ -21,6 +21,51 @@ onInit(function(){
 
 export class nodeLayerTemplateInfoController {
 
+    genericTemplate = [
+        {
+            "type":"number",
+            "step": (Math.PI / 180).toFixed(2),
+            "keyUpdate": "rotation",
+            "placeholder": "rotation"
+        },{
+           "type":"number",
+           "step": 1/100,
+           "keyUpdate": "canvasScale",
+           "placeholder": "scale"
+        },{
+            "type":"button",
+            "text": "set offset: ",
+            "callback": (params) => {
+
+                ScreenRender.setCanvasCallback(
+                    (e) => {
+
+                        let object = ScreenRender.adjustObject(
+                            e.offsetX,
+                            e.offsetY
+                        )
+                        
+                        object.x = ScreenRender.aligner(object.x)
+                        object.y = ScreenRender.aligner(object.y)
+
+                        GraphicList.update(
+                            params.listID,
+                            "offset",
+                            {
+                                "x": object.x,
+                                "y": object.y
+                            }
+                        )
+
+                        ScreenRender.resetCanvasCallback()
+
+                    }
+                )
+
+            }
+        }
+    ]
+
     htmlTypes = {
         "boolean": (params) => {
 
@@ -103,7 +148,7 @@ export class nodeLayerTemplateInfoController {
                 GraphicList.update(
                     params.listID,
                     params.keyUpdate,
-                    e.target.value
+                    parseFloat(e.target.value)
                 )
 
             })
@@ -149,19 +194,14 @@ export class nodeLayerTemplateInfoController {
     }
 
     buildHtml(
-        name,
         div = document.createElement("div"),
         text,
-        listID) {
+        listID,
+    ){
 
-        div.setAttribute("list_id", listID)
+        div.setAttribute("id", listID)
 
         div.style.display = "none"
-
-        this.createTitle(
-            name,
-            div
-        )
 
         for (let index in text) {
             
@@ -185,45 +225,32 @@ export class nodeLayerTemplateInfoController {
 
         let html = document.getElementById("nodeConfig")
 
-        if(typeof(listID) == "object") {
+        let div = document.createElement("div")
 
-            let div = document.createElement('div')
+        this.createTitle(
+            functionName,
+            div
+        )
 
-            for (let index = 0; index < listID.length; index++) {
-
-                let ID = listID[index]
-
-                let name = GraphicList.get(ID).value.functionName
-
-                this.buildHtml(
-                    name,
-                    div,
-                    CloneObject.recursiveCloneAttribute(this.templates[name]),
-                    ID
-                )
-
-            }
-
-            html.appendChild(
-                div
-            )
-
-        }else{
-
-            let div = document.createElement("div")
+        if(this.templates[functionName]){
 
             this.buildHtml(
-                functionName,
                 div,
                 CloneObject.recursiveCloneAttribute(this.templates[functionName]),
                 listID
             )
-
-            html.appendChild(
-                div
-            )
-
+    
         }
+
+        this.buildHtml(
+            div,
+            CloneObject.recursiveCloneAttribute(this.genericTemplate),
+            listID
+        )
+
+        html.appendChild(
+            div
+        )
 
     }
 
