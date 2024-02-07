@@ -305,13 +305,15 @@ export class referenceNode {
 
     constructor(name){
 
-        this.reference = name
-        this.offset = {
-            "x": 0,
-            "y": 0
+        this.params = {
+            "reference": name,
+            "offset": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "canvasScale": 1
         }
-        this.rotation = 0
-        this.canvasScale = 1
 
     }
 

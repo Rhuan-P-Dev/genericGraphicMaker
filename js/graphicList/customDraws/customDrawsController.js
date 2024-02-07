@@ -18,12 +18,11 @@ export class CustomDrawsController {
     draws = {
 
         "monte": [{"params":{"scale":true,"objectColor":false,"color":"#ffffff","lineWidth":"5","fill":true,"positions":[[-8.5,0.5],[-8.5,-3],[-8.5,-3],[-8,-3],[-8,-3.5],[-7.5,-3.5],[-7.5,-4],[-7,-4],[-7,-4.5],[-7,-3],[-7,-3],[-6.5,-3],[-6.5,-2.5],[-6,-2.5],[-6,-2],[-5.5,-2],[-5.5,-1.5],[-5,-1.5],[-5,-1],[-4.5,-1],[-4.5,-0.5],[-4,-0.5],[-4,0],[-3.5,0],[-3.5,0.5],[-3.5,0.5],[-2.5,0.5],[-2.5,0.5],[-2.5,0],[-2,0],[-2,-0.5],[-1.5,-0.5],[-1.5,-1],[-1,-1],[-1,-1.5],[-0.5,-1.5],[-0.5,-2],[0,-2],[0,-2.5],[0,-2.5],[0.5,-2.5],[0.5,-2],[1,-2],[1,-1.5],[1.5,-1.5],[1.5,-1],[1.5,-1],[5,-1],[5,-1],[5,-0.5],[5.5,-0.5],[5.5,0],[5.5,1.5],[5.5,1.5],[6,1.5],[6,2],[6.5,2],[6.5,2.5],[7,2.5],[7,3],[7,3],[7,2.5],[7.5,2.5],[7.5,2],[8,2],[8,1.5],[8.5,1.5],[8.5,1],[9,1],[9,0.5],[9.5,0.5],[9.5,0],[10,0],[10,-0.5],[10.5,-0.5],[10.5,-1],[10.5,-1],[11,-1],[11,-0.5],[11.5,-0.5],[11.5,0],[12,0],[12,0.5],[12.5,0.5],[12.5,1],[12.5,1],[12.5,0.5]]},"functionName":"drawLine"}],
-        "monte left": [{"reference":"monte","offset":{"x":-15,"y":0},"rotation":0,"canvasScale":1}],
-        "monte right": [{"reference":"monte","offset":{"x":10,"y":0},"rotation":0,"canvasScale":1}],
-        "monte do amor <3": [{"reference":"monte","offset":{"x":0,"y":10},"rotation":0.25,"canvasScale":1}],
-        "namesless clauster": [{"reference":"monte","offset":{"x":0,"y":0},"rotation":0,"canvasScale":1},{"reference":"monte left","offset":{"x":0,"y":0},"rotation":0,"canvasScale":1},{"reference":"monte right","offset":{"x":0,"y":0},"rotation":0,"canvasScale":1},{"reference":"monte do amor <3","offset":{"x":0,"y":0},"rotation":0,"canvasScale":1}],
-        "namesless clauster - TOP": [{"reference":"namesless clauster","offset":{"x":0,"y":-50},"rotation":0,"canvasScale":2}],
-        "teste multuiples": [{"reference":"namesless clauster","offset":{"x":0,"y":0},"rotation":0,"canvasScale":1},{"params":{"scale":true,"objectColor":false,"color":"black","lineWidth":1,"fill":true,"positions":[[-10,-6],[-10,-6.5],[-9.5,-6.5],[-9.5,-7],[-9,-7],[-9,-7.5],[-8.5,-7.5],[-8.5,-8],[-8,-8],[-8,-8.5],[-8,-3],[-7.5,-3],[-7.5,-2.5],[-7,-2.5],[-7,-2],[-6.5,-2],[-6.5,-1.5],[-6,-1.5],[-6,-1],[-5.5,-1],[-5.5,-0.5],[-5,-0.5],[-5,0],[-5,3],[-5,1],[-4.5,1],[-4.5,0.5],[-4,0.5],[-4,0],[-3.5,0],[-3.5,-0.5],[-3,-0.5],[-3,-1],[-2.5,-1],[-2.5,-1.5],[-2.5,-3.5],[-2,-3.5],[-2,-4],[-1.5,-4],[-1.5,-4.5],[-1,-4.5],[-1,-5],[-1,-3],[-0.5,-3],[-0.5,-2.5],[0,-2.5],[0,-2],[0.5,-2],[0.5,-1.5],[0.5,1],[1,1],[1,1.5],[1.5,1.5],[1.5,2],[1.5,-0.5],[2,-0.5],[2,-1],[2.5,-1],[2.5,-1.5],[3,-1.5],[3,-2],[3.5,-2],[3.5,-2.5],[4,-2.5],[4,-3],[4.5,-3],[4.5,-3.5],[5,-3.5],[5,-4],[5.5,-4],[5.5,-4.5],[5.5,1],[6,1],[6,1.5],[6.5,1.5],[6.5,2],[7,2],[7,2.5],[7.5,2.5],[7.5,3],[8,2.5],[8,2],[8.5,2],[8.5,1.5],[8.5,-2.5],[9,-2.5],[9,-3],[9.5,-3],[9.5,-3.5],[10,-3.5],[10,-4],[10.5,-4],[10.5,-4.5],[10.5,3.5],[10,3.5],[10,4],[4,4],[4,3.5],[3.5,3.5],[3.5,3],[3,3],[3,2.5],[2.5,2.5],[2.5,2],[2,2],[2,1.5],[1.5,1],[1,0.5],[0.5,0.5],[0.5,0],[0,0],[0,-0.5],[-0.5,-0.5],[-0.5,-1],[-0.5,-3.5],[0,-3.5],[0,-4],[0.5,-4],[0.5,-4.5],[1,-4.5],[1,-5],[-3.5,-5],[-3.5,-5.5],[-3.5,-6.5],[-4,-6.5],[-4,-7],[-4.5,-7],[-4.5,-7.5],[-5,-7.5],[-5,-8],[2,-8],[2,-8.5]]},"functionName":"drawLine"}],
+        "monte left": [{"params":{"reference":"monte","offset":{"x":-15,"y":0},"rotation":0,"canvasScale":1}}],
+        "monte left - META": [{"params":{"reference":"monte left","offset":{"x":-15,"y":0},"rotation":0,"canvasScale":1}}],
+        "monte right": [{"params":{"reference":"monte","offset":{"x":10,"y":0},"rotation":0,"canvasScale":1}}],
+        "monte do amor <3": [{"params":{"reference":"monte","offset":{"x":0,"y":10},"rotation":0.25,"canvasScale":1}}],
+        "teste": [{"params":{"scale":true,"objectColor":false,"color":"#ff0000","lineWidth":1,"fill":false,"positions":[[-13,1],[-13,-4],[-13,-4],[-13.5,-4],[-13.5,-4.5],[-13.5,-4.5],[-13,-4.5],[-13,-4],[-12.5,-4],[-12.5,-3.5],[-12,-3.5],[-12,-3],[-11.5,-3],[-11.5,-2.5],[-11,-2.5],[-11,-2],[-10.5,-2],[-10.5,-1.5],[-10,-1.5],[-10,-1],[-10,2.5],[-10,2.5],[-9.5,2.5],[-9.5,3],[-9.5,-5],[-9.5,-5],[-9,-5],[-9,-5.5],[-8.5,-5.5],[-8.5,-6],[-8.5,-6],[-8,-6],[-8,-5.5],[-7.5,-5.5],[-7.5,-5],[-7,-5],[-7,-4.5],[-7,-4.5],[-7,1],[-7,1],[-6.5,1],[-6.5,0.5],[-6,0.5],[-6,0],[-5.5,0],[-5.5,-0.5],[-5.5,-0.5],[-5.5,-6],[-5.5,-1.5],[-5.5,-1.5],[-5,-1.5],[-5,-1],[-4.5,-1],[-4.5,-0.5],[-4,-0.5],[-4,0],[-3.5,0],[-3.5,0.5],[-3,0.5],[-3,1],[-2.5,1],[-2.5,1.5],[-1.5,1.5],[-1.5,1.5],[-1.5,1],[-1,1],[-1,0.5],[-1,-3.5],[-1,-3.5],[-0.5,-3.5],[-0.5,-4],[0,-4],[0,-4.5],[0.5,-4.5],[0.5,-5]]},"functionName":"drawLine"},{"params":{"reference":"monte left","offset":{"x":15,"y":0.5},"rotation":0,"canvasScale":-0.1}},{"params":{"scale":true,"objectColor":false,"color":"#11ff00","lineWidth":1,"fill":true,"x":5.5,"y":-8,"radius":10,"offset":{"x":0,"y":0},"rotation":0,"canvasScale":1},"functionName":"drawCircle"},{"params":{"reference":"monte right","offset":{"x":-2.5,"y":6},"rotation":0,"canvasScale":1}}],
 
         "missile - P1": [{"functionName":"drawLine","params":{"scale":true,"objectColor":false,"color":"#000000","lineWidth":1,"fill":true,"positions":[[-2.5,-8],[2.5,-8],[2.5,13],[-2.5,13],[-2.5,12.5]]}},{"functionName":"drawLine","params":{"scale":true,"objectColor":true,"color":"#ffffff","lineWidth":1,"fill":true,"positions":[[2.5,13],[0,20],[-2.5,13]]}},{"functionName":"drawLine","params":{"scale":true,"objectColor":false,"color":"#bbff00","lineWidth":1,"fill":true,"positions":[[2,-8],[2,-11.5],[0.5,-11.5],[0.5,-8],[-0.5,-8],[-0.5,-11.5],[-2,-11.5],[-2,-8]]}}],
         "missile - P2": [{"functionName":"drawLine","params":{"scale":true,"objectColor":false,"color":"#000000","lineWidth":1,"fill":true,"positions":[[-2.5,-8],[2.5,-8],[2.5,13],[-2.5,13],[-2.5,12.5]]}},{"functionName":"drawLine","params":{"scale":true,"objectColor":true,"color":"#ffffff","lineWidth":1,"fill":true,"positions":[[2.5,13],[0,20],[-2.5,13]]}},{"functionName":"drawLine","params":{"scale":true,"objectColor":false,"color":"#bbff00","lineWidth":1,"fill":true,"positions":[[2,-8],[2,-11.5],[0.5,-11.5],[0.5,-8],[-0.5,-8],[-0.5,-11.5],[-2,-11.5],[-2,-8]]}},{"params":{"scale":true,"objectColor":false,"color":"black","lineWidth":1,"fill":true,"positions":[[2.5,-3.5],[6.5,-7.5],[2.5,-7.5]]},"functionName":"drawLine"},{"params":{"scale":true,"objectColor":false,"color":"#000000","lineWidth":1,"fill":true,"positions":[[-2.5,-3.5],[-6.5,-7.5],[-2.5,-7.5]]},"functionName":"drawLine"}],
@@ -77,7 +76,7 @@ export class CustomDrawsController {
 
     }
 
-    get(name, raw = true, params = new referenceNode()) {
+    get(name, raw = true, params = new referenceNode().params) {
 
         if(raw){
 
@@ -94,14 +93,14 @@ export class CustomDrawsController {
                 let object = drawInstructions[index]
 
                 if(
-                    object.reference
+                    object.params.reference
                 ){
 
                     this.sumParams(object, params)
 
                     tempDrawInstructions = tempDrawInstructions.concat(
                         this.get(
-                            object.reference, false, object
+                            object.params.reference, false, object.params
                         )
                     )
 
@@ -125,13 +124,13 @@ export class CustomDrawsController {
 
     sumParams(object, params){
 
-        object.offset.x += params.offset.x
-        object.offset.y += params.offset.y
+        object.params.offset.x += params.offset.x
+        object.params.offset.y += params.offset.y
 
-        object.rotation += params.rotation
+        object.params.rotation += params.rotation
 
         if(params.canvasScale !== 1){
-            object.canvasScale += params.canvasScale
+            object.params.canvasScale += params.canvasScale
         }
 
     }

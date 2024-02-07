@@ -36,7 +36,15 @@ export class NodeLayerBase {
         "color": "black",
         // gambiara / Hack
         "lineWidth": 1,
-        "fill": false
+        "fill": false,
+        // generic
+        "reference": undefined,
+        "offset": {
+            "x": 0,
+            "y": 0
+        },
+        "rotation": 0,
+        "canvasScale": 1
     }
 
 }

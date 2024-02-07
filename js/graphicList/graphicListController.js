@@ -69,27 +69,10 @@ export class GraphicListController {
 
         let object = this.getDraw(templateName) || CustomDraws.get(templateName)
 
-        let ID = undefined
-
-        if(
-            object.length === undefined
-            ||
-            object.length === 1
-        ){
-            
-            ID = this.addSingle(
-                templateName,
-                object
-            )
-
-        }else{
-
-            ID = this.addMultiple(
-                templateName,
-                object
-            )
-
-        }
+        let ID = this.addSingle(
+            templateName,
+            object
+        )
 
         GraphicListObserver.run()
 
@@ -126,42 +109,11 @@ export class GraphicListController {
 
     }
 
-    addMultiple(
-        templateName,
-        objects
-    ){
-
-        let ID = undefined
-
-        for (let index = 0; index < objects.length; index++) {
-
-            if(
-                !this.getDraw(objects[index].reference)
-            ){
-
-                ID = GraphicListConst.add(
-                    new referenceNode(templateName)
-                )
-
-            }
-            
-        }
-
-        return ID
-
-    }
-
     remove(ID){
 
-        let arrayID = ID.split(",")
-
-        for(let index = 0; index < arrayID.length; index++){
-
-            GraphicListConst.remove(
-                arrayID[index]
-            )
-
-        }
+        GraphicListConst.remove(
+            ID
+        )
 
         GraphicListObserver.run()
 
@@ -264,9 +216,9 @@ export class GraphicListController {
 
             let drawInstructions = []
 
-            if(typeof(nodes.value.reference) === "string"){
+            if(typeof(nodes.value.params.reference) === "string"){
 
-                drawInstructions = CustomDraws.get(nodes.value.reference, false)
+                drawInstructions = CustomDraws.get(nodes.value.params.reference, false, nodes.value.params)
 
             }else{
 

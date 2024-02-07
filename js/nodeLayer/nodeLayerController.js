@@ -29,13 +29,6 @@ export class NodeLayerController {
 
         nodeLayerTemplateInfo.add(templateName, ID)
 
-        newHtmlElement.setAttribute("delete_list_id", ID)
-
-        if(typeof(ID) == "object"){
-            ID = ID[ID.length-1]
-        }
-
-        newHtmlElement.setAttribute("list_id", ID)
         newHtmlElement.setAttribute("id", ID)
 
         newHtmlElement.addEventListener("click", () => {
@@ -63,11 +56,11 @@ export class NodeLayerController {
 
             let node = nodes[index]
 
-            if(node.getAttribute("list_id") == listID){
+            if(node.id == listID){
 
                 node.remove()
 
-                return node.getAttribute("delete_list_id")
+                return node.id
 
             }
             
