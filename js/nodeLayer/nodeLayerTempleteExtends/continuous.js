@@ -308,9 +308,14 @@ class Near extends BasicNear {
         let result = []
 
         let last = {
-            "x": start.x,
-            "y": start.y
+            "x": ScreenRender.aligner(start.x),
+            "y": ScreenRender.aligner(start.y)
         }
+
+        result.push([
+            last.x,
+            last.y
+        ])
 
         while(
             last.x != end.x
