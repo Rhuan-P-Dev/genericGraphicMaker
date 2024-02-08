@@ -402,6 +402,9 @@ export class ScreenRenderController {
 
     }
 
+    radianStep = (Math.PI / 180) * 11.25
+    zoomStep = 2
+
     addTriggers(){
 
         GraphicList.getGraphicListObserver().add({
@@ -427,33 +430,34 @@ export class ScreenRenderController {
 
         document.querySelector("html").addEventListener("wheel", (e) => {
 
+            let radianStep = this.radianStep
+            let zoomStep = this.zoomStep
+            
+
             if (e.deltaY > 0) {
 
-
-                if(e["shiftKey"]){
-
-                    ScreenRender.changerRadian(
-                        (Math.PI / 180) * 11.25
-                    )
-
-                }else{
-                    ScreenRender.changerZoom(-2)
-                }
+                zoomStep = -zoomStep
+                
 
             } else {
-                
-                if(e["shiftKey"]){
 
-                    ScreenRender.changerRadian(
-                        (-Math.PI / 180) * 11.25
-                    )
-
-                }else{
-                    ScreenRender.changerZoom(2)
-                }
+                radianStep = -radianStep
 
             }
-    
+
+
+            if(e["shiftKey"]){
+                ScreenRender.changerRadian(radianStep)
+            }
+
+            if(
+                !e["shiftKey"]
+                &&
+                !e["altKey"]
+            ){
+                ScreenRender.changerZoom(zoomStep)
+            }
+
             ScreenRender.update()
     
         })
