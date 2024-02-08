@@ -276,7 +276,7 @@ export class ScreenRenderController {
 
     }
 
-    minZoom = 1 - 2
+    minZoom = 4 - 2
     maxZoom = 64 + 2
 
     changerZoom(value){
