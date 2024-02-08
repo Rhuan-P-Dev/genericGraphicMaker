@@ -216,7 +216,7 @@ export class ScreenRenderController {
         this.reset()
 
         for (
-            let index = -ScreenRender.mainCanvas.offsetHeight / 2;
+            let index = -this.aligner(ScreenRender.mainCanvas.offsetHeight / 2);
             index < ScreenRender.mainCanvas.offsetHeight / 2;
             index += ScreenRender.getAlignerNumber()
         ){
@@ -239,7 +239,7 @@ export class ScreenRenderController {
         }
 
         for (
-            let index = -ScreenRender.mainCanvas.offsetWidth / 2;
+            let index = -this.aligner(ScreenRender.mainCanvas.offsetWidth / 2);
             index < ScreenRender.mainCanvas.offsetWidth / 2;
             index += this.getAlignerNumber()
         ) {
