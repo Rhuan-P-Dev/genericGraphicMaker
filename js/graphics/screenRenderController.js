@@ -396,17 +396,6 @@ export class ScreenRenderController {
 
     }
 
-    init(){
-
-        return
-
-        ScreenRender.mainCanvasContext.translate(
-            ScreenRender.mainCanvas.width / 2,
-            ScreenRender.mainCanvas.height / 2,
-        )
-
-    }
-
     radianStep = (Math.PI / 180) * 11.25
     zoomStep = 2
 
