@@ -268,9 +268,14 @@ class NearLow extends BasicNear{
         let result = []
 
         let last = {
-            "x": start.x,
-            "y": start.y
+            "x": ScreenRender.aligner(start.x),
+            "y": ScreenRender.aligner(start.y)
         }
+
+        result.push([
+            last.x,
+            last.y
+        ])
 
         let directions = this.getDirections(last)
         this.getDistances(directions, end)
@@ -286,11 +291,6 @@ class NearLow extends BasicNear{
             last = this.generateNode(directions, result, last)
 
         }
-
-        result.push([
-            last.x,
-            last.y
-        ])
 
         return result
 
