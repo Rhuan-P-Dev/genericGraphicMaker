@@ -215,9 +215,14 @@ export class ScreenRenderController {
 
         this.reset()
 
+        let multAlignerNumber = Math.min(
+            ScreenRender.getAlignerNumber(),
+            1
+        )
+
         for (
-            let index = -this.aligner(ScreenRender.mainCanvas.offsetHeight / 2);
-            index < ScreenRender.mainCanvas.offsetHeight / 2;
+            let index = -this.aligner(ScreenRender.mainCanvas.offsetHeight / 2, ScreenRender.getAlignerNumber() * 100) * multAlignerNumber;
+            index < (ScreenRender.mainCanvas.offsetHeight / 2) * multAlignerNumber;
             index += ScreenRender.getAlignerNumber()
         ){
 
@@ -226,11 +231,11 @@ export class ScreenRenderController {
                 "lineWidth": 1 / ScreenRender.getZoom(),
                 "positions": [
                     [
-                        -ScreenRender.mainCanvas.offsetWidth / 2,
+                        -(ScreenRender.mainCanvas.offsetWidth / 4) * multAlignerNumber,
                         index
                     ],
                     [
-                        ScreenRender.mainCanvas.offsetWidth / 2,
+                        (ScreenRender.mainCanvas.offsetWidth / 4) * multAlignerNumber,
                         index
                     ]
                 ]
@@ -239,8 +244,8 @@ export class ScreenRenderController {
         }
 
         for (
-            let index = -this.aligner(ScreenRender.mainCanvas.offsetWidth / 2);
-            index < ScreenRender.mainCanvas.offsetWidth / 2;
+            let index = -this.aligner(ScreenRender.mainCanvas.offsetWidth / 4, ScreenRender.getAlignerNumber() * 100) * multAlignerNumber;
+            index < (ScreenRender.mainCanvas.offsetWidth / 4) * multAlignerNumber;
             index += this.getAlignerNumber()
         ) {
 
@@ -250,11 +255,11 @@ export class ScreenRenderController {
                 "positions": [
                     [
                         index,
-                        -ScreenRender.mainCanvas.offsetHeight / 2
+                        -(ScreenRender.mainCanvas.offsetHeight / 2) * multAlignerNumber
                     ],
                     [
                         index,
-                        ScreenRender.mainCanvas.offsetHeight / 2
+                        (ScreenRender.mainCanvas.offsetHeight / 2) * multAlignerNumber
                     ]
                 ]
             })
