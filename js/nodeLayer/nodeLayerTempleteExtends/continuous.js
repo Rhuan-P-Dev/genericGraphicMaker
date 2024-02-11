@@ -236,6 +236,9 @@ class BasicNear {
             ]
         )
 
+        minObject.x = ScreenRender.aligner(minObject.x)
+        minObject.y = ScreenRender.aligner(minObject.y)
+
         if(minObject.name == last.name) {
 
             let lastResult = getLast(result)
