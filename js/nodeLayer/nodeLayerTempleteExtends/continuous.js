@@ -86,18 +86,16 @@ export class NodeLayerContinuous {
                                     result,
                                 )
 
-                            }else{
-
-                                GraphicList.push(
-                                    params.listID,
-                                    "positions",
-                                    [
-                                        object.x,
-                                        object.y,
-                                    ]
-                                )
-
                             }
+
+                            GraphicList.push(
+                                params.listID,
+                                "positions",
+                                [
+                                    object.x,
+                                    object.y,
+                                ]
+                            )
     
                         }
                     )
@@ -165,19 +163,15 @@ class BasicNear {
 
     updateDirections(directions, last){
 
-        directions.left.name = "left"
         directions.left.x = last.x - ScreenRender.getAlignerNumber()
         directions.left.y = last.y
     
-        directions.right.name = "right"
         directions.right.x = last.x + ScreenRender.getAlignerNumber()
         directions.right.y = last.y
     
-        directions.top.name = "top"
         directions.top.x = last.x
         directions.top.y = last.y - ScreenRender.getAlignerNumber()
     
-        directions.bottom.name = "bottom"
         directions.bottom.x = last.x
         directions.bottom.y = last.y + ScreenRender.getAlignerNumber()
     
@@ -185,10 +179,21 @@ class BasicNear {
 
     getDirections(last, directions = {}){
 
-        directions.left = {}
-        directions.right = {}
-        directions.top = {}
-        directions.bottom = {}
+        directions.left = {
+            "name": "left"
+        }
+
+        directions.right = {
+            "name": "right"
+        }
+
+        directions.top = {
+            "name": "top"
+        }
+
+        directions.bottom = {
+            "name": "bottom"
+        }
 
         this.updateDirections(directions, last)
 
@@ -241,8 +246,8 @@ class BasicNear {
         }else{
 
             result.push([
-                last.x,
-                last.y,
+                minObject.x,
+                minObject.y,
             ])
 
         }
@@ -286,11 +291,6 @@ class NearLow extends BasicNear{
             last.x,
             last.y
         ])
-        
-        result.push([
-            end.x,
-            end.y
-        ])
 
         return result
 
@@ -329,16 +329,6 @@ class Near extends BasicNear {
             last = this.generateNode(directions, result, last)
 
         }
-
-        result.push([
-            last.x,
-            last.y
-        ])
-        
-        result.push([
-            end.x,
-            end.y
-        ])
 
         return result
 
