@@ -63,7 +63,7 @@ export class NodeLayerContinuous {
                                 start !== false
                             ){
 
-                                result = new Near().generate(
+                                result = new NearLow().generate(
                                     start,
                                     object,
                                 )
@@ -86,18 +86,16 @@ export class NodeLayerContinuous {
                                     result,
                                 )
 
-                            }else{
-
-                                GraphicList.push(
-                                    params.listID,
-                                    "positions",
-                                    [
-                                        object.x,
-                                        object.y,
-                                    ]
-                                )
-
                             }
+
+                            GraphicList.push(
+                                params.listID,
+                                "positions",
+                                [
+                                    object.x,
+                                    object.y,
+                                ]
+                            )
     
                         }
                     )
@@ -165,19 +163,15 @@ class BasicNear {
 
     updateDirections(directions, last){
 
-        directions.left.name = "left"
         directions.left.x = last.x - ScreenRender.getAlignerNumber()
         directions.left.y = last.y
     
-        directions.right.name = "right"
         directions.right.x = last.x + ScreenRender.getAlignerNumber()
         directions.right.y = last.y
     
-        directions.top.name = "top"
         directions.top.x = last.x
         directions.top.y = last.y - ScreenRender.getAlignerNumber()
     
-        directions.bottom.name = "bottom"
         directions.bottom.x = last.x
         directions.bottom.y = last.y + ScreenRender.getAlignerNumber()
     
@@ -185,10 +179,21 @@ class BasicNear {
 
     getDirections(last, directions = {}){
 
-        directions.left = {}
-        directions.right = {}
-        directions.top = {}
-        directions.bottom = {}
+        directions.left = {
+            "name": "left"
+        }
+
+        directions.right = {
+            "name": "right"
+        }
+
+        directions.top = {
+            "name": "top"
+        }
+
+        directions.bottom = {
+            "name": "bottom"
+        }
 
         this.updateDirections(directions, last)
 
@@ -231,6 +236,9 @@ class BasicNear {
             ]
         )
 
+        minObject.x = ScreenRender.aligner(minObject.x)
+        minObject.y = ScreenRender.aligner(minObject.y)
+
         if(minObject.name == last.name) {
 
             let lastResult = getLast(result)
@@ -241,8 +249,8 @@ class BasicNear {
         }else{
 
             result.push([
-                last.x,
-                last.y,
+                minObject.x,
+                minObject.y,
             ])
 
         }
@@ -263,9 +271,14 @@ class NearLow extends BasicNear{
         let result = []
 
         let last = {
-            "x": start.x,
-            "y": start.y
+            "x": ScreenRender.aligner(start.x),
+            "y": ScreenRender.aligner(start.y)
         }
+
+        result.push([
+            last.x,
+            last.y
+        ])
 
         let directions = this.getDirections(last)
         this.getDistances(directions, end)
@@ -282,22 +295,14 @@ class NearLow extends BasicNear{
 
         }
 
-        result.push([
-            last.x,
-            last.y
-        ])
-        
-        result.push([
-            end.x,
-            end.y
-        ])
-
         return result
 
     }
 
 }
 
+
+// "broken"
 class Near extends BasicNear {
 
     generate(
@@ -308,9 +313,14 @@ class Near extends BasicNear {
         let result = []
 
         let last = {
-            "x": start.x,
-            "y": start.y
+            "x": ScreenRender.aligner(start.x),
+            "y": ScreenRender.aligner(start.y)
         }
+
+        result.push([
+            last.x,
+            last.y
+        ])
 
         while(
             last.x != end.x
@@ -324,16 +334,6 @@ class Near extends BasicNear {
             last = this.generateNode(directions, result, last)
 
         }
-
-        result.push([
-            last.x,
-            last.y
-        ])
-        
-        result.push([
-            end.x,
-            end.y
-        ])
 
         return result
 

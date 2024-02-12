@@ -46,7 +46,6 @@ function browseInit(){
     NodeSelection.addTriggers()
 
     ScreenRender.addTriggers()
-    ScreenRender.init()
 
     GrabObjects.init()
 

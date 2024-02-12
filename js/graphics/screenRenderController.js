@@ -33,6 +33,7 @@ const MainCanvasObserver = new Observer()
 
 var zoom = 32
 var radian = 0
+var alignerNumber = 0.25
 
 export class ScreenRenderController {
 
@@ -84,21 +85,38 @@ export class ScreenRenderController {
 
     }
 
+    //Math...
+    roundToMultiple(number, multiple) {
+        return (Math.round((number*100) / (multiple*100)) * (multiple*100)) / 100
+    }
+
+    alignerStep = 0.05
+    minAligner = 0 // min = step
+    maxAligner = 3 + this.alignerStep
+
+    changerAligner(value){
+
+        if(
+            alignerNumber + value > this.minAligner
+            &&
+            alignerNumber + value < this.maxAligner
+        ){
+
+            alignerNumber = this.roundToMultiple(alignerNumber + value, this.alignerStep)
+
+        }
+
+    }
+
     getAlignerNumber(){
 
-        return 0.5
+        return alignerNumber
 
     }
 
     aligner(number, alignment = this.getAlignerNumber()){
 
-        number = Math.round(
-            number
-            /
-            alignment
-        )
-
-        return number *= alignment
+        return this.roundToMultiple(number, alignment)
 
     }
 
@@ -215,9 +233,14 @@ export class ScreenRenderController {
 
         this.reset()
 
+        let multAlignerNumber = Math.min(
+            ScreenRender.getAlignerNumber(),
+            1
+        )
+
         for (
-            let index = -ScreenRender.mainCanvas.offsetHeight / 2;
-            index < ScreenRender.mainCanvas.offsetHeight / 2;
+            let index = -this.aligner(ScreenRender.mainCanvas.offsetHeight / 2, ScreenRender.getAlignerNumber() * 100) * multAlignerNumber;
+            index < (ScreenRender.mainCanvas.offsetHeight / 2) * multAlignerNumber;
             index += ScreenRender.getAlignerNumber()
         ){
 
@@ -226,11 +249,11 @@ export class ScreenRenderController {
                 "lineWidth": 1 / ScreenRender.getZoom(),
                 "positions": [
                     [
-                        -ScreenRender.mainCanvas.offsetWidth / 2,
+                        -(ScreenRender.mainCanvas.offsetWidth / 4) * multAlignerNumber,
                         index
                     ],
                     [
-                        ScreenRender.mainCanvas.offsetWidth / 2,
+                        (ScreenRender.mainCanvas.offsetWidth / 4) * multAlignerNumber,
                         index
                     ]
                 ]
@@ -239,8 +262,8 @@ export class ScreenRenderController {
         }
 
         for (
-            let index = -ScreenRender.mainCanvas.offsetWidth / 2;
-            index < ScreenRender.mainCanvas.offsetWidth / 2;
+            let index = -this.aligner(ScreenRender.mainCanvas.offsetWidth / 4, ScreenRender.getAlignerNumber() * 100) * multAlignerNumber;
+            index < (ScreenRender.mainCanvas.offsetWidth / 4) * multAlignerNumber;
             index += this.getAlignerNumber()
         ) {
 
@@ -250,11 +273,11 @@ export class ScreenRenderController {
                 "positions": [
                     [
                         index,
-                        -ScreenRender.mainCanvas.offsetHeight / 2
+                        -(ScreenRender.mainCanvas.offsetHeight / 2) * multAlignerNumber
                     ],
                     [
                         index,
-                        ScreenRender.mainCanvas.offsetHeight / 2
+                        (ScreenRender.mainCanvas.offsetHeight / 2) * multAlignerNumber
                     ]
                 ]
             })
@@ -276,8 +299,9 @@ export class ScreenRenderController {
 
     }
 
-    minZoom = 1 - 2
-    maxZoom = 64 + 2
+    zoomStep = 16
+    minZoom = 0 // min = step
+    maxZoom = (128 * 10) + this.zoomStep
 
     changerZoom(value){
 
@@ -391,16 +415,7 @@ export class ScreenRenderController {
 
     }
 
-    init(){
-
-        return
-
-        ScreenRender.mainCanvasContext.translate(
-            ScreenRender.mainCanvas.width / 2,
-            ScreenRender.mainCanvas.height / 2,
-        )
-
-    }
+    radianStep = (Math.PI / 180) * 11.25
 
     addTriggers(){
 
@@ -427,33 +442,39 @@ export class ScreenRenderController {
 
         document.querySelector("html").addEventListener("wheel", (e) => {
 
+            let radianStep = this.radianStep
+            let zoomStep = this.zoomStep
+            let alignerStep = this.alignerStep
+
             if (e.deltaY > 0) {
 
-
-                if(e["shiftKey"]){
-
-                    ScreenRender.changerRadian(
-                        (Math.PI / 180) * 11.25
-                    )
-
-                }else{
-                    ScreenRender.changerZoom(-2)
-                }
+                zoomStep = -zoomStep
+                alignerStep = -alignerStep
 
             } else {
-                
-                if(e["shiftKey"]){
 
-                    ScreenRender.changerRadian(
-                        (-Math.PI / 180) * 11.25
-                    )
-
-                }else{
-                    ScreenRender.changerZoom(2)
-                }
+                radianStep = -radianStep
 
             }
-    
+
+            if(e["shiftKey"]){
+                ScreenRender.changerRadian(radianStep)
+            }
+
+            if(e["altKey"]){
+
+                ScreenRender.changerAligner(alignerStep)
+
+            }
+
+            if(
+                !e["shiftKey"]
+                &&
+                !e["altKey"]
+            ){
+                ScreenRender.changerZoom(zoomStep)
+            }
+
             ScreenRender.update()
     
         })
