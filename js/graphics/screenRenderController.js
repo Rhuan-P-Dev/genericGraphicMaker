@@ -281,8 +281,9 @@ export class ScreenRenderController {
 
     }
 
-    minZoom = 4 - 2
-    maxZoom = 64 + 2
+    zoomStep = 16
+    minZoom = 0 // min = step
+    maxZoom = (128 * 10) + this.zoomStep
 
     changerZoom(value){
 
@@ -397,7 +398,6 @@ export class ScreenRenderController {
     }
 
     radianStep = (Math.PI / 180) * 11.25
-    zoomStep = 2
 
     addTriggers(){
 
