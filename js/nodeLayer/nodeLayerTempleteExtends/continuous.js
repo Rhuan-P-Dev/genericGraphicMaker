@@ -63,7 +63,7 @@ export class NodeLayerContinuous {
                                 start !== false
                             ){
 
-                                result = new Near().generate(
+                                result = new NearLow().generate(
                                     start,
                                     object,
                                 )
@@ -301,6 +301,8 @@ class NearLow extends BasicNear{
 
 }
 
+
+// "broken"
 class Near extends BasicNear {
 
     generate(

@@ -33,6 +33,7 @@ const MainCanvasObserver = new Observer()
 
 var zoom = 32
 var radian = 0
+var alignerNumber = 0.25
 
 export class ScreenRenderController {
 
@@ -84,21 +85,38 @@ export class ScreenRenderController {
 
     }
 
+    //Math...
+    roundToMultiple(number, multiple) {
+        return (Math.round((number*100) / (multiple*100)) * (multiple*100)) / 100
+    }
+
+    alignerStep = 0.05
+    minAligner = 0 // min = step
+    maxAligner = 3 + this.alignerStep
+
+    changerAligner(value){
+
+        if(
+            alignerNumber + value > this.minAligner
+            &&
+            alignerNumber + value < this.maxAligner
+        ){
+
+            alignerNumber = this.roundToMultiple(alignerNumber + value, this.alignerStep)
+
+        }
+
+    }
+
     getAlignerNumber(){
 
-        return 0.5
+        return alignerNumber
 
     }
 
     aligner(number, alignment = this.getAlignerNumber()){
 
-        number = Math.round(
-            number
-            /
-            alignment
-        )
-
-        return number *= alignment
+        return this.roundToMultiple(number, alignment)
 
     }
 
@@ -426,12 +444,12 @@ export class ScreenRenderController {
 
             let radianStep = this.radianStep
             let zoomStep = this.zoomStep
-            
+            let alignerStep = this.alignerStep
 
             if (e.deltaY > 0) {
 
                 zoomStep = -zoomStep
-                
+                alignerStep = -alignerStep
 
             } else {
 
@@ -439,9 +457,14 @@ export class ScreenRenderController {
 
             }
 
-
             if(e["shiftKey"]){
                 ScreenRender.changerRadian(radianStep)
+            }
+
+            if(e["altKey"]){
+
+                ScreenRender.changerAligner(alignerStep)
+
             }
 
             if(
