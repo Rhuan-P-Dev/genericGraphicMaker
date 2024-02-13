@@ -10,7 +10,8 @@ export class NodeLayerRadius extends NodeLayerXY {
             "type": "number",
             "step": 1,
             "keyUpdate": "radius",
-            "placeholder": "Radius"
+            "placeholder": "Radius",
+            "title": "Radius"
         })
 
         this.graphicListData.radius = 10

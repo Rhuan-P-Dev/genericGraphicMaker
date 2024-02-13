@@ -10,6 +10,7 @@ export class NodeLayerBase {
         },{
             "type": "color",
             "keyUpdate": "color",
+            "title": "color"
 
         },{
             "type":"boolean",
@@ -20,7 +21,8 @@ export class NodeLayerBase {
             "type":"number",
             "step": 1,
             "keyUpdate": "lineWidth",
-            "placeholder": "Line Width"
+            "placeholder": "Line Width",
+            "title": "Line Width"
         },{
             "type": "boolean",
             "default": false,

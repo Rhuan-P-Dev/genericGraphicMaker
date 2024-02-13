@@ -26,12 +26,14 @@ export class nodeLayerTemplateInfoController {
             "type":"number",
             "step": (Math.PI / 180).toFixed(2),
             "keyUpdate": "rotation",
-            "placeholder": "rotation"
+            "placeholder": "Rotation",
+            "title":"Rotation"
         },{
            "type":"number",
            "step": 1/100,
            "keyUpdate": "canvasScale",
-           "placeholder": "scale"
+           "placeholder": "Scale",
+           "title":"Scale"
         },{
             "type":"button",
             "text": "set offset: ",
@@ -118,6 +120,8 @@ export class nodeLayerTemplateInfoController {
 
             let textArea = document.createElement("textarea")
 
+            textArea.title = params.title || ""
+
             textArea.placeholder = params.placeholder
 
             textArea.addEventListener("keyup", (e) => {
@@ -138,6 +142,8 @@ export class nodeLayerTemplateInfoController {
             let input = document.createElement("input")
 
             input.type = "number"
+
+            input.title = params.title || ""
 
             input.step = params.step
 
@@ -161,6 +167,8 @@ export class nodeLayerTemplateInfoController {
             let input = document.createElement("input")
 
             input.type = "color"
+
+            input.title = params.title || ""
 
             input.addEventListener("change", (e) => {
 

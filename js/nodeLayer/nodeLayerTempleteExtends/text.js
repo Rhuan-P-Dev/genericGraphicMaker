@@ -16,14 +16,16 @@ export class NodeLayerText {
         this.instructions.push({
             "type": "text",
             "keyUpdate": "text",
-            "placeholder": "Text"
+            "placeholder": "Text",
+            "title": "Text"
         })
 
         this.instructions.push({
             "type": "number",
             "step": 1,
             "keyUpdate": "fontSize",
-            "placeholder": "Font Size"
+            "placeholder": "Font Size",
+            "title": "Font Size"
         })
 
         this.graphicListData.text = "hello world"
