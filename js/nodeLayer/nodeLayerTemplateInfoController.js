@@ -122,6 +122,8 @@ export class nodeLayerTemplateInfoController {
 
             textArea.title = params.title || ""
 
+            textArea.value = params.default
+
             textArea.placeholder = params.placeholder
 
             textArea.addEventListener("keyup", (e) => {
@@ -144,6 +146,8 @@ export class nodeLayerTemplateInfoController {
             input.type = "number"
 
             input.title = params.title || ""
+
+            input.value = params.default
 
             input.step = params.step
 
@@ -169,6 +173,8 @@ export class nodeLayerTemplateInfoController {
             input.type = "color"
 
             input.title = params.title || ""
+
+            input.value = params.default
 
             input.addEventListener("change", (e) => {
 
@@ -211,11 +217,15 @@ export class nodeLayerTemplateInfoController {
 
         div.style.display = "none"
 
+        let params = GraphicList.get(listID).value.params
+
         for (let index in text) {
             
             let node = text[index]
 
             node.listID = listID
+
+            node.default = params[node.keyUpdate]
 
             div.appendChild(
                 this.htmlTypes[node.type](
