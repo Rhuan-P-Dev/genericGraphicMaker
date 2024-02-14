@@ -3,6 +3,7 @@ import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { onInit } from "../misc/miscFunctions.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
+import { NodeLayerController } from "../nodeLayer/nodeLayerController.js"
 import { NodeSelectionController } from "../nodeSelection/nodeSelectionController.js"
 
 var NodeSelection
@@ -10,6 +11,7 @@ var NodeConfig
 var GraphicList
 var ScreenRender
 var CloneObject
+var NodeLayer
 
 onInit(function(){
 
@@ -18,6 +20,7 @@ onInit(function(){
     GraphicList = new GraphicListController()
     ScreenRender = new ScreenRenderController()
     CloneObject = new CloneObjectController()
+    NodeLayer = new NodeLayerController()
 
 })
 
@@ -55,10 +58,12 @@ const keyBoardCtrlKeyFunctions = {
         )
 
         let originalNode = CloneObject.recursiveCloneAttribute(
-            GraphicList.get(originalID).value
+            GraphicList.get(originalID).value,
+            new (GraphicList.get(originalID).value).constructor,
+            true
         )
 
-        let copyID = NodeSelection.nodeSelectionClickFunction(originalNode.functionName || originalNode.params.reference)
+        let copyID = GraphicList.add(originalNode.functionName || originalNode.params.reference)
 
         let copyNode = GraphicList.get(copyID).value
 
@@ -67,6 +72,11 @@ const keyBoardCtrlKeyFunctions = {
             copyNode.params[key] = originalNode.params[key]
 
         }
+
+        NodeLayer.add(
+            originalNode.functionName || originalNode.params.reference,
+            copyID
+        )
 
         ScreenRender.update()
 
