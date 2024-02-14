@@ -312,7 +312,7 @@ export class referenceNode {
                 "y": 0
             },
             "rotation": 0,
-            "canvasScale": 1
+            "canvasScale": 0
         }
 
     }
