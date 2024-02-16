@@ -29,6 +29,10 @@ textarea, input{
     resize: none;
 }
 
+input[type="checkbox"]{
+    width: auto;
+}
+
 /* class predefined */
 
 .clickable{
