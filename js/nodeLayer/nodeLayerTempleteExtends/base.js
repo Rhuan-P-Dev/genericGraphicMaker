@@ -27,8 +27,22 @@ export class NodeLayerBase {
             "type": "boolean",
             "default": false,
             "text": "fill: ",
-            "step": 1,
             "keyUpdate": "fill",
+        },{
+            "type": "boolean",
+            "default": false,
+            "text": "X Mirror: ",
+            "keyUpdate": "xMirror",
+        },{
+            "type": "boolean",
+            "default": false,
+            "text": "Y Mirror: ",
+            "keyUpdate": "yMirror",
+        },{
+            "type": "boolean",
+            "default": false,
+            "text": "XY Mirror: ",
+            "keyUpdate": "xyMirror",
         }
     ]
 
@@ -46,7 +60,10 @@ export class NodeLayerBase {
             "y": 0
         },
         "rotation": 0,
-        "canvasScale": 0
+        "canvasScale": 0,
+        "xMirror": false,
+        "yMirror": false,
+        "xyMirror": false,
     }
 
 }

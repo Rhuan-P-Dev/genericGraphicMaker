@@ -29,11 +29,11 @@ export class nodeLayerTemplateInfoController {
             "placeholder": "Rotation",
             "title":"Rotation"
         },{
-           "type":"number",
-           "step": 1/100,
-           "keyUpdate": "canvasScale",
-           "placeholder": "Scale",
-           "title":"Scale"
+            "type":"number",
+            "step": 1/100,
+            "keyUpdate": "canvasScale",
+            "placeholder": "Scale",
+            "title":"Scale"
         },{
             "type":"button",
             "text": "set offset: ",
