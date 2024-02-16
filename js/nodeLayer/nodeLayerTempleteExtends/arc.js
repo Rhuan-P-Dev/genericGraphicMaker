@@ -11,14 +11,16 @@ export class NodeLayerArc extends NodeLayerRadius {
             "type": "number",
             "step": (3.14 / 360).toFixed(2),
             "keyUpdate": "startAngle",
-            "placeholder": "StartAngle"
+            "placeholder": "Start Angle",
+            "title": "Start Angle"
         })
 
         this.instructions.push({
             "type": "number",
             "step": (3.14 / 360).toFixed(2),
             "keyUpdate": "endAngle",
-            "placeholder": "EndAngle"
+            "placeholder": "End Angle",
+            "title": "End Angle"
         })
 
         this.graphicListData.startAngle = 0

@@ -86,6 +86,7 @@ export class ComplexRenderController {
             let params = Clone.recursiveCloneAttribute(originalParams)
 
             if(params.canvasScale !== undefined){
+                params.canvasScale += 1
                 ScreenRender.applyConfig(params)
             }
 

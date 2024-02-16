@@ -129,9 +129,7 @@ export class CustomDrawsController {
 
         object.params.rotation += params.rotation
 
-        if(params.canvasScale !== 1){
-            object.params.canvasScale += params.canvasScale
-        }
+        object.params.canvasScale += params.canvasScale
 
     }
 
