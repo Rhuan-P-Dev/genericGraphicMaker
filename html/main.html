@@ -25,10 +25,30 @@
             </div>
             <div class="right" id="nodeSelection">
 
-                <div class="clickable interactiveDefault">writeText</div>
-                <div class="clickable interactiveDefault">drawCircle</div>
-                <div class="clickable interactiveDefault">drawArc</div>
-                <div class="clickable interactiveDefault">drawLine</div>
+                <div class="up">
+                    <input type="text" id="nodeSelectionSeach" placeholder="Search">
+                </div>
+                <div class="mid" id="nodeSelectionTabs">
+                    <div id="basicInstructionsTab">
+                        <div class="clickable interactiveDefault">writeText</div>
+                        <div class="clickable interactiveDefault">drawCircle</div>
+                        <div class="clickable interactiveDefault">drawArc</div>
+                        <div class="clickable interactiveDefault">drawLine</div>
+                    </div>
+                    <div id="shipsTab"></div>
+                    <div id="dronesTab"></div>
+                    <div id="stationaryObjectsTab"></div>
+                    <div id="projectilesTab"></div>
+                    <div id="partsTab"></div>
+                </div>
+                <div class="down" id="nodeSelectionClickTabs">
+                    <div class="clickable interactiveDefault" type="basicInstructionsTab">basic instructions</div>
+                    <div class="clickable interactiveDefault" type="shipsTab">ships</div>
+                    <div class="clickable interactiveDefault" type="dronesTab">drones</div>
+                    <div class="clickable interactiveDefault" type="stationaryObjectsTab">stationary objects</div>
+                    <div class="clickable interactiveDefault" type="projectilesTab">projectiles</div>
+                    <div class="clickable interactiveDefault" type="partsTab">parts</div>
+                </div>
 
             </div>
 

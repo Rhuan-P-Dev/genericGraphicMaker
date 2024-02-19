@@ -354,7 +354,7 @@ export class ScreenRenderController {
 
     }
 
-    setCanvasState(translate, rotate, scale){
+    setCanvasState(translate, rotate, scaleX, scaleY = scaleX){
 
         ScreenRender.mainCanvasContext.translate(
             translate.x,
@@ -366,8 +366,8 @@ export class ScreenRenderController {
         )
 
         ScreenRender.mainCanvasContext.scale(
-            scale,
-            scale
+            scaleX,
+            scaleY
         )
 
     }

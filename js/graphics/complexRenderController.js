@@ -71,6 +71,54 @@ export class ComplexRenderController {
 
     }
 
+    mirrorFunction(functionName, params, scaleX, scaleY){
+
+        ScreenRender.setCanvasState(
+            params.offset,
+            params.rotation,
+            scaleX,
+            scaleY,
+        )
+
+        ScreenRender[functionName](params)
+
+        ScreenRender.reset()
+
+    }
+
+    mirror(functionName, params){
+
+        ScreenRender.reset()
+
+        if(params.xMirror){
+            this.mirrorFunction(
+                functionName,
+                params,
+                params.canvasScale * -1,
+                params.canvasScale
+            )
+        }
+
+        if(params.yMirror){
+            this.mirrorFunction(
+                functionName,
+                params,
+                params.canvasScale,
+                params.canvasScale * -1
+            )
+        }
+
+        if(params.xyMirror){
+            this.mirrorFunction(
+                functionName,
+                params,
+                params.canvasScale * -1,
+                params.canvasScale * -1
+            )
+        }
+
+    }
+
     renderComplexFormat(drawInstructions){
 
         let object = undefined
@@ -92,13 +140,17 @@ export class ComplexRenderController {
 
             params.lineWidth /= ScreenRender.getZoom()
 
-            //this.debug(params)
-
             ScreenRender[functionName](params)
 
-            drawInstructions = drawInstructions.next
+            //this.debug(params)
 
-            ScreenRender.reset()
+            if(params.canvasScale !== undefined){
+                this.mirror(functionName, params)
+            }
+
+            //ScreenRender.reset()
+
+            drawInstructions = drawInstructions.next
 
         }
 
