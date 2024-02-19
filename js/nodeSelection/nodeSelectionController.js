@@ -20,6 +20,8 @@ var nodeSelectionWidth = undefined
 export class NodeSelectionController {
 
     nodeSelectionHTML = document.getElementById("nodeSelection")
+    nodeSelectionTabsHTML = document.getElementById("nodeSelectionTabs")
+    nodeSelectionClickTabsHTML = document.getElementById("nodeSelectionClickTabs")
 
     constructor(){
 
@@ -90,7 +92,88 @@ export class NodeSelectionController {
 
     addTriggers(){
 
-        let nodes = this.nodeSelectionHTML.children
+        this.drawInstructionsTrigger()
+
+        this.tabsInteractionTrigger()
+
+        this.searchTrigger()
+
+    }
+
+    searchTrigger() {
+
+        let input = document.getElementById("nodeSelectionSeach")
+
+        let tabs = this.nodeSelectionTabsHTML.children
+      
+        input.addEventListener("input", () => {
+
+            let filter = input.value.toLowerCase().split("|")
+
+            for (let index = 0; index < tabs.length; index++) {
+
+                let tab = tabs[index]
+
+                let tabNodes = tab.children
+      
+                for (let indey = 0; indey < tabNodes.length; indey++) {
+
+                    let node = tabNodes[indey]
+
+                    for (let indez = 0; indez < filter.length; indez++) {
+
+                        if(
+                            node.innerText.toLowerCase().indexOf(filter[indez]) > -1
+                        ){
+    
+                            node.style.display = ""
+
+                            break
+    
+                        } else {
+    
+                            node.style.display = "none"
+    
+                        }
+                        
+                    }
+
+                }
+
+            }
+
+        })
+
+      }
+      
+
+    drawInstructionsTrigger(){
+
+        let nodes = this.nodeSelectionTabsHTML.children
+
+        for (let index = 0; index < nodes.length; index++) {
+
+            let tabNodes = nodes[index].children
+
+            for (let index = 0; index < tabNodes.length; index++) {
+
+                let node = tabNodes[index]
+
+                node.addEventListener("click", () => {
+
+                    this.nodeSelectionClickFunction(node.textContent)
+    
+                })
+                
+            }
+
+        }
+
+    }
+
+    tabsInteractionTrigger(){
+
+        let nodes = this.nodeSelectionClickTabsHTML.children
 
         for (let index = 0; index < nodes.length; index++) {
 
@@ -98,7 +181,20 @@ export class NodeSelectionController {
 
             node.addEventListener("click", () => {
 
-                this.nodeSelectionClickFunction(node.textContent)
+                if(node.classList.contains("selected")){
+
+                    this.showTabs()
+
+                    this.deselectAllClickTabs()
+
+                }else{
+
+                    this.hiddenTabs()
+                    this.deselectAllClickTabs()
+                    this.showTab(node.getAttribute("type"))
+                    this.selectClickTab(node.innerText)
+
+                }
 
             })
 
@@ -112,6 +208,80 @@ export class NodeSelectionController {
         NodeLayer.add(name, ID)
 
         return ID
+
+    }
+
+    showTab(selectedTab){
+
+        let tabs = this.nodeSelectionTabsHTML.children
+
+        for (let index = 0; index < tabs.length; index++) {
+
+            let tab = tabs[index]
+
+            if (tab.id === selectedTab) {
+
+                tab.style.display = "block"
+
+                break
+
+            }
+
+        }
+    }
+
+    showTabs(){
+
+        this.applyTabs("block")
+
+    }
+
+    hiddenTabs(){
+
+        this.applyTabs("none")
+
+    }
+
+    applyTabs(display){
+
+        let tabs = this.nodeSelectionTabsHTML.children
+
+        for (let index = 0; index < tabs.length; index++) {
+
+            tabs[index].style.display = display
+
+        }
+
+    }
+
+    selectClickTab(name) {
+
+        let tabs = this.nodeSelectionClickTabsHTML.children
+
+        for (let index = 0; index < tabs.length; index++) {
+
+            let tab = tabs[index]
+
+            if (tab.innerText === name) {
+
+                tab.classList.add("selected")
+
+                break
+
+            }
+
+        }
+    }
+    
+    deselectAllClickTabs() {
+
+        let tabs = this.nodeSelectionClickTabsHTML.children
+
+        for (let index = 0; index < tabs.length; index++) {
+
+            tabs[index].classList.remove("selected")
+
+        }
 
     }
 
