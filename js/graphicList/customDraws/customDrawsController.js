@@ -48,13 +48,7 @@ export class CustomDrawsController {
 
         for(let draw in this.draws){
 
-            let div = document.createElement("div")
-
-            div.setAttribute("class", "clickable interactiveDefault")
-
-            div.innerHTML = draw
-
-            NodeSelection.add(div)
+            NodeSelection.addDrawInstructionInTab(draw)
 
         }
 

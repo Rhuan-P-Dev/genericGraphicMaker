@@ -42,7 +42,7 @@ function browseInit(){
 
     MainCanvas.init()
 
-    //CustomDraws.addCustomDraws()
+    CustomDraws.addCustomDraws()
     NodeSelection.addTriggers()
 
     ScreenRender.addTriggers()

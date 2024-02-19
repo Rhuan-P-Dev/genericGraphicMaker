@@ -17,6 +17,26 @@ const showHiddenObserver = new Observer()
 
 var nodeSelectionWidth = undefined
 
+const nameTypeTable = {
+    "missile": "projectilesTab",
+    "drone v1": "dronesTab",
+    "drone v2": "dronesTab",
+    "big drone": "dronesTab",
+    "factory": "stationaryObjectsTab",
+    "armored factory": "stationaryObjectsTab",
+    "rotable stationary object": "partsTab",
+    "sock base": "partsTab",
+    "turret": "partsTab",
+    "generic turret": "stationaryObjectsTab",
+    "ship": "shipsTab",
+    "bullet": "projectilesTab",
+    "explosive bullet": "projectilesTab",
+    "mine": "projectilesTab",
+    "death hand": "projectilesTab",
+    "mini world": "projectilesTab",
+    "default": "partsTab",
+}
+
 export class NodeSelectionController {
 
     nodeSelectionHTML = document.getElementById("nodeSelection")
@@ -36,9 +56,15 @@ export class NodeSelectionController {
         
     }
 
-    add(html){
+    addDrawInstructionInTab(name){
 
-        this.nodeSelectionHTML.appendChild(html)
+        let div = document.createElement("div")
+
+        div.setAttribute("class", "clickable interactiveDefault")
+
+        div.innerHTML = name
+
+        document.getElementById(nameTypeTable[name]).appendChild(div)
 
     }
 
