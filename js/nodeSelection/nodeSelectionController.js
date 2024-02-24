@@ -35,6 +35,7 @@ const nameTypeTable = {
     "death hand": "projectilesTab",
     "mini world": "projectilesTab",
     "default": "partsTab",
+    "generic turret head": "partsTab"
 }
 
 export class NodeSelectionController {
