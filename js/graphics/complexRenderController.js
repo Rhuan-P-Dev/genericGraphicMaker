@@ -2,12 +2,12 @@ import { onInit } from "../misc/miscFunctions.js"
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
 import { ScreenRenderController } from "./screenRenderController.js"
 
-var Clone = ""
+var CloneObject = ""
 var ScreenRender = ""
 
 onInit(function(){
 
-    Clone = new CloneObjectController()
+    CloneObject = new CloneObjectController()
     ScreenRender = new ScreenRenderController()
 
 })
@@ -131,7 +131,7 @@ export class ComplexRenderController {
 
             let functionName = drawInstructions.value.functionName
             let originalParams = drawInstructions.value.params
-            let params = Clone.recursiveCloneAttribute(originalParams)
+            let params = CloneObject.recursiveCloneAttribute(originalParams)
 
             if(params.canvasScale !== undefined){
                 params.canvasScale += 1

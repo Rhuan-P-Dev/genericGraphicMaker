@@ -1,16 +1,15 @@
 import { onInit } from "../misc/miscFunctions.js"
 import { VectorController } from "../generalUtils/vector.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
-
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
 
 var ScreenRender
-var GraphicList
+var AnimationFrame
 
 onInit(function(){
 
     ScreenRender = new ScreenRenderController()
-    GraphicList = new GraphicListController()
+    AnimationFrame = new AnimationFrameController()
 
 })
 
@@ -35,7 +34,7 @@ export class GrabObjectsController {
             e.offsetY
         )
 
-        let drawInstructions = GraphicList.return()
+        let drawInstructions = AnimationFrame.getCurrentFrame().return()
 
         let stop = false
 

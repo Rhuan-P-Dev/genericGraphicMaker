@@ -10,7 +10,7 @@ export class NodeLayerBase {
         },{
             "type": "color",
             "keyUpdate": "color",
-            "title": "color"
+            "title": "color",
 
         },{
             "type":"boolean",
@@ -49,7 +49,7 @@ export class NodeLayerBase {
     graphicListData = {
         "scale": true,
         "objectColor": false,
-        "color": "black",
+        "color": [0, 0, 0],
         // gambiara / Hack
         "lineWidth": 1,
         "fill": false,
