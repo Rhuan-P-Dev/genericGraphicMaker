@@ -1,7 +1,8 @@
 /* variable */
 
 :root {
-    --main-up-height: 25px;
+    --main-up-height: 35px;
+    --main-down-height: 25px;
     --grey-color: rgb(59, 59, 59);
     --main-mid-right-width: 500px;
     --main-mid-right-up-height: 20px;
@@ -71,6 +72,20 @@ html,body{
     width: 100%;
     height: var(--main-up-height);
     border: 2px solid black;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.main > .up::-webkit-scrollbar {
+    height: 4px;
+}
+
+.main > .up::-webkit-scrollbar-track {
+    background-color: var(--grey-color);
+}
+
+.main > .up::-webkit-scrollbar-thumb {
+    background-color: white;
 }
 
 .main > .up > *{
@@ -88,7 +103,9 @@ html,body{
     height: calc(
         100vh
         -
-        var(--main-up-height) * 2
+        var(--main-up-height)
+        -
+        var(--main-down-height)
     );
     flex-direction: row;
 }
@@ -105,7 +122,9 @@ html,body{
     height: calc(
         100%
         -
-        var(--main-up-height) * 2
+        var(--main-up-height)
+        -
+        var(--main-down-height)
     );
     text-align: center;
 
@@ -197,7 +216,7 @@ html,body{
 
 .main > .mid > .right > .down > *{
     display: inline-block;
-    width: 125px;
+    width: 155px;
     border: 1px solid black;
     padding: 1px 2px;
     margin: 1px;
@@ -206,7 +225,7 @@ html,body{
 .main > .down{
 
     display: flex;
-    height: var(--main-up-height);
+    height: var(--main-down-height);
     border: 1px solid black;
     text-align: center;
 
