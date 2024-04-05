@@ -3,12 +3,12 @@ import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.
 import { DownloadController } from "../download/downloadController.js"
 import { GrabObjectsController } from "../grabObjects/grabObjectsController.js"
 import { CustomDrawsController } from "../graphicList/customDraws/customDrawsController.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { KeyboardController } from "../keyboard/keyboardController.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
 import { NodeLayerController } from "../nodeLayer/nodeLayerController.js"
 import { NodeSelectionController } from "../nodeSelection/nodeSelectionController.js"
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
 
 var NodeSelection
 var ScreenRender
@@ -16,10 +16,10 @@ var Download
 var GrabObjects
 var NodeConfig
 var NodeLayer
-var GraphicList
 var MainCanvas
 var Keyboard
 var CustomDraws
+var AnimationFrame
 
 onInit(function(){
 
@@ -29,16 +29,19 @@ onInit(function(){
     GrabObjects = new GrabObjectsController()
     NodeConfig = new NodeConfigController()
     NodeLayer = new NodeLayerController()
-    GraphicList = new GraphicListController()
     MainCanvas = new MainCanvasController()
     Keyboard = new KeyboardController()
     CustomDraws = new CustomDrawsController()
+    AnimationFrame = new AnimationFrameController()
 
     setTimeout(browseInit,1)
 
 })
 
 function browseInit(){
+
+    NodeLayer.init()
+    AnimationFrame.init()
 
     MainCanvas.init()
 
@@ -63,7 +66,7 @@ function addDeleteButtonTrigger(){
 
         let listID = NodeConfig.delete()
         let deleteListID = NodeLayer.delete(listID)
-        GraphicList.remove(deleteListID)
+        AnimationFrame.getCurrentFrame().remove(deleteListID)
         ScreenRender.resetCanvasCallback()
 
     })

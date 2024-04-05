@@ -1,14 +1,16 @@
 import { onInit } from "../misc/miscFunctions.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
+import { AnimationFormaterController } from "./animationFormaterController.js"
 
-var GraphicList
+var AnimationFrame
+var AnimationFormater
 
 onInit(function(){
 
-    GraphicList = new GraphicListController()
+    AnimationFrame = new AnimationFrameController()
+    AnimationFormater = new AnimationFormaterController()
 
 })
-
 
 export class DownloadController {
 
@@ -18,20 +20,13 @@ export class DownloadController {
 
         this.downloadButton.addEventListener("click", () => {
 
-            let data = GraphicList.getDownload()
-    
-            let originalNodes = JSON.stringify(data[0])
-            let optimizedNodes = JSON.stringify(data[1])
-    
-            this.downloader(
-                "graphic.js",
-                originalNodes
-            )
+            this.downloadDraw()
 
-            this.downloader(
-                "graphic-optimized.js",
-                optimizedNodes
-            )
+            if(AnimationFrame.getGraphicListFrames().length !== 1){
+
+                this.downloadAnimation()
+
+            }
     
         })
 
@@ -46,7 +41,45 @@ export class DownloadController {
         a.download = name
     
         a.click()
-                
+
+    }
+
+    downloadDraw(){
+
+        let data = AnimationFrame.getCurrentFrame().getDownload()
+    
+        let originalNodes = JSON.stringify(data[0])
+        let optimizedNodes = JSON.stringify(data[1])
+
+        this.downloader(
+            "graphic.js",
+            originalNodes
+        )
+
+        this.downloader(
+            "graphic-optimized.js",
+            optimizedNodes
+        )
+
+    }
+
+    downloadAnimation(){
+
+        let frames = AnimationFrame.getGraphicListFrames()
+
+        let animation = JSON.stringify(
+            AnimationFormater.format(frames)
+        )
+
+        console.log(animation)
+
+        this.downloader(
+            "animation.js",
+            animation
+        )
+
     }
 
 }
+
+var Download = new DownloadController()

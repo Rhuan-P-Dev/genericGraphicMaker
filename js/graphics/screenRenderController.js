@@ -1,23 +1,23 @@
 import { onInit } from "../misc/miscFunctions.js"
 import { MainCanvasController } from "../canvas/mainCanvas/mainCanvasController.js"
 import { VectorController } from "../generalUtils/vector.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ComplexRenderController } from "./complexRenderController.js"
 import { Observer } from "../misc/miscClass.js"
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
 
 var ComplexRender
-var GraphicList
 var MainCanvas
 var Vector
+var AnimationFrame
 
 var tableMainCanvasZero = {}
 
 onInit(function(){
 
-    GraphicList = new GraphicListController()
     ComplexRender = new ComplexRenderController()
     MainCanvas = new MainCanvasController()
     Vector = new VectorController()
+    AnimationFrame = new AnimationFrameController()
 
     tableMainCanvasZero = {
         "width": MainCanvas.box.offsetWidth / 2,
@@ -409,7 +409,7 @@ export class ScreenRenderController {
             0.25
         )
 
-        let objects = GraphicList.return(true)
+        let objects = AnimationFrame.getCurrentFrame().return(true)
 
         ComplexRender.renderComplexFormat(objects)
 
@@ -419,10 +419,27 @@ export class ScreenRenderController {
 
     addTriggers(){
 
-        GraphicList.getGraphicListObserver().add({
-            "func": "update",
-            "class": this
+        AnimationFrame.getGeralObserver().add(
+            
+            (GraphicList) => {// hit when a new frame is created
+
+            GraphicList.getGraphicListObserver().add({
+                "func": "update",
+                "class": this
+            })
+        
         })
+
+        AnimationFrame.passFor(// hit the first frame
+            (GraphicList) => {
+
+                GraphicList.getGraphicListObserver().add({
+                    "func": "update",
+                    "class": this
+                })
+
+            }
+        )
 
         this.mainCanvas.addEventListener("click", function(e){
 

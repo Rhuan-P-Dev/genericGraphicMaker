@@ -1,15 +1,15 @@
 import { onInit } from "../misc/miscFunctions.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
 import { NodeLayerController } from "../nodeLayer/nodeLayerController.js"
 import { Observer } from "../misc/miscClass.js"
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
 
 var NodeLayer
-var GraphicList
+var AnimationFrame
 
 onInit(function(){
 
     NodeLayer = new NodeLayerController()
-    GraphicList = new GraphicListController()
+    AnimationFrame = new AnimationFrameController()
 
 })
 
@@ -231,7 +231,7 @@ export class NodeSelectionController {
 
     nodeSelectionClickFunction(name){
 
-        let ID = GraphicList.add(name)
+        let ID = AnimationFrame.getCurrentFrame().add(name)
         NodeLayer.add(name, ID)
 
         return ID

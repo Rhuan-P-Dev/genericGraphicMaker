@@ -1,15 +1,15 @@
 import { onInit } from "../../misc/miscFunctions.js"
-import { GraphicListController } from "../../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../../graphics/screenRenderController.js"
 import { NodeLayerBase } from "./base.js"
+import { AnimationFrameController } from "../../graphicList/animationFrameController.js"
 
-var GraphicList
 var ScreenRender
+var AnimationFrame
 
 onInit(function(){
 
-    GraphicList = new GraphicListController()
     ScreenRender = new ScreenRenderController()
+    AnimationFrame = new AnimationFrameController()
 
 })
 
@@ -35,13 +35,13 @@ export class NodeLayerXY extends NodeLayerBase {
                         object.x = ScreenRender.aligner(object.x)
                         object.y = ScreenRender.aligner(object.y)
 
-                        GraphicList.update(
+                        AnimationFrame.getCurrentFrame().update(
                             params.listID,
                             "x",
                             object.x
                         )
 
-                        GraphicList.update(
+                        AnimationFrame.getCurrentFrame().update(
                             params.listID,
                             "y",
                             object.y

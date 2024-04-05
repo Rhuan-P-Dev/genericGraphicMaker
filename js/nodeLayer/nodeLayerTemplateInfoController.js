@@ -1,20 +1,20 @@
 import { onInit } from "../misc/miscFunctions.js"
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { NodeLayerArc } from "./nodeLayerTempleteExtends/arc.js"
 import { NodeLayerContinuous } from "./nodeLayerTempleteExtends/continuous.js"
 import { NodeLayerRadius } from "./nodeLayerTempleteExtends/radius.js"
 import { NodeLayerText } from "./nodeLayerTempleteExtends/text.js"
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
 
 var CloneObject
-var GraphicList
+var AnimationFrame
 var ScreenRender
 
 onInit(function(){
 
     CloneObject = new CloneObjectController()
-    GraphicList = new GraphicListController()
+    AnimationFrame = new AnimationFrameController()
     ScreenRender = new ScreenRenderController()
 
 })
@@ -50,7 +50,7 @@ export class nodeLayerTemplateInfoController {
                         object.x = ScreenRender.aligner(object.x)
                         object.y = ScreenRender.aligner(object.y)
 
-                        GraphicList.update(
+                        AnimationFrame.getCurrentFrame().update(
                             params.listID,
                             "offset",
                             {
@@ -84,7 +84,7 @@ export class nodeLayerTemplateInfoController {
 
             checkbox.addEventListener("change", (e) => {
 
-                GraphicList.update(
+                AnimationFrame.getCurrentFrame().update(
                     params.listID,
                     params.keyUpdate,
                     e.target.checked
@@ -128,7 +128,7 @@ export class nodeLayerTemplateInfoController {
 
             textArea.addEventListener("keyup", (e) => {
 
-                GraphicList.update(
+                AnimationFrame.getCurrentFrame().update(
                     params.listID,
                     params.keyUpdate,
                     e.target.value
@@ -155,7 +155,7 @@ export class nodeLayerTemplateInfoController {
 
             input.addEventListener("keyup", (e) => {
 
-                GraphicList.update(
+                AnimationFrame.getCurrentFrame().update(
                     params.listID,
                     params.keyUpdate,
                     parseFloat(e.target.value)
@@ -178,7 +178,7 @@ export class nodeLayerTemplateInfoController {
 
             input.addEventListener("change", (e) => {
 
-                GraphicList.update(
+                AnimationFrame.getCurrentFrame().update(
                     params.listID,
                     params.keyUpdate,
                     e.target.value
@@ -217,7 +217,7 @@ export class nodeLayerTemplateInfoController {
 
         div.style.display = "none"
 
-        let params = GraphicList.get(listID).value.params
+        let params = AnimationFrame.getCurrentFrame().get(listID).value.params
 
         for (let index in text) {
             

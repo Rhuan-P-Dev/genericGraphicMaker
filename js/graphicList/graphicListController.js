@@ -17,13 +17,13 @@ onInit(function(){
 
 })
 
-const GraphicListConst = new GraphicList()
-const GraphicListObserver = new Observer()
-
 export class GraphicListController {
 
+    GraphicListConst = new GraphicList()
+    GraphicListObserver = new Observer()
+
     getGraphicListObserver() {
-        return GraphicListObserver
+        return this.GraphicListObserver
     }
 
     GraphicListInitTable = {
@@ -74,7 +74,7 @@ export class GraphicListController {
             object
         )
 
-        GraphicListObserver.run()
+        this.GraphicListObserver.run()
 
         return ID
 
@@ -103,7 +103,7 @@ export class GraphicListController {
 
         }
     
-        let ID = GraphicListConst.add(addObject)
+        let ID = this.GraphicListConst.add(addObject)
 
         return ID
 
@@ -111,17 +111,17 @@ export class GraphicListController {
 
     remove(ID){
 
-        GraphicListConst.remove(
+        this.GraphicListConst.remove(
             ID
         )
 
-        GraphicListObserver.run()
+        this.GraphicListObserver.run()
 
     }
 
     get(ID){
 
-        return GraphicListConst.get(ID)
+        return this.GraphicListConst.get(ID)
 
     }
 
@@ -131,13 +131,13 @@ export class GraphicListController {
         value
     ){
 
-        GraphicListConst.update(
+        this.GraphicListConst.update(
             ID,
             key,
             value
         )
 
-        GraphicListObserver.run()
+        this.GraphicListObserver.run()
 
     }
 
@@ -147,13 +147,13 @@ export class GraphicListController {
         value
      ){
 
-        GraphicListConst.push(
+        this.GraphicListConst.push(
             ID,
             key,
             value
         )
 
-        GraphicListObserver.run()
+        this.GraphicListObserver.run()
 
     }
 
@@ -162,12 +162,12 @@ export class GraphicListController {
         key,
     ){
 
-        GraphicListConst.pop(
+        this.GraphicListConst.pop(
             ID,
             key,
         )
 
-        GraphicListObserver.run()
+        this.GraphicListObserver.run()
 
     }
 
@@ -179,7 +179,7 @@ export class GraphicListController {
 
         for (let index = 0; index < value.length; index++) {
 
-            GraphicListConst.push(
+            this.GraphicListConst.push(
                 ID,
                 key,
                 value[index]
@@ -187,7 +187,7 @@ export class GraphicListController {
             
         }
 
-        GraphicListObserver.run()
+        this.GraphicListObserver.run()
 
     }
 
@@ -200,7 +200,7 @@ export class GraphicListController {
 
         }else{
 
-            return GraphicListConst.return()
+            return this.GraphicListConst.return()
 
         }
 
@@ -210,7 +210,7 @@ export class GraphicListController {
 
         let tempGraphicList = new GraphicList()
 
-        let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
+        let nodes = CloneObject.recursiveCloneAttribute(this.GraphicListConst.return())
 
         while(nodes.next){
 
@@ -244,9 +244,9 @@ export class GraphicListController {
 
     getDownload(){
 
-        let nodes = CloneObject.recursiveCloneAttribute(GraphicListConst.return())
+        let nodes = CloneObject.recursiveCloneAttribute(this.GraphicListConst.return())
 
-        nodes = GraphicListConst.getDownload(nodes)
+        nodes = this.GraphicListConst.getDownload(nodes)
 
         let originalNodes = CloneObject.recursiveCloneAttribute(nodes)
 

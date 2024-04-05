@@ -1,19 +1,19 @@
 import { onInit } from "../../misc/miscFunctions.js"
 import { InheritController } from "../../generalUtils/inherit.js"
 import { VectorController } from "../../generalUtils/vector.js"
-import { GraphicListController } from "../../graphicList/graphicListController.js"
 import { ScreenRenderController } from "../../graphics/screenRenderController.js"
 import { NodeLayerBase } from "./base.js"
+import { AnimationFrameController } from "../../graphicList/animationFrameController.js"
 
-var GraphicList
 var ScreenRender
 var Vector
+var AnimationFrame
 
 onInit(function(){
 
-    GraphicList = new GraphicListController()
     ScreenRender = new ScreenRenderController()
     Vector = new VectorController()
+    AnimationFrame = new AnimationFrameController()
 
 })
 
@@ -80,7 +80,7 @@ export class NodeLayerContinuous {
                                 !isNaN(result[0][0])
                             ){
 
-                                GraphicList.massPush(
+                                AnimationFrame.getCurrentFrame().massPush(
                                     params.listID,
                                     "positions",
                                     result,
@@ -88,7 +88,7 @@ export class NodeLayerContinuous {
 
                             }
 
-                            GraphicList.push(
+                            AnimationFrame.getCurrentFrame().push(
                                 params.listID,
                                 "positions",
                                 [
@@ -121,7 +121,7 @@ function getLast(array){
 
 function getLastPosition(ID){
 
-    let positions = GraphicList.get(ID).value.params.positions
+    let positions = AnimationFrame.getCurrentFrame().get(ID).value.params.positions
 
     let pos = getLast(positions)
 

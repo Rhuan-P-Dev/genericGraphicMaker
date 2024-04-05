@@ -1,5 +1,5 @@
 import { CloneObjectController } from "../generalUtils/cloneObject.js"
-import { GraphicListController } from "../graphicList/graphicListController.js"
+import { AnimationFrameController } from "../graphicList/animationFrameController.js"
 import { ScreenRenderController } from "../graphics/screenRenderController.js"
 import { onInit } from "../misc/miscFunctions.js"
 import { NodeConfigController } from "../nodeConfig/nodeConfigController.js"
@@ -8,21 +8,52 @@ import { NodeSelectionController } from "../nodeSelection/nodeSelectionControlle
 
 var NodeSelection
 var NodeConfig
-var GraphicList
 var ScreenRender
 var CloneObject
 var NodeLayer
+var AnimationFrame
 
 onInit(function(){
 
     NodeSelection = new NodeSelectionController()
     NodeConfig = new NodeConfigController()
-    GraphicList = new GraphicListController()
     ScreenRender = new ScreenRenderController()
     CloneObject = new CloneObjectController()
     NodeLayer = new NodeLayerController()
+    AnimationFrame = new AnimationFrameController()
 
 })
+
+function copyLayerNode(ID){
+
+    AnimationFrame.setCurrentFrame(NodeLayer.getFrameCount()-2)
+
+    let originalNode = CloneObject.recursiveCloneAttribute(
+        AnimationFrame.getCurrentFrame().get(ID).value,
+        new (AnimationFrame.getCurrentFrame().get(ID).value).constructor,
+        true
+    )
+
+    AnimationFrame.setCurrentFrame(NodeLayer.getFrameCount()-1)
+
+    let copyID = AnimationFrame.getCurrentFrame().add(originalNode.functionName || originalNode.params.reference)
+
+    let copyNode = AnimationFrame.getCurrentFrame().get(copyID).value
+
+    for (let key in originalNode.params) {
+
+        copyNode.params[key] = originalNode.params[key]
+
+    }
+
+    NodeLayer.add(
+        originalNode.functionName || originalNode.params.reference,
+        copyID
+    )
+
+    ScreenRender.update()
+
+}
 
 const keyboardFunctions = {
     "Escape": () => {
@@ -38,6 +69,30 @@ const keyBoardShiftFunctions = {
     "!": () => {
         NodeSelection.switch()
     },
+    "O": () => {
+
+        let addElements = NodeLayer.getAddElementsFromCurrentFrame()
+
+        NodeLayer.addFrame()
+
+        for (let index = 0; index < addElements.length; index++) {
+
+            let addElement = addElements[index]
+
+            copyLayerNode(addElement.id)
+
+        }
+
+        NodeLayer.reset()
+
+        ScreenRender.resetCanvasCallback()
+
+    },
+    "I": () => {
+        NodeLayer.reset()
+        ScreenRender.resetCanvasCallback()
+    }
+    
 }
 
 const keyBoardCtrlKeyFunctions = {
@@ -46,39 +101,18 @@ const keyBoardCtrlKeyFunctions = {
             NodeConfig.getOpenNode()
         )
 
-        GraphicList.pop(
+        AnimationFrame.getCurrentFrame().pop(
             listID,
             "positions",
         )
     },
     "v": () => {
 
-        let originalID = NodeConfig.getNodeID(
-            NodeConfig.getOpenNode()
+        copyLayerNode(
+            NodeConfig.getNodeID(
+                NodeConfig.getOpenNode()
+            )
         )
-
-        let originalNode = CloneObject.recursiveCloneAttribute(
-            GraphicList.get(originalID).value,
-            new (GraphicList.get(originalID).value).constructor,
-            true
-        )
-
-        let copyID = GraphicList.add(originalNode.functionName || originalNode.params.reference)
-
-        let copyNode = GraphicList.get(copyID).value
-
-        for (let key in originalNode.params) {
-
-            copyNode.params[key] = originalNode.params[key]
-
-        }
-
-        NodeLayer.add(
-            originalNode.functionName || originalNode.params.reference,
-            copyID
-        )
-
-        ScreenRender.update()
 
     },
 }
