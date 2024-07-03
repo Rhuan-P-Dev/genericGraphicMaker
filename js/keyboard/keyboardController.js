@@ -26,7 +26,7 @@ onInit(function(){
 
 function copyLayerNode(ID){
 
-    AnimationFrame.setCurrentFrame(NodeLayer.getFrameCount()-2)
+    AnimationFrame.setCurrentFrame(NodeLayer.getFrameCount()-1)
 
     let originalNode = CloneObject.recursiveCloneAttribute(
         AnimationFrame.getCurrentFrame().get(ID).value,
