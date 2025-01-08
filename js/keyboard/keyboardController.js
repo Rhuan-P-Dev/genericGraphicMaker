@@ -24,9 +24,12 @@ onInit(function(){
 
 })
 
-function copyLayerNode(ID){
+function copyLayerNode(ID, X = 1){
 
-    AnimationFrame.setCurrentFrame(NodeLayer.getFrameCount()-1)
+    // -1 control v
+    // -2 animation
+
+    AnimationFrame.setCurrentFrame(NodeLayer.getFrameCount()-X)
 
     let originalNode = CloneObject.recursiveCloneAttribute(
         AnimationFrame.getCurrentFrame().get(ID).value,
@@ -79,7 +82,7 @@ const keyBoardShiftFunctions = {
 
             let addElement = addElements[index]
 
-            copyLayerNode(addElement.id)
+            copyLayerNode(addElement.id,2)
 
         }
 
@@ -111,7 +114,8 @@ const keyBoardCtrlKeyFunctions = {
         copyLayerNode(
             NodeConfig.getNodeID(
                 NodeConfig.getOpenNode()
-            )
+            ),
+            1
         )
 
     },
